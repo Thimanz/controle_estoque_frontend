@@ -1,0 +1,27 @@
+.Page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100dvw;
+    height: 100dvh;
+}
+
+.main-container {
+    display: flex;
+    width: 60dvw;
+    height: 60dvh;
+}
+
+.main-container > section {
+    flex-basis: 50%;
+    overflow: hidden;
+}
+
+input[type="text"],
+input[type="password"],
+button,
+textarea {
+    font-family: "Nunito", sans-serif;
+    font-size: 1rem;
+    padding: 0.25rem;
+}
