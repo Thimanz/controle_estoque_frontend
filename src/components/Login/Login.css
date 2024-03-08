@@ -6,9 +6,8 @@ input[type="password"] {
 }
 
 .login-btn {
-    padding: 0.5rem;
     width: 250px;
-    border-radius: 0.5rem;
+    height: 50px;
 }
 
 .hide,
@@ -24,8 +23,8 @@ input[type="password"] {
 .instructions {
     font-size: 0.75rem;
     border-radius: 0.5rem;
-    background: #000;
-    color: #fff;
+    background: #fff;
+    color: #e38d34;
     padding: 0.25rem;
     position: fixed;
     transform: translateY(63px);
@@ -38,7 +37,7 @@ input[type="password"] {
 }
 
 .login-area {
-    background-color: #deeef3;
+    background-color: #48b3fa;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,11 +59,25 @@ label {
 }
 
 h1 {
-    margin-bottom: 100px;
+    color: #fff;
     font-size: 2rem;
     text-align: center;
+    margin: 60px 30px 50px 30px;
 }
 
 .lower-form {
     height: 140px;
+}
+
+.select-register {
+    background-color: #8342f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-right-radius: 5%;
+    border-top-right-radius: 5%;
+}
+
+.new-member {
+    margin: 160px 10px 100px 10px;
 }

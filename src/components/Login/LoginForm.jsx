@@ -62,7 +62,7 @@ const LoginForm = () => {
                 <p
                     id="uidnote"
                     className={
-                        !userFocus && !validEmail ? "instructions" : "offscreen"
+                        userFocus && !validEmail ? "instructions" : "offscreen"
                     }
                 >
                     <FontAwesomeIcon icon={faInfoCircle} />
@@ -96,11 +96,12 @@ const LoginForm = () => {
                 <p
                     id="uidnote"
                     className={
-                        !pwdFocus && !validPwd ? "instructions" : "offscreen"
+                        pwdFocus && !validPwd ? "instructions" : "offscreen"
                     }
                 >
                     <FontAwesomeIcon icon={faInfoCircle} />A senha deve ter no
-                    mínimo 8 caracteres, caracter especial e letra maiúscula
+                    mínimo 8 caracteres, <br /> caracter especial e letra
+                    maiúscula
                 </p>
             </form>
             <div className="lower-form">
