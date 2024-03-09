@@ -9,10 +9,9 @@ const Register = ({ setLogin }) => {
             <RegisterForm></RegisterForm>
             <m.section
                 initial={{
-                    x: -300,
+                    x: -500,
                     style: {
-                        borderBottomRightRadius: "5%",
-                        borderTopRightRadius: "5%",
+                        border: "5%",
                     },
                 }}
                 animate={{

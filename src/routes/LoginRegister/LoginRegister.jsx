@@ -1,24 +1,32 @@
+import { redirect, useParams } from "react-router-dom";
 import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 import "./LoginRegister.css";
 import { AnimatePresence } from "framer-motion";
 
 import { useState } from "react";
+import NotFound from "../../components/NotFound/NotFound";
 
 const LoginRegister = () => {
-    const [option, setOption] = useState("Login");
+    const { authtype } = useParams();
+
+    const [option, setOption] = useState(authtype);
+
+    if (!(option === "login" || option === "registrar")) {
+        return <NotFound />;
+    }
 
     return (
         <main className="Page">
             <section className="main-container">
                 <AnimatePresence initial={false}>
-                    {option === "Login" ? (
+                    {option === "login" ? (
                         <Login
-                            setRegister={() => setOption("Register")}
+                            setRegister={() => setOption("registrar")}
                         ></Login>
                     ) : (
                         <Register
-                            setLogin={() => setOption("Login")}
+                            setLogin={() => setOption("login")}
                         ></Register>
                     )}
                 </AnimatePresence>

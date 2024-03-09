@@ -37,7 +37,7 @@ input[type="password"] {
 }
 
 .login-area {
-    background-color: #48b3fa;
+    background-color: #090809;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,4 +80,12 @@ h1 {
 
 .new-member {
     margin: 160px 10px 100px 10px;
+}
+
+.login-area button {
+    background-color: #8342f5;
+}
+
+.select-register button {
+    background-color: #090809;
 }

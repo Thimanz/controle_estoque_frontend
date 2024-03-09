@@ -54,10 +54,9 @@ const RegisterForm = () => {
         <>
             <m.section
                 initial={{
-                    x: 300,
+                    x: 500,
                     style: {
-                        borderBottomLeftRadius: "5%",
-                        borderTopLeftRadius: "5%",
+                        border: "5%",
                     },
                 }}
                 animate={{
