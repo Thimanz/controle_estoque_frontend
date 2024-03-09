@@ -1,0 +1,83 @@
+input[type="text"],
+input[type="password"] {
+    width: 263px;
+    height: 30px;
+    border: none;
+}
+
+.login-btn {
+    width: 250px;
+    height: 50px;
+}
+
+.hide,
+.offscreen {
+    position: absolute;
+    transform: translate(-100vw);
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #fff;
+    color: #e38d34;
+    padding: 0.25rem;
+    position: fixed;
+    transform: translateY(63px);
+}
+
+.errMsg {
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+}
+
+.register-area {
+    background-color: #8342f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 5%;
+    border-top-left-radius: 5%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+label {
+    margin-right: 200px;
+}
+
+h1 {
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+    margin: 60px 30px 50px 30px;
+}
+
+.lower-form {
+    height: 140px;
+}
+
+.select-login {
+    background-color: #48b3fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-right-radius: 5%;
+    border-top-right-radius: 5%;
+}
+
+.already-member {
+    margin: 160px 10px 100px 10px;
+}
