@@ -8,8 +8,8 @@
 
 .main-container {
     display: flex;
-    width: 60dvw;
-    height: 60dvh;
+    width: 70dvw;
+    height: 70dvh;
 }
 
 .main-container > section {

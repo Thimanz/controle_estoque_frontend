@@ -2,7 +2,7 @@ input[type="text"],
 input[type="password"] {
     width: 263px;
     height: 30px;
-    border: none;
+    border-style: none;
 }
 
 .login-btn {
@@ -27,7 +27,7 @@ input[type="password"] {
     color: #e38d34;
     padding: 0.25rem;
     position: fixed;
-    transform: translateY(63px);
+    transform: translateY(56px);
 }
 
 .errMsg {
@@ -37,7 +37,9 @@ input[type="password"] {
 }
 
 .register-area {
-    background-color: #8342f5;
+    height: 100%;
+    width: 100%;
+    background-color: #ececec;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,17 +51,18 @@ input[type="password"] {
 form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
     margin-bottom: 40px;
 }
 
-label {
-    margin-right: 200px;
+.register-area label {
+    margin-bottom: 10px;
+    color: black;
 }
 
-h1 {
-    color: #fff;
+.register-area h1 {
+    color: black;
     font-size: 2rem;
     text-align: center;
     margin: 60px 30px 50px 30px;
@@ -70,14 +73,29 @@ h1 {
 }
 
 .select-login {
-    background-color: #48b3fa;
+    position: relative;
+    z-index: 1;
+    background-color: #2c2c54;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-bottom-right-radius: 5%;
     border-top-right-radius: 5%;
+    box-shadow: -7px 6px 14px 0px rgba(0, 0, 0, 0.25);
+    height: 100%;
+    width: 100%;
 }
 
 .already-member {
     margin: 160px 10px 100px 10px;
+}
+
+.sectioned-forms {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.invalid {
+    color: firebrick;
 }

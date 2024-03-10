@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import validator from "validator";
 
-import { motion as m, AnimatePresence } from "framer-motion";
+import { motion as m } from "framer-motion";
 
 const LoginForm = () => {
     const userRef = useRef();
@@ -34,33 +34,38 @@ const LoginForm = () => {
     };
 
     return (
-        <>
-            <m.section
-                initial={{
-                    x: 500,
-                    style: {
-                        border: "5%",
-                    },
-                }}
-                animate={{
-                    x: 0,
-                    style: {
-                        borderBottomLeftRadius: "none",
-                        borderTopLeftRadius: "none",
-                    },
-                }}
-                transition={{
-                    duration: 1,
-                    bounce: 0.2,
-                    stiffness: 30,
-                    type: "spring",
-                }}
+        <m.section
+            initial={{
+                x: "95%",
+                style: {
+                    border: "5%",
+                },
+            }}
+            animate={{
+                x: 0,
+                style: {
+                    borderBottomLeftRadius: "none",
+                    borderTopLeftRadius: "none",
+                },
+            }}
+            transition={{
+                duration: 1,
+                bounce: 0.2,
+                stiffness: 30,
+                type: "spring",
+            }}
+            className="login-area"
+        >
+            <m.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
                 className="login-area"
             >
                 <h1>Faça login com as suas credenciais</h1>
                 <form>
-                    <label htmlFor="username">
-                        E-mail:
+                    <label htmlFor="email">
+                        E-mail:&nbsp;
                         <FontAwesomeIcon
                             icon={faCheck}
                             className={validEmail ? "valid" : "hide"}
@@ -70,7 +75,6 @@ const LoginForm = () => {
                             className={validEmail ? "hide" : "invalid"}
                         />
                     </label>
-                    <br />
                     <input
                         type="text"
                         id="email"
@@ -97,7 +101,7 @@ const LoginForm = () => {
                 </form>
                 <form>
                     <label htmlFor="pwd">
-                        Senha:
+                        Senha:&nbsp;
                         <FontAwesomeIcon
                             icon={faCheck}
                             className={validPwd ? "valid" : "hide"}
@@ -107,7 +111,6 @@ const LoginForm = () => {
                             className={validPwd ? "hide" : "invalid"}
                         />
                     </label>
-                    <br />
                     <input
                         type="password"
                         id="password"
@@ -142,8 +145,8 @@ const LoginForm = () => {
                         Login incorreto
                     </p>
                 </div>
-            </m.section>
-        </>
+            </m.div>
+        </m.section>
     );
 };
 

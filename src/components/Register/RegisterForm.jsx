@@ -7,14 +7,19 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import validator from "validator";
 
-import { motion as m } from "framer-motion";
+import InputMask from "react-input-mask";
+
+import { animate, motion as m } from "framer-motion";
 
 const RegisterForm = () => {
     const userRef = useRef();
     const errRef = useRef();
 
     const [validEmail, setValidEmail] = useState(false);
-    const [userFocus, setUserFocus] = useState(false);
+    const [emailFocus, setEmailFocus] = useState(false);
+
+    const [validCpf, setValidCpf] = useState(false);
+    const [cpfFocus, setCpfFocus] = useState(false);
 
     const [pwd, setPwd] = useState("");
     const [validPwd, setValidPwd] = useState(false);
@@ -24,21 +29,9 @@ const RegisterForm = () => {
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
-    const [errMsg, setErrMsg] = useState("");
-    const [success, setSuccess] = useState(false);
-
     useEffect(() => {
         userRef.current.focus();
     }, []);
-
-    // useEffect(() => {
-    //     setValidPwd(PWD_REGEX.test(pwd));
-    //     setValidMatch(pwd === matchPwd);
-    // }, [pwd, matchPwd]);
-
-    // useEffect(() => {
-    //     setErrMsg("");
-    // }, [pwd, matchPwd]);
 
     const validateEmail = (e) => {
         const email = e.target.value;
@@ -48,105 +41,202 @@ const RegisterForm = () => {
     const validatePwd = (e) => {
         const pwd = e.target.value;
         setValidPwd(validator.isStrongPassword(pwd));
+        setValidMatch(matchPwd === pwd && validator.isStrongPassword(matchPwd));
+    };
+
+    const validateMatch = (e) => {
+        const matchPwd = e.target.value;
+        setValidMatch(matchPwd === pwd && validator.isStrongPassword(matchPwd));
+    };
+
+    const validateCPF = (e) => {
+        const cpfStr = e.target.value;
+        const cpf = cpfStr.replace(/[^0-9]/g, "");
+        setValidCpf(isValidCpf(cpf));
     };
 
     return (
-        <>
-            <m.section
-                initial={{
-                    x: 500,
-                    style: {
-                        border: "5%",
-                    },
-                }}
-                animate={{
-                    x: 0,
-                    style: {
-                        borderBottomLeftRadius: "none",
-                        borderTopLeftRadius: "none",
-                    },
-                }}
-                transition={{
-                    duration: 1,
-                    bounce: 0.2,
-                    stiffness: 30,
-                    type: "spring",
-                }}
+        <m.section
+            initial={{
+                x: "95%",
+                style: {
+                    border: "5%",
+                },
+            }}
+            animate={{
+                x: 0,
+                style: {
+                    borderBottomLeftRadius: "none",
+                    borderTopLeftRadius: "none",
+                },
+            }}
+            transition={{
+                duration: 1,
+                bounce: 0.2,
+                stiffness: 30,
+                type: "spring",
+            }}
+            className="register-area"
+        >
+            <m.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
                 className="register-area"
             >
                 <h1>Cadastre-se</h1>
                 <form>
-                    <label htmlFor="username">
-                        E-mail:
-                        <FontAwesomeIcon
-                            icon={faCheck}
-                            className={validEmail ? "valid" : "hide"}
-                        />
-                        <FontAwesomeIcon
-                            icon={faTimes}
-                            className={validEmail ? "hide" : "invalid"}
-                        />
-                    </label>
-                    <br />
+                    <label htmlFor="name">Nome:</label>
                     <input
                         type="text"
-                        id="email"
+                        id="name"
                         ref={userRef}
                         autoComplete="off"
-                        onChange={validateEmail}
                         required
-                        aria-invalid={validEmail ? "false" : "true"}
-                        aria-describedby="uidnote"
-                        onFocus={() => setUserFocus(true)}
-                        onBlur={() => setUserFocus(false)}
                     />
-                    <p
-                        id="uidnote"
-                        className={
-                            userFocus && !validEmail
-                                ? "instructions"
-                                : "offscreen"
-                        }
-                    >
-                        <FontAwesomeIcon icon={faInfoCircle} />
-                        Escreva um e-mail válido.
-                    </p>
                 </form>
-                <form>
-                    <label htmlFor="pwd">
-                        Senha:
-                        <FontAwesomeIcon
-                            icon={faCheck}
-                            className={validPwd ? "valid" : "hide"}
-                        />
-                        <FontAwesomeIcon
-                            icon={faTimes}
-                            className={validPwd ? "hide" : "invalid"}
-                        />
-                    </label>
-                    <br />
-                    <input
-                        type="password"
-                        id="password"
-                        autoComplete="off"
-                        onChange={validatePwd}
-                        required
-                        aria-invalid={validEmail ? "false" : "true"}
-                        aria-describedby="uidnote"
-                        onFocus={() => setPwdFocus(true)}
-                        onBlur={() => setPwdFocus(false)}
-                    />
-                    <p
-                        id="uidnote"
-                        className={
-                            pwdFocus && !validPwd ? "instructions" : "offscreen"
-                        }
-                    >
-                        <FontAwesomeIcon icon={faInfoCircle} />A senha deve ter
-                        no mínimo 8 caracteres, <br /> caracter especial e letra
-                        maiúscula
-                    </p>
-                </form>
+                <div className="sectioned-forms">
+                    <div className="left-form">
+                        <form>
+                            <label htmlFor="email">
+                                E-mail:&nbsp;
+                                <FontAwesomeIcon
+                                    icon={faCheck}
+                                    className={validEmail ? "valid" : "hide"}
+                                />
+                                <FontAwesomeIcon
+                                    icon={faTimes}
+                                    className={validEmail ? "hide" : "invalid"}
+                                />
+                            </label>
+                            <input
+                                type="text"
+                                id="email"
+                                autoComplete="off"
+                                onChange={validateEmail}
+                                required
+                                onFocus={() => setEmailFocus(true)}
+                                onBlur={() => setEmailFocus(false)}
+                            />
+                            <p
+                                className={
+                                    emailFocus && !validEmail
+                                        ? "instructions"
+                                        : "offscreen"
+                                }
+                            >
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                                Escreva um e-mail válido.
+                            </p>
+                        </form>
+                        <form>
+                            <label htmlFor="cpf">
+                                CPF:&nbsp;
+                                <FontAwesomeIcon
+                                    icon={faCheck}
+                                    className={validCpf ? "valid" : "hide"}
+                                />
+                                <FontAwesomeIcon
+                                    icon={faTimes}
+                                    className={validCpf ? "hide" : "invalid"}
+                                />
+                            </label>
+                            <InputMask
+                                mask="999.999.999-99"
+                                type="text"
+                                id="cpf"
+                                autoComplete="off"
+                                onChange={validateCPF}
+                                required
+                                onFocus={() => setCpfFocus(true)}
+                                onBlur={() => setCpfFocus(false)}
+                            />
+                            <p
+                                className={
+                                    cpfFocus && !validCpf
+                                        ? "instructions"
+                                        : "offscreen"
+                                }
+                            >
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                                Escreva um CPF válido.
+                            </p>
+                        </form>
+                    </div>
+                    <div className="right-form">
+                        <form>
+                            <label htmlFor="pwd">
+                                Senha:&nbsp;
+                                <FontAwesomeIcon
+                                    icon={faCheck}
+                                    className={validPwd ? "valid" : "hide"}
+                                />
+                                <FontAwesomeIcon
+                                    icon={faTimes}
+                                    className={validPwd ? "hide" : "invalid"}
+                                />
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                autoComplete="off"
+                                onChange={validatePwd}
+                                required
+                                onFocus={() => setPwdFocus(true)}
+                                onBlur={(e) => {
+                                    setPwdFocus(false);
+                                    setPwd(e.target.value);
+                                }}
+                            />
+                            <p
+                                className={
+                                    pwdFocus && !validPwd
+                                        ? "instructions"
+                                        : "offscreen"
+                                }
+                            >
+                                <FontAwesomeIcon icon={faInfoCircle} />A senha
+                                deve ter no mínimo 8 caracteres, <br /> caracter
+                                especial e letra maiúscula
+                            </p>
+                        </form>
+                        <form>
+                            <label htmlFor="matchpwd">
+                                Confirmar Senha:&nbsp;
+                                <FontAwesomeIcon
+                                    icon={faCheck}
+                                    className={validMatch ? "valid" : "hide"}
+                                />
+                                <FontAwesomeIcon
+                                    icon={faTimes}
+                                    className={validMatch ? "hide" : "invalid"}
+                                />
+                            </label>
+                            <input
+                                type="password"
+                                id="matchPwd"
+                                autoComplete="off"
+                                onChange={validateMatch}
+                                required
+                                onFocus={() => setMatchFocus(true)}
+                                onBlur={(e) => {
+                                    setMatchFocus(false);
+                                    setMatchPwd(e.target.value);
+                                }}
+                            />
+                            <p
+                                className={
+                                    matchFocus && !validMatch
+                                        ? "instructions"
+                                        : "offscreen"
+                                }
+                            >
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                                As senhas não são iguais
+                            </p>
+                        </form>
+                    </div>
+                </div>
                 <div className="lower-form">
                     <button className="login-btn">Cadastrar-se</button>
                     <p
@@ -159,9 +249,29 @@ const RegisterForm = () => {
                         Há campos a serem corrigidos
                     </p>
                 </div>
-            </m.section>
-        </>
+            </m.div>
+        </m.section>
     );
+};
+
+const isValidCpf = (cpf) => {
+    if (cpf.length < 11) return false;
+
+    let sum = 0;
+    for (let i = 0, validatorDigit = 10; i < 9; i++, validatorDigit--) {
+        sum += parseInt(cpf[i]) * validatorDigit;
+    }
+    let remainder = (sum * 10) % 11;
+    if (remainder % 10 !== parseInt(cpf[9])) return false;
+
+    sum = 0;
+    for (let i = 0, validatorDigit = 11; i < 10; i++, validatorDigit--) {
+        sum += parseInt(cpf[i]) * validatorDigit;
+    }
+    remainder = (sum * 10) % 11;
+    if (remainder % 10 !== parseInt(cpf[10])) return false;
+
+    return true;
 };
 
 export default RegisterForm;

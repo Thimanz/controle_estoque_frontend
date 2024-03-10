@@ -9,7 +9,7 @@ const Register = ({ setLogin }) => {
             <RegisterForm></RegisterForm>
             <m.section
                 initial={{
-                    x: -500,
+                    x: "-95%",
                     style: {
                         border: "5%",
                     },
@@ -29,10 +29,17 @@ const Register = ({ setLogin }) => {
                 }}
                 className="select-login"
             >
-                <h1 className="already-member">
-                    Já possui cadastro e deseja realizar login?
-                </h1>
-                <button onClick={setLogin}>Login</button>
+                <m.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="select-login"
+                >
+                    <h1 className="already-member">
+                        Já possui cadastro e deseja realizar login?
+                    </h1>
+                    <button onClick={setLogin}>Login</button>
+                </m.div>
             </m.section>
         </>
     );
