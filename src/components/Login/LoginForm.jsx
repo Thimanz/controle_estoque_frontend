@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import validator from "validator";
 
 import { motion as m } from "framer-motion";
+import { postAuth } from "../../services/authService";
+import { useDispatch } from "react-redux";
 
 const LoginForm = () => {
     const userRef = useRef();
@@ -22,6 +24,8 @@ const LoginForm = () => {
     useEffect(() => {
         userRef.current.focus();
     }, []);
+
+    const dispatch = useDispatch();
 
     const validateEmail = (e) => {
         const email = e.target.value;
@@ -134,7 +138,19 @@ const LoginForm = () => {
                     </p>
                 </form>
                 <div className="lower-form">
-                    <button className="login-btn">Login</button>
+                    <button
+                        className="login-btn"
+                        onClick={() =>
+                            dispatch(
+                                postAuth({
+                                    email: "wadwbdioapw",
+                                    senha: "wdanwdaodwkadmw",
+                                })
+                            )
+                        }
+                    >
+                        Login
+                    </button>
                     <p
                         ref={errRef}
                         className={

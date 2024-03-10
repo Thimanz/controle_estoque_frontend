@@ -5,7 +5,7 @@ import "./LoginRegister.css";
 import { AnimatePresence } from "framer-motion";
 
 import { useState } from "react";
-import NotFound from "../../components/NotFound/NotFound";
+import NotFound from "../NotFound/NotFound";
 
 const LoginRegister = () => {
     const { authtype } = useParams();
