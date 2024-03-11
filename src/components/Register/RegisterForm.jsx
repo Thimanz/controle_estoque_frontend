@@ -13,13 +13,20 @@ import InputMask from "react-input-mask";
 
 import { motion as m } from "framer-motion";
 
+import { postNewUserAccount } from "../../services/authService";
+import { useDispatch } from "react-redux";
+
 const RegisterForm = () => {
     const userRef = useRef();
     const errRef = useRef();
 
+    const [name, setName] = useState("");
+
+    const [email, setEmail] = useState("");
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
 
+    const [cpf, setCpf] = useState("");
     const [validCpf, setValidCpf] = useState(false);
     const [cpfFocus, setCpfFocus] = useState(false);
 
@@ -31,30 +38,55 @@ const RegisterForm = () => {
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
+    const [errorMsgs, setErrorMsgs] = useState([]);
+
     useEffect(() => {
         userRef.current.focus();
     }, []);
 
-    const validateEmail = (e) => {
-        const email = e.target.value;
+    const validateEmail = (email) => {
         setValidEmail(validator.isEmail(email));
     };
 
-    const validatePwd = (e) => {
-        const pwd = e.target.value;
+    const validatePwd = (pwd) => {
         setValidPwd(validator.isStrongPassword(pwd));
         setValidMatch(matchPwd === pwd && validator.isStrongPassword(matchPwd));
     };
 
-    const validateMatch = (e) => {
-        const matchPwd = e.target.value;
+    const validateMatch = (matchPwd) => {
         setValidMatch(matchPwd === pwd && validator.isStrongPassword(matchPwd));
     };
 
-    const validateCPF = (e) => {
-        const cpfStr = e.target.value;
+    const validateCPF = (cpfStr) => {
         const cpf = cpfStr.replace(/[^0-9]/g, "");
         setValidCpf(isValidCpf(cpf));
+    };
+
+    const dispatch = useDispatch();
+
+    const sendNewUser = async () => {
+        if (!(validEmail && validPwd && validMatch && validCpf)) {
+            setErrorMsgs(["Há campos a serem corrigidos"]);
+            return;
+        }
+        try {
+            const newUserResponse = await dispatch(
+                postNewUserAccount({
+                    nome: name,
+                    cpf,
+                    email,
+                    senha: pwd,
+                    senhaConfirmacao: matchPwd,
+                })
+            ).unwrap();
+            console.log(newUserResponse);
+            localStorage.setItem("accessToken", newUserResponse.accessToken);
+            localStorage.setItem("refreshToken", newUserResponse.refreshToken);
+            setErrorMsgs([]);
+        } catch (error) {
+            console.log(error);
+            setErrorMsgs(error.erros.mensagens);
+        }
     };
 
     return (
@@ -95,6 +127,7 @@ const RegisterForm = () => {
                         ref={userRef}
                         autoComplete="off"
                         required
+                        onBlur={(e) => setName(e.target.value)}
                     />
                 </form>
                 <div className="sectioned-forms">
@@ -115,10 +148,13 @@ const RegisterForm = () => {
                                 type="text"
                                 id="email"
                                 autoComplete="off"
-                                onChange={validateEmail}
+                                onChange={(e) => validateEmail(e.target.value)}
                                 required
                                 onFocus={() => setEmailFocus(true)}
-                                onBlur={() => setEmailFocus(false)}
+                                onBlur={(e) => {
+                                    setEmailFocus(false);
+                                    setEmail(e.target.value);
+                                }}
                             />
                             <p
                                 className={
@@ -148,10 +184,13 @@ const RegisterForm = () => {
                                 type="text"
                                 id="cpf"
                                 autoComplete="off"
-                                onChange={validateCPF}
+                                onChange={(e) => validateCPF(e.target.value)}
                                 required
                                 onFocus={() => setCpfFocus(true)}
-                                onBlur={() => setCpfFocus(false)}
+                                onBlur={(e) => {
+                                    setCpfFocus(false);
+                                    setCpf(e.target.value);
+                                }}
                             />
                             <p
                                 className={
@@ -182,7 +221,7 @@ const RegisterForm = () => {
                                 type="password"
                                 id="password"
                                 autoComplete="off"
-                                onChange={validatePwd}
+                                onChange={(e) => validatePwd(e.target.value)}
                                 required
                                 onFocus={() => setPwdFocus(true)}
                                 onBlur={(e) => {
@@ -218,7 +257,7 @@ const RegisterForm = () => {
                                 type="password"
                                 id="matchPwd"
                                 autoComplete="off"
-                                onChange={validateMatch}
+                                onChange={(e) => validateMatch(e.target.value)}
                                 required
                                 onFocus={() => setMatchFocus(true)}
                                 onBlur={(e) => {
@@ -240,16 +279,14 @@ const RegisterForm = () => {
                     </div>
                 </div>
                 <div className="lower-form">
-                    <button className="login-btn">Cadastrar-se</button>
-                    <p
-                        ref={errRef}
-                        className={
-                            validEmail && validPwd ? "offscreen" : "errMsg"
-                        }
-                        aria-live="assertive"
-                    >
-                        Há campos a serem corrigidos
-                    </p>
+                    <button className="login-btn" onClick={sendNewUser}>
+                        Cadastrar-se
+                    </button>
+                    {errorMsgs.map((msg, index) => (
+                        <p key={index} className="errMsg" aria-live="assertive">
+                            {msg}
+                        </p>
+                    ))}
                 </div>
             </m.div>
         </m.section>

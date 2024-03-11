@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import validator from "validator";
 
 import { motion as m } from "framer-motion";
+
 import { postAuth } from "../../services/authService";
 import { useDispatch } from "react-redux";
 
@@ -47,7 +48,7 @@ const LoginForm = () => {
         try {
             const loginResponse = await dispatch(
                 postAuth({
-                    email: email,
+                    email,
                     senha: pwd,
                 })
             ).unwrap();
@@ -106,15 +107,15 @@ const LoginForm = () => {
                         id="email"
                         ref={userRef}
                         autoComplete="off"
-                        onChange={(e) => {
-                            setEmail(e.target.value);
-                            validateEmail(e.target.value);
-                        }}
+                        onChange={(e) => validateEmail(e.target.value)}
                         required
                         aria-invalid={validEmail ? "false" : "true"}
                         aria-describedby="uidnote"
                         onFocus={() => setUserFocus(true)}
-                        onBlur={() => setUserFocus(false)}
+                        onBlur={(e) => {
+                            setUserFocus(false);
+                            setEmail(e.target.value);
+                        }}
                     />
                     <p
                         id="uidnote"
@@ -144,15 +145,15 @@ const LoginForm = () => {
                         type="password"
                         id="password"
                         autoComplete="off"
-                        onChange={(e) => {
-                            setPwd(e.target.value);
-                            validatePwd(e.target.value);
-                        }}
+                        onChange={(e) => validatePwd(e.target.value)}
                         required
                         aria-invalid={validEmail ? "false" : "true"}
                         aria-describedby="uidnote"
                         onFocus={() => setPwdFocus(true)}
-                        onBlur={() => setPwdFocus(false)}
+                        onBlur={(e) => {
+                            setPwdFocus(false);
+                            setPwd(e.target.value);
+                        }}
                     />
                     <p
                         id="uidnote"
@@ -170,11 +171,7 @@ const LoginForm = () => {
                         Login
                     </button>
                     {errorMsgs.map((msg, index) => (
-                        <p
-                            key={index}
-                            className={"errMsg"}
-                            aria-live="assertive"
-                        >
+                        <p key={index} className="errMsg" aria-live="assertive">
                             {msg}
                         </p>
                     ))}

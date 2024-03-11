@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { postAuth } from "../../../services/authService";
+import { postAuth, postNewUserAccount } from "../../../services/authService";
 
-const loginResponseSlice = createSlice({
+const authResponseSlice = createSlice({
     name: "user",
     initialState: {
         data: {},
@@ -20,7 +20,17 @@ const loginResponseSlice = createSlice({
             state.error = {};
             state.data = payload;
         });
+        builder.addCase(postNewUserAccount.rejected, (state, { payload }) => {
+            state.isSuccess = false;
+            state.data = {};
+            state.error = payload;
+        });
+        builder.addCase(postNewUserAccount.fulfilled, (state, { payload }) => {
+            state.isSuccess = true;
+            state.error = {};
+            state.data = payload;
+        });
     },
 });
 
-export default loginResponseSlice;
+export default authResponseSlice;
