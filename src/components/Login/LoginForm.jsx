@@ -15,26 +15,48 @@ const LoginForm = () => {
     const userRef = useRef();
     const errRef = useRef();
 
+    const [email, setEmail] = useState("");
     const [validEmail, setValidEmail] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
 
+    const [pwd, setPwd] = useState("");
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
+
+    const [errorMsgs, setErrorMsgs] = useState([]);
 
     useEffect(() => {
         userRef.current.focus();
     }, []);
 
-    const dispatch = useDispatch();
-
-    const validateEmail = (e) => {
-        const email = e.target.value;
+    const validateEmail = (email) => {
         setValidEmail(validator.isEmail(email));
     };
 
-    const validatePwd = (e) => {
-        const pwd = e.target.value;
-        setValidPwd(validator.isStrongPassword(pwd));
+    const validatePwd = (password) => {
+        setValidPwd(validator.isStrongPassword(password));
+    };
+
+    const dispatch = useDispatch();
+
+    const sendLogin = async () => {
+        if (!(validEmail && validPwd)) {
+            setErrorMsgs(["Há campos a serem corrigidos"]);
+            return;
+        }
+        try {
+            const loginResponse = await dispatch(
+                postAuth({
+                    email: email,
+                    senha: pwd,
+                })
+            ).unwrap();
+            localStorage.setItem("accessToken", loginResponse.accessToken);
+            localStorage.setItem("refreshToken", loginResponse.refreshToken);
+            setErrorMsgs([]);
+        } catch (error) {
+            setErrorMsgs(error.erros.mensagens);
+        }
     };
 
     return (
@@ -84,7 +106,10 @@ const LoginForm = () => {
                         id="email"
                         ref={userRef}
                         autoComplete="off"
-                        onChange={validateEmail}
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                            validateEmail(e.target.value);
+                        }}
                         required
                         aria-invalid={validEmail ? "false" : "true"}
                         aria-describedby="uidnote"
@@ -119,7 +144,10 @@ const LoginForm = () => {
                         type="password"
                         id="password"
                         autoComplete="off"
-                        onChange={validatePwd}
+                        onChange={(e) => {
+                            setPwd(e.target.value);
+                            validatePwd(e.target.value);
+                        }}
                         required
                         aria-invalid={validEmail ? "false" : "true"}
                         aria-describedby="uidnote"
@@ -138,28 +166,18 @@ const LoginForm = () => {
                     </p>
                 </form>
                 <div className="lower-form">
-                    <button
-                        className="login-btn"
-                        onClick={() =>
-                            dispatch(
-                                postAuth({
-                                    email: "wadwbdioapw",
-                                    senha: "wdanwdaodwkadmw",
-                                })
-                            )
-                        }
-                    >
+                    <button className="login-btn" onClick={sendLogin}>
                         Login
                     </button>
-                    <p
-                        ref={errRef}
-                        className={
-                            validEmail && validPwd ? "offscreen" : "errMsg"
-                        }
-                        aria-live="assertive"
-                    >
-                        Login incorreto
-                    </p>
+                    {errorMsgs.map((msg, index) => (
+                        <p
+                            key={index}
+                            className={"errMsg"}
+                            aria-live="assertive"
+                        >
+                            {msg}
+                        </p>
+                    ))}
                 </div>
             </m.div>
         </m.section>

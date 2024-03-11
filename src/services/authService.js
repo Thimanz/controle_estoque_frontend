@@ -9,7 +9,6 @@ export const postAuth = createAsyncThunk(
                 "http://localhost:3000/api/indentidade/autenticar",
                 user
             );
-            console.log(data);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data);

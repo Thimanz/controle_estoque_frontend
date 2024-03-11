@@ -3,7 +3,7 @@ import loginResponseSlice from "./features/loginResponse/loginResponseSlice";
 
 const store = configureStore({
     reducer: {
-        user: loginResponseSlice.reducer,
+        loginResponse: loginResponseSlice.reducer,
     },
 });
 
