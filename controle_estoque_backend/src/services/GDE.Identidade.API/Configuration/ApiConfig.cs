@@ -34,6 +34,8 @@ namespace GDE.Identidade.API.Configuration
 
             app.UseRouting();
 
+            app.UseCors("Total");
+
             app.UseAuthConfiguration();
 
             app.UseEndpoints(endpoints =>
