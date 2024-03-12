@@ -32,4 +32,8 @@
     <ProjectReference Include="..\..\building blocks\GDE.Core\GDE.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

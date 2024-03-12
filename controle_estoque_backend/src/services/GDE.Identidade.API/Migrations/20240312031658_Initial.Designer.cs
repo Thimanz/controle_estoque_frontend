@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GDE.Identidade.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240121213826_Initial")]
+    [Migration("20240312031658_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
