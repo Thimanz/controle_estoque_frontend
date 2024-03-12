@@ -8,6 +8,18 @@ namespace GDE.Identidade.API.Configuration
         {
             services.AddControllers();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Total",
+                    builder =>
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+            });
+
+            services.AddEndpointsApiExplorer();
+
             return services;
         }
 
