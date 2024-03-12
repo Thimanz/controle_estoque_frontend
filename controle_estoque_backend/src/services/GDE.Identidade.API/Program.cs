@@ -6,9 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddIdentityConfiguration(builder.Configuration);
 builder.Services.AddSwaggerConfiguration();
+builder.Services.AddApiConfiguration();
 
 var app = builder.Build();
 
 app.UseApiConfiguration(app.Environment);
+app.UseSwaggerConfiguration();
 
 app.Run();
