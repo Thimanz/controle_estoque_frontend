@@ -7,12 +7,16 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import validator from "validator";
 
+import { useNavigate } from "react-router-dom";
+
 import { motion as m } from "framer-motion";
 
 import { postAuth } from "../../services/authService";
 import { useDispatch } from "react-redux";
 
 const LoginForm = () => {
+    const navigate = useNavigate();
+
     const userRef = useRef();
     const errRef = useRef();
 
@@ -55,6 +59,7 @@ const LoginForm = () => {
             localStorage.setItem("accessToken", loginResponse.accessToken);
             localStorage.setItem("refreshToken", loginResponse.refreshToken);
             setErrorMsgs([]);
+            navigate("/inicio", { replace: true });
         } catch (error) {
             setErrorMsgs(error.erros.mensagens);
         }

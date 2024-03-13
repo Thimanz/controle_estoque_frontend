@@ -6,7 +6,7 @@ export const postAuth = createAsyncThunk(
     async (login, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(
-                "http://localhost:3000/api/indentidade/autenticar",
+                "http://localhost:5101/api/identidade/autenticar",
                 login
             );
             return data;
@@ -21,7 +21,7 @@ export const postNewUserAccount = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(
-                "http://localhost:3000/api/indentidade/nova-conta",
+                "http://localhost:5101/api/identidade/nova-conta",
                 user
             );
             return data;
