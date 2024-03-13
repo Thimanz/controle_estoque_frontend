@@ -4,6 +4,7 @@ using GDE.Funcionarios.API.Application.Commands;
 using GDE.Funcionarios.API.Application.Events;
 using GDE.Funcionarios.API.Data.Repository;
 using GDE.Funcionarios.API.Models;
+using GDE.Funcionarios.API.Services;
 using MediatR;
 
 namespace GDE.Funcionarios.API.Configuration
@@ -18,6 +19,7 @@ namespace GDE.Funcionarios.API.Configuration
 
             services.AddScoped<INotificationHandler<FuncionarioRegistradoEvent>, FuncionarioEventHandler>();
 
+            services.AddHostedService<RegistroFuncionarioIntegrationHandler>();
 
             return services;
         }
