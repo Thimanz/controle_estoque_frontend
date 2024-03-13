@@ -119,7 +119,7 @@ const RegisterForm = () => {
                 className="register-area"
             >
                 <h1>Cadastre-se</h1>
-                <form>
+                <form className="offscreen">
                     <label htmlFor="name">Nome:</label>
                     <input
                         type="text"
@@ -167,7 +167,7 @@ const RegisterForm = () => {
                                 Escreva um e-mail válido.
                             </p>
                         </form>
-                        <form>
+                        <form className="offscreen">
                             <label htmlFor="cpf">
                                 CPF:&nbsp;
                                 <FontAwesomeIcon
