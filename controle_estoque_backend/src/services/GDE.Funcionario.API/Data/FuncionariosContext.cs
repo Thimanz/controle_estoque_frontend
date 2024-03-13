@@ -36,10 +36,15 @@ namespace GDE.Funcionarios.API.Data
 
         public async Task<bool> Commit()
         {
-            var sucesso = await base.SaveChangesAsync() > 0;
+            try
+            {
+                var sucesso = await base.SaveChangesAsync() > 0;
+            
             if (sucesso) await _mediatorHandler.PublicarEventos(this);
 
             return sucesso;
+            }
+            catch (Exception ex) { return false; }
         }
     }
 
