@@ -1,4 +1,13 @@
-services:
+services:  
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbit-gestao-estoque
+    # environment:
+    #   RABBITMQ_DEFAULT_USER: "gde"
+    #   RABBITMQ_DEFAULT_PASS: "gde"
+    ports:
+      - 15672:15672
+      - 5672:5672
 
   sql-server:
     image: lucasmanzi/gde-sql-server:lastest
@@ -23,3 +32,22 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://*:5101
+    depends_on:
+      - sql-server
+      - rabbitmq
+
+    
+  api-funcionarios:
+    image: lucasmanzi/gde-api-funcionarios:lastest
+    container_name: gde-api-funcionarios
+    build:
+      context: ../src
+      dockerfile: ./services/GDE.Funcionarios.API/Dockerfile
+    ports:
+      - 5401:5401
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:5401
+    depends_on:
+      - sql-server
+      - rabbitmq

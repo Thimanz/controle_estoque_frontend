@@ -29,11 +29,11 @@ namespace GDE.Funcionarios.API.Configuration
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            if (env.IsDevelopment())
-            {
+            //if (env.IsDevelopment())
+            //{
                 app.UseDeveloperExceptionPage();
                 app.UseSwaggerConfiguration();
-            }
+            //}
 
             app.UseHttpsRedirection();
 

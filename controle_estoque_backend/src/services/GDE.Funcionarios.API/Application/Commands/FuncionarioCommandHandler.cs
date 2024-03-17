@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using GDE.Core.Messages;
+using GDE.Core.Utils;
 using GDE.Funcionarios.API.Application.Events;
 using GDE.Funcionarios.API.Models;
 using MediatR;
@@ -20,7 +21,7 @@ namespace GDE.Funcionarios.API.Application.Commands
         {
             if (!message.IsValid()) return message.ValidationResult;
 
-            var funcionario = new Funcionario(message.Id, message.Nome, message.Cpf, message.Email);
+            var funcionario = new Funcionario(message.Id, message.Nome, message.Cpf.ApenasNumeros(message.Cpf), message.Email);
 
             var funcionarioExistente = await _funcionarioRepository.ObterPorCpf(funcionario.Cpf.Numero);
 
