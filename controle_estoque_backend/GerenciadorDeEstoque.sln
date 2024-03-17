@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GDE.Core", "src\building bl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GDE.Estoque.API", "src\services\GDE.Estoque.API\GDE.Estoque.API.csproj", "{D7115E4F-59C4-4E10-B846-C7BF87CD2BA1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GDE.Funcionarios.API", "src\services\GDE.Funcionario.API\GDE.Funcionarios.API.csproj", "{4170132A-8447-43EE-B1AB-72D0E13BF994}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GDE.Funcionarios.API", "src\services\GDE.Funcionarios.API\GDE.Funcionarios.API.csproj", "{4170132A-8447-43EE-B1AB-72D0E13BF994}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GDE.Identidade.API", "src\services\GDE.Identidade.API\GDE.Identidade.API.csproj", "{8AC3C757-0818-4D92-BE2B-8BBE8A1098E7}"
 EndProject

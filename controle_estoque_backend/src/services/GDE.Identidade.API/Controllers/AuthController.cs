@@ -5,6 +5,7 @@ using EasyNetQ;
 using GDE.Core.Controllers;
 using GDE.Core.Identidade;
 using GDE.Core.Messages.Integration;
+using GDE.Core.Utils;
 using GDE.Identidade.API.Models.UserViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -71,9 +72,9 @@ namespace GDE.Identidade.API.Controllers
         {
             var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email!);
             var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
-                Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Cpf, usuarioRegistro.Email);
+                Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Cpf.ApenasNumeros(usuarioRegistro.Cpf), usuarioRegistro.Email);
 
-            _bus = RabbitHutch.CreateBus("host=localhost:5672");
+            _bus = RabbitHutch.CreateBus("host=rabbit-gestao-estoque:5672");
 
             var sucesso = await _bus.Rpc.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
 
