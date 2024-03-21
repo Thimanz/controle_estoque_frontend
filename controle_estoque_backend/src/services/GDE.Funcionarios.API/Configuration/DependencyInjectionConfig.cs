@@ -19,8 +19,7 @@ namespace GDE.Funcionarios.API.Configuration
 
             services.AddScoped<INotificationHandler<FuncionarioRegistradoEvent>, FuncionarioEventHandler>();
 
-            services.AddHostedService<RegistroFuncionarioIntegrationHandler>();
-
+            
             return services;
         }
     }

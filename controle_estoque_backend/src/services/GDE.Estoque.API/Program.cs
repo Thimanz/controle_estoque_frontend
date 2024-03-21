@@ -1,4 +1,4 @@
-using GDE.Estoque.API.Configuration;
+using GDE.Produto.API.Configuration;
 using GDE.Core.Identidade;
 
 var builder = WebApplication.CreateBuilder(args);
