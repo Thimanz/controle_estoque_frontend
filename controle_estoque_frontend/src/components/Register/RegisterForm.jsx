@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import validator from "validator";
 import isValidCpf from "../../utils/isValidCpf";
 
+import { useNavigate } from "react-router-dom";
+
 import InputMask from "react-input-mask";
 
 import { motion as m } from "framer-motion";
@@ -17,6 +19,8 @@ import { postNewUserAccount } from "../../services/authService";
 import { useDispatch } from "react-redux";
 
 const RegisterForm = () => {
+    const navigate = useNavigate();
+
     const userRef = useRef();
     const errRef = useRef();
 
@@ -83,6 +87,7 @@ const RegisterForm = () => {
             localStorage.setItem("accessToken", newUserResponse.accessToken);
             localStorage.setItem("refreshToken", newUserResponse.refreshToken);
             setErrorMsgs([]);
+            navigate("/inicio", { replace: true });
         } catch (error) {
             console.log(error);
             setErrorMsgs(error.erros.mensagens);
@@ -119,7 +124,7 @@ const RegisterForm = () => {
                 className="register-area"
             >
                 <h1>Cadastre-se</h1>
-                <form className="offscreen">
+                <form>
                     <label htmlFor="name">Nome:</label>
                     <input
                         type="text"
@@ -167,7 +172,7 @@ const RegisterForm = () => {
                                 Escreva um e-mail válido.
                             </p>
                         </form>
-                        <form className="offscreen">
+                        <form>
                             <label htmlFor="cpf">
                                 CPF:&nbsp;
                                 <FontAwesomeIcon
