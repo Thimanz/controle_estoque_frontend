@@ -94,8 +94,8 @@ const LoginForm = () => {
                 transition={{ delay: 0.5 }}
                 className="login-area"
             >
-                <h1>Faça login com as suas credenciais</h1>
-                <form>
+                <h1 className="login-h1">Faça login com as suas credenciais</h1>
+                <form className="email-form">
                     <label htmlFor="email">
                         E-mail:&nbsp;
                         <FontAwesomeIcon
@@ -108,6 +108,7 @@ const LoginForm = () => {
                         />
                     </label>
                     <input
+                        className="email-input"
                         type="text"
                         id="email"
                         ref={userRef}
@@ -134,7 +135,7 @@ const LoginForm = () => {
                         Escreva um e-mail válido.
                     </p>
                 </form>
-                <form>
+                <form className="password-form">
                     <label htmlFor="pwd">
                         Senha:&nbsp;
                         <FontAwesomeIcon
@@ -147,6 +148,7 @@ const LoginForm = () => {
                         />
                     </label>
                     <input
+                        className="password-input"
                         type="password"
                         id="password"
                         autoComplete="off"

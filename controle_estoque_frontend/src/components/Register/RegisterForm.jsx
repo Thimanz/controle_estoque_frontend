@@ -123,10 +123,11 @@ const RegisterForm = () => {
                 transition={{ delay: 0.5 }}
                 className="register-area"
             >
-                <h1>Cadastre-se</h1>
-                <form>
+                <h1 className="register-h1">Cadastre-se</h1>
+                <form className="name-form">
                     <label htmlFor="name">Nome:</label>
                     <input
+                        className="name-input"
                         type="text"
                         id="name"
                         ref={userRef}
@@ -137,7 +138,7 @@ const RegisterForm = () => {
                 </form>
                 <div className="sectioned-forms">
                     <div className="left-form">
-                        <form>
+                        <form className="email-form">
                             <label htmlFor="email">
                                 E-mail:&nbsp;
                                 <FontAwesomeIcon
@@ -150,6 +151,7 @@ const RegisterForm = () => {
                                 />
                             </label>
                             <input
+                                className="email-input"
                                 type="text"
                                 id="email"
                                 autoComplete="off"
@@ -172,7 +174,7 @@ const RegisterForm = () => {
                                 Escreva um e-mail válido.
                             </p>
                         </form>
-                        <form>
+                        <form className="cpf-form">
                             <label htmlFor="cpf">
                                 CPF:&nbsp;
                                 <FontAwesomeIcon
@@ -185,6 +187,7 @@ const RegisterForm = () => {
                                 />
                             </label>
                             <InputMask
+                                className="cpf-input"
                                 mask="999.999.999-99"
                                 type="text"
                                 id="cpf"
@@ -209,8 +212,8 @@ const RegisterForm = () => {
                             </p>
                         </form>
                     </div>
-                    <div className="right-form">
-                        <form>
+                    <div className="right-forms">
+                        <form className="password-form">
                             <label htmlFor="pwd">
                                 Senha:&nbsp;
                                 <FontAwesomeIcon
@@ -223,6 +226,7 @@ const RegisterForm = () => {
                                 />
                             </label>
                             <input
+                                className="password-input"
                                 type="password"
                                 id="password"
                                 autoComplete="off"
@@ -246,7 +250,7 @@ const RegisterForm = () => {
                                 especial e letra maiúscula
                             </p>
                         </form>
-                        <form>
+                        <form className="password-form">
                             <label htmlFor="matchpwd">
                                 Confirmar Senha:&nbsp;
                                 <FontAwesomeIcon
@@ -259,6 +263,7 @@ const RegisterForm = () => {
                                 />
                             </label>
                             <input
+                                className="password-input"
                                 type="password"
                                 id="matchPwd"
                                 autoComplete="off"
