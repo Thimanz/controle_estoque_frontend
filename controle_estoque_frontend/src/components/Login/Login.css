@@ -1,5 +1,5 @@
-input[type="text"],
-input[type="password"] {
+.email-input,
+.password-input {
     width: 263px;
     height: 30px;
     border: none;
@@ -51,9 +51,10 @@ input[type="password"] {
     width: 100%;
 }
 
-form {
+.email-form,
+.password-form {
     display: flex;
-    flex-direction: flex-start;
+    flex-direction: column;
     align-items: flex-start;
     margin-bottom: 40px;
 }
@@ -63,11 +64,18 @@ form {
     color: #fff;
 }
 
-h1 {
+.login-h1 {
     color: #fff;
     font-size: 2rem;
     text-align: center;
     margin: 60px 30px 50px 30px;
+}
+
+.new-member {
+    color: black;
+    font-size: 2rem;
+    text-align: center;
+    margin: 220px 10px 100px 10px;
 }
 
 .lower-form {
@@ -83,9 +91,4 @@ h1 {
     border-top-right-radius: 5%;
     height: 100%;
     width: 100%;
-}
-
-.new-member {
-    color: black;
-    margin: 160px 10px 100px 10px;
 }
