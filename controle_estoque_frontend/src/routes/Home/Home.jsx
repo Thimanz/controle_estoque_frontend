@@ -5,8 +5,8 @@ import "./Home.css";
 const Home = () => {
     return (
         <div>
-            {/* <Header></Header> */}
-            <h1 className="login-success">Login concluído com sucesso</h1>
+            <Header></Header>
+            {/* <h1 className="login-success">Login concluído com sucesso</h1> */}
         </div>
     );
 };
