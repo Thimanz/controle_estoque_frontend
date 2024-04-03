@@ -11,3 +11,9 @@ h1 {
     font-family: "Ubuntu", sans-serif;
     font-style: Regular;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

@@ -58,6 +58,7 @@ const LoginForm = () => {
             ).unwrap();
             localStorage.setItem("accessToken", loginResponse.accessToken);
             localStorage.setItem("refreshToken", loginResponse.refreshToken);
+            localStorage.setItem("userEmail", loginResponse.usuarioToken.email);
             setErrorMsgs([]);
             navigate("/inicio", { replace: true });
         } catch (error) {
