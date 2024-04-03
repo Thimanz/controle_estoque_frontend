@@ -1,0 +1,129 @@
+.main {
+    min-height: 80dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    display: flex;
+    width: 70%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.new-product {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 55px;
+    height: 55px;
+    border-radius: calc(55px / 2);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background: radial-gradient(
+        circle at -3.1% -4.3%,
+        rgb(57, 255, 186) 0%,
+        rgb(21, 38, 82) 90%
+    );
+}
+
+/* plus sign */
+.sign {
+    width: 100%;
+    font-size: 2.2em;
+    color: white;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* text */
+.text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: white;
+    font-size: 1.4em;
+    font-weight: 500;
+    transition-duration: 0.3s;
+}
+/* hover effect on button width */
+.new-product:hover {
+    width: 155px;
+    transition-duration: 0.3s;
+}
+
+.new-product:hover .sign {
+    width: 30%;
+    transition-duration: 0.3s;
+    padding-left: 5px;
+}
+/* hover effect button's text */
+.new-product:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: 0.3s;
+    padding-right: 5px;
+}
+/* button click effect*/
+.new-product:active {
+    transform: translate(2px, 2px);
+}
+
+.search,
+.new {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container {
+    position: relative;
+    width: 50%;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #565b7c 0%, #474787 100%);
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    padding: 10px;
+    width: 100%;
+    background: linear-gradient(135deg, #71748a 0%, #474787 100%);
+    border: none;
+    color: #ffffff;
+    font-size: 20px;
+    border-radius: 50px;
+}
+
+.input:focus {
+    outline: none;
+    background: linear-gradient(135deg, #ececec 0%, #474787 100%);
+}
+
+.search__icon {
+    width: 50px;
+    aspect-ratio: 1;
+    border-left: 2px solid white;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-radius: 50%;
+    padding-left: 12px;
+    margin-right: 10px;
+}
+
+.search__icon:hover {
+    border-left: 3px solid white;
+}
+
+.search__icon path {
+    fill: white;
+}

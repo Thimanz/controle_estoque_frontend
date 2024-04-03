@@ -1,4 +1,4 @@
-const Truck = () => {
+const Truck = ({ height, width }) => {
     return (
         <svg
             viewBox="-30 0 360 360"
@@ -14,8 +14,8 @@ const Truck = () => {
                 strokeMiterlimit: "2",
             }}
             fill="#000000"
-            width="20px"
-            height="20px"
+            height={height}
+            width={width}
         >
             <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g

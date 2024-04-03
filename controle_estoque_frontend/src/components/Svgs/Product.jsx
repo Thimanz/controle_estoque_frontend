@@ -1,11 +1,11 @@
 import React from "react";
 
-const Product = () => {
+const Product = ({ height, width }) => {
     return (
         <svg
             fill="#000000"
-            width="25px"
-            height="25px"
+            height={height}
+            width={width}
             viewBox="0 0 32 32"
             style={{
                 fillRule: "evenodd",
