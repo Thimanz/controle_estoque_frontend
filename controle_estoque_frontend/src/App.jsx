@@ -9,7 +9,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/inicio" element={<Home />} />
-                <Route path="/" element={<Navigate to="/autenticar/login" />} />
+                <Route path="/" element={<Navigate to="/inicio" />} />
                 <Route
                     path="/autenticar/:authtype"
                     element={<LoginRegister />}

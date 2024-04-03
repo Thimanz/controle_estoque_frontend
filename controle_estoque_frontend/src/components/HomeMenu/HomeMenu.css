@@ -1,0 +1,57 @@
+.menu-list,
+.menu-list li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list {
+    display: flex;
+    width: 100%;
+    background-color: #9090a9;
+    color: white;
+}
+
+.menu-list li {
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 100%;
+    padding: 10px 15px 0 15px;
+    position: relative;
+    cursor: pointer;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    user-select: none;
+}
+
+.underline {
+    width: 1px;
+    margin-top: 5px;
+    z-index: 10;
+    border-bottom: 10px solid white;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+
+.menu-list .selected {
+    height: 34px;
+    background-color: #505063;
+}
+
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-description {
+    margin: 0;
+    margin-left: 7px;
+}

@@ -86,6 +86,10 @@ const RegisterForm = () => {
             console.log(newUserResponse);
             localStorage.setItem("accessToken", newUserResponse.accessToken);
             localStorage.setItem("refreshToken", newUserResponse.refreshToken);
+            localStorage.setItem(
+                "userEmail",
+                newUserResponse.usuarioToken.email
+            );
             setErrorMsgs([]);
             navigate("/inicio", { replace: true });
         } catch (error) {

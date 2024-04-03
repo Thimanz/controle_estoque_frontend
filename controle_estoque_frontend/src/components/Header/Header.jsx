@@ -25,8 +25,6 @@ const Header = () => {
         },
     };
 
-    const authResponse = useSelector((state) => state.authResponse);
-
     return (
         <m.nav
             className="header"
@@ -50,8 +48,8 @@ const Header = () => {
                 >
                     <FaUser />
                     <a className="user">
-                        {Object.keys(authResponse.data).length
-                            ? `Olá, ${authResponse.data.usuarioToken.email}`
+                        {localStorage.getItem("userEmail")
+                            ? `Olá, ${localStorage.getItem("userEmail")}`
                             : "Faça Login"}
                     </a>
                 </li>
@@ -82,8 +80,8 @@ const Header = () => {
                     >
                         <FaUser />
                         <a className="user">
-                            {Object.keys(authResponse.data).length
-                                ? `Olá, ${authResponse.data.usuarioToken.email}`
+                            {localStorage.getItem("userEmail")
+                                ? `Olá, ${localStorage.getItem("userEmail")}`
                                 : "Faça Login"}
                         </a>
                     </li>
