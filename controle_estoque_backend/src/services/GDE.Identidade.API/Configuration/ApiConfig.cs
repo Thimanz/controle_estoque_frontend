@@ -25,9 +25,10 @@ namespace GDE.Identidade.API.Configuration
 
         public static IApplicationBuilder UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsEnvironment("Local"))
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwaggerConfiguration();
             }
 
             app.UseHttpsRedirection();

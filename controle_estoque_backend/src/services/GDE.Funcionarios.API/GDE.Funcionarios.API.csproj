@@ -10,8 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EasyNetQ" Version="7.8.0" />
-    <PackageReference Include="EasyNetQ.Serialization.NewtonsoftJson" Version="7.8.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
@@ -32,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\GDE.Core\GDE.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\GDE.MessageBus\GDE.MessageBus.csproj" />
   </ItemGroup>
 
 </Project>

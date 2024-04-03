@@ -1,33 +1,41 @@
 ﻿
-using EasyNetQ;
 using FluentValidation.Results;
 using GDE.Core.Mediator;
 using GDE.Core.Messages.Integration;
 using GDE.Funcionarios.API.Application.Commands;
+using GDE.MessageBus;
 
 namespace GDE.Funcionarios.API.Services
 {
     public class RegistroFuncionarioIntegrationHandler : BackgroundService
     {
-        private IBus _bus;
+        private readonly IMessageBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
-        public RegistroFuncionarioIntegrationHandler(IServiceProvider serviceProvider)
+        public RegistroFuncionarioIntegrationHandler(IMessageBus bus, IServiceProvider serviceProvider)
         {
+            _bus = bus;
             _serviceProvider = serviceProvider;
-        } 
+        }
+
+        private void SetResponder()
+        {
+            _bus.RespondAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(RegistrarFuncionario);
+            _bus.AdvancedBus.Connected += OnConnect!;
+        }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _bus = RabbitHutch.CreateBus("host=rabbit-gestao-estoque:5672");
-
-            _bus.Rpc.RespondAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(async request => 
-                new ResponseMessage(await RegistrarFuncionario(request)));
-
+            SetResponder();
             return Task.CompletedTask;
         }
 
-        private async Task<ValidationResult> RegistrarFuncionario(UsuarioRegistradoIntegrationEvent message)
+        private void OnConnect(object sender, EventArgs e)
+        {
+            SetResponder();
+        }
+
+        private async Task<ResponseMessage> RegistrarFuncionario(UsuarioRegistradoIntegrationEvent message)
         {
             var funcionarioCommand = new RegistrarFuncionarioCommand(message.Id, message.Nome, message.Cpf, message.Email);
             ValidationResult result;
@@ -38,7 +46,7 @@ namespace GDE.Funcionarios.API.Services
                 result = await mediator.EnviarComando(funcionarioCommand);
             }
 
-            return result;
+            return new ResponseMessage(result);
         }
     }
 }

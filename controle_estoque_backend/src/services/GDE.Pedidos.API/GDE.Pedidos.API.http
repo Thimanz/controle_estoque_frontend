@@ -1,0 +1,6 @@
+@GDE.Pedidos.API_HostAddress = http://localhost:5091
+
+GET {{GDE.Pedidos.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
