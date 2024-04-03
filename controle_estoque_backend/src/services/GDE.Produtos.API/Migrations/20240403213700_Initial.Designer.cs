@@ -4,6 +4,7 @@ using GDE.Produtos.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GDE.Produtos.API.Migrations
 {
     [DbContext(typeof(ProdutoContext))]
-    partial class ProdutoContextModelSnapshot : ModelSnapshot
+    [Migration("20240403213700_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,6 +65,7 @@ namespace GDE.Produtos.API.Migrations
                         .HasColumnType("varchar(500)");
 
                     b.Property<string>("Imagem")
+                        .IsRequired()
                         .HasColumnType("varchar(250)");
 
                     b.Property<int>("NivelMinimoEstoque")

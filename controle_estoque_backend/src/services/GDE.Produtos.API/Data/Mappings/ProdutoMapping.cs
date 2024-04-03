@@ -1,4 +1,4 @@
-﻿using GDE.Produtos.API.Models;
+﻿using GDE.Produtos.API.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,8 +19,24 @@ namespace GDE.Produtos.API.Data.Mappings
                 .HasColumnType("varchar(500)");
 
             builder.Property(c => c.Imagem)
-                .IsRequired()
+                //.IsRequired()
                 .HasColumnType("varchar(250)");
+
+            builder.OwnsOne(c => c.Dimensoes, tf =>
+            {
+                tf.Property(c => c.Comprimento)
+                    .HasColumnName("Comprimento");
+                tf.Property(c => c.Altura)
+                    .HasColumnName("Altura");
+                tf.Property(c => c.Largura)
+                    .HasColumnName("Largura");
+                tf.Property(c => c.Peso)
+                    .HasColumnName("Peso");
+
+            });
+
+            builder.HasOne(c => c.Categoria)
+                .WithMany(c => c.Produtos);
 
             builder.ToTable("Produtos");
         }

@@ -1,7 +1,7 @@
 ﻿using FluentValidation.Results;
 using GDE.Core.Data;
 using GDE.Core.Messages;
-using GDE.Produtos.API.Models;
+using GDE.Produtos.API.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GDE.Produtos.API.Data
@@ -16,6 +16,7 @@ namespace GDE.Produtos.API.Data
         }
 
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,22 +1,25 @@
-﻿using GDE.Produtos.API.Models;
+﻿using GDE.Produtos.API.Entities;
 
-namespace GDE.Produtos.API.ViewModels
+namespace GDE.Produtos.API.Models.InputModels
 {
-    public class AdicionarProdutoViewModel
+    public class ProdutoInputModel
     {
-        public Guid Id { get; set; }
         public string? Nome { get; set; }
         public string? Descricao { get; set; }
         public string? CodigoBarras { get; set; }
-        public string? NomeCategoria { get; set; }
-        public string? DescricaoCategoria { get; set; }
+        public Guid CategoriaId { get; set; }
         public decimal PrecoCusto { get; set; }
         public decimal PrecoVenda { get; set; }
-        public string? Imagem { get; set; }
+        //public IFormFile? Imagem { get; set; }
+
         public int NivelMinimoEstoque { get; set; }
         public decimal Comprimento { get; set; }
         public decimal Largura { get; set; }
         public decimal Altura { get; set; }
         public decimal Peso { get; set; }
+
+        public Produto ToEntity() =>
+            new Produto(Nome, Descricao, CodigoBarras, CategoriaId, PrecoCusto, PrecoVenda, 
+                     NivelMinimoEstoque, Comprimento, Largura, Altura, Peso);
     }
 }
