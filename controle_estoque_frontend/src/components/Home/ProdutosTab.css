@@ -1,4 +1,4 @@
-.main {
+.main-home {
     min-height: 80dvh;
     display: flex;
     justify-content: center;
@@ -94,7 +94,7 @@
     align-items: center;
 }
 
-.input {
+.input-search {
     padding: 10px;
     width: 100%;
     background: linear-gradient(135deg, #71748a 0%, #474787 100%);
@@ -104,7 +104,7 @@
     border-radius: 50px;
 }
 
-.input:focus {
+.input-search:focus {
     outline: none;
     background: linear-gradient(135deg, #ececec 0%, #474787 100%);
 }

@@ -1,0 +1,134 @@
+.main-product {
+    min-height: 80dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-block {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-forms {
+    width: 100%;
+    display: flex;
+}
+
+.right-product-form,
+.left-product-form {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-group {
+    margin: 1em 0 1em 0;
+    width: 80%;
+    position: relative;
+}
+
+.input-group input {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+    min-width: 250px;
+    height: 49px;
+    box-sizing: border-box;
+}
+
+.input-group label {
+    font-size: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0.8em;
+    margin-left: 0.5em;
+    opacity: 0.7;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: rgb(100, 100, 100);
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label,
+.input-group input[type="button"]:not([value=""]) ~ label {
+    transform: translateY(-50%) scale(0.9);
+    margin: 0em;
+    margin-left: 1.3em;
+    padding: 0.4em;
+    opacity: 1;
+    background-color: white;
+}
+
+.input-group input:focus,
+.input-group input:valid,
+.input-group input[type="button"]:not([value=""]) {
+    border-color: rgb(150, 150, 200);
+}
+
+.dropdown {
+    z-index: 10000;
+    height: 49px;
+}
+
+.dropdown,
+.dropdown * {
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    z-index: 1000;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.07);
+}
+.dropdown-content .item {
+    padding: 10px;
+    cursor: pointer;
+}
+.dropdown-content .item:hover {
+    background: #fcfcfc;
+}
+
+.arrow-icon {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+}
+
+.main-product button {
+    border: none;
+    width: 300px;
+    display: flex;
+    padding: 23px 32px;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px 0px rgba(136, 144, 194, 0.20000000298023224);
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 999px;
+    justify-content: center;
+    background-color: rgba(49, 44, 255, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.success-msg {
+    color: green;
+}
