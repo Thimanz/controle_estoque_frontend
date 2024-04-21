@@ -34,7 +34,7 @@ const Header = () => {
             variants={navVariants}
             transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-            <Logo />
+            <Logo onClick={() => navigate("/inicio")} />
             <ul className="desktop-nav">
                 <li className="nav-item">
                     <a href="/">Home</a>

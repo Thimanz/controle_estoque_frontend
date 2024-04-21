@@ -8,6 +8,14 @@ export const getProductList = (name, navigateHook) => {
     );
 };
 
+export const getProduct = (id, navigateHook) => {
+    return makeRequest(
+        "get",
+        `http://localhost:5101/api/produto/${id}`,
+        navigateHook
+    );
+};
+
 export const postProduct = (product, navigateHook) => {
     return makeRequest(
         "post",
@@ -19,7 +27,7 @@ export const postProduct = (product, navigateHook) => {
 
 export const deleteProduct = (id, navigateHook) => {
     return makeRequest(
-        "get",
+        "delete",
         `http://localhost:5101/api/produto/${id}`,
         navigateHook
     );

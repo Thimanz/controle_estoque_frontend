@@ -83,7 +83,6 @@ const RegisterForm = () => {
                     senhaConfirmacao: matchPwd,
                 })
             ).unwrap();
-            console.log(newUserResponse);
             localStorage.setItem("accessToken", newUserResponse.accessToken);
             localStorage.setItem("refreshToken", newUserResponse.refreshToken);
             localStorage.setItem(
@@ -93,7 +92,6 @@ const RegisterForm = () => {
             setErrorMsgs([]);
             navigate("/inicio", { replace: true });
         } catch (error) {
-            console.log(error);
             setErrorMsgs(error.erros.mensagens);
         }
     };

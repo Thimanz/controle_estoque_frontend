@@ -1,13 +1,15 @@
 .main-home {
     min-height: 80dvh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 
-.main-container {
+.product-container {
+    height: fit-content;
     display: flex;
     width: 70%;
+    max-width: 830px;
     align-items: center;
     justify-content: space-around;
 }
@@ -78,15 +80,24 @@
 
 .search,
 .new {
+    margin: 50px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+.search {
+    flex-basis: 70%;
+}
+
+.new {
+    flex-basis: 30%;
+}
+
 .search-container {
     position: relative;
-    width: 50%;
+    width: 100%;
     border-radius: 50px;
     background: linear-gradient(135deg, #565b7c 0%, #474787 100%);
     padding: 5px;
@@ -97,7 +108,8 @@
 .input-search {
     padding: 10px;
     width: 100%;
-    background: linear-gradient(135deg, #71748a 0%, #474787 100%);
+    background-color: #474787;
+    /* background: linear-gradient(135deg, #3b3c47 0%, #474787 100%); */
     border: none;
     color: #ffffff;
     font-size: 20px;
@@ -106,7 +118,11 @@
 
 .input-search:focus {
     outline: none;
-    background: linear-gradient(135deg, #ececec 0%, #474787 100%);
+    background: linear-gradient(135deg, #3a3a3a 0%, #474787 100%);
+}
+
+.input-search::placeholder {
+    color: #ffffff81;
 }
 
 .search__icon {
@@ -126,4 +142,40 @@
 
 .search__icon path {
     fill: white;
+}
+
+.products-searched {
+    width: 100dvw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-box {
+    background-color: #fafafa;
+    border: 1px solid rgb(204, 204, 204);
+    margin: 10px 10% 0 10%;
+    width: 20%;
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 15px -6px rgba(0, 0, 0, 0.61);
+    transition-duration: 0.3s;
+}
+
+.product-box:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.product-name {
+    margin: 0;
+    text-align: center;
+}
+
+.product-image {
+    height: 100px;
+    aspect-ratio: 1;
 }

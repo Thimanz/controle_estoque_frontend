@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NotFound from "./routes/NotFound/NotFound";
 import Home from "./routes/Home/Home";
 import NewProduct from "./routes/Products/NewProduct";
+import Product from "./routes/Products/Product";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <Route path="/" element={<Navigate to="/inicio" />} />
                 <Route path="/inicio" element={<Home />} />
                 <Route path="/produtos/novo-produto" element={<NewProduct />} />
+                <Route path="/produtos/:id" element={<Product />} />
                 <Route
                     path="/autenticar/:authtype"
                     element={<LoginRegister />}
