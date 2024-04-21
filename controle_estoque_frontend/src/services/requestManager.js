@@ -23,7 +23,7 @@ export const makeRequest = async (
             if (error.response.status === 401) {
                 navigateHook("/autenticar/login");
             }
-            return null;
+            return error.response.data;
         }
     }
 
@@ -31,9 +31,11 @@ export const makeRequest = async (
         const { data, status } = await axios({ method, url, headers });
         return { data, status };
     } catch (error) {
-        if (error.response.status === 401) {
+        if (error.code === "ERR_NETWORK") {
+            navigateHook("/not-found");
+        } else if (error.response.status === 401) {
             navigateHook("/autenticar/login");
         }
-        return null;
+        return error.response.data;
     }
 };

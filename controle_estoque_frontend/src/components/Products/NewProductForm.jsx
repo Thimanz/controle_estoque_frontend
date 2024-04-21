@@ -33,7 +33,8 @@ const NewProductForm = () => {
         fetchCategories();
     }, []);
 
-    const [successMsg, setSuccessMsg] = useState("");
+    const [requestMsgs, setrequestMsgs] = useState([]);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const sendProduct = async () => {
         const response = await postProduct(
@@ -53,9 +54,12 @@ const NewProductForm = () => {
             },
             navigate
         );
-        console.log(response.status);
         if (response.status === 201) {
-            setSuccessMsg("Produto Cadastrado com Sucesso");
+            setIsSuccess(true);
+            setrequestMsgs(["Produto Cadastrado com Sucesso"]);
+        } else {
+            setIsSuccess(false);
+            setrequestMsgs(response.erros.mensagens);
         }
     };
 
@@ -239,8 +243,12 @@ const NewProductForm = () => {
                 <button className="confirm-product" onClick={sendProduct}>
                     Cadastrar Produto
                 </button>
-                {successMsg ? (
-                    <h3 className="success-msg">{successMsg}</h3>
+                {requestMsgs ? (
+                    <h3 className={isSuccess ? "success-msg" : "error-msg"}>
+                        {requestMsgs.map((msg) => (
+                            <p>{msg}</p>
+                        ))}
+                    </h3>
                 ) : null}
             </section>
         </main>

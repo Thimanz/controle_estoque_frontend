@@ -1,8 +1,13 @@
 import React from "react";
 
-const Logo = () => {
+const Logo = ({ onClick }) => {
     return (
-        <svg height="40" viewBox="0 0 370.5 87" className="logo">
+        <svg
+            onClick={onClick}
+            height="40"
+            viewBox="0 0 370.5 87"
+            className="logo"
+        >
             <defs id="SvgjsDefs1707"></defs>
             <g
                 id="SvgjsG1708"

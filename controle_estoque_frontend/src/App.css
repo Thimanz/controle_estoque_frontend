@@ -4,12 +4,23 @@ body {
     margin: 0;
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
+    overflow-x: hidden;
 }
 
 button,
 h1 {
     font-family: "Ubuntu", sans-serif;
     font-style: Regular;
+}
+
+button {
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+button:hover {
+    box-shadow: 0 0.5em 0.5em -0.4em #000;
+    transform: translateY(-0.15em);
 }
 
 input::-webkit-outer-spin-button,
