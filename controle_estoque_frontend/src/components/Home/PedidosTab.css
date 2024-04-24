@@ -1,0 +1,8 @@
+.order-container {
+    height: fit-content;
+    display: flex;
+    width: 70%;
+    max-width: 830px;
+    align-items: center;
+    justify-content: space-around;
+}

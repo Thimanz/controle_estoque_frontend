@@ -1,42 +1,52 @@
 import { makeRequest } from "./requestManager";
 
+const BASE_URL = "http://localhost:5101";
+
 export const getProductList = (name, navigateHook) => {
     return makeRequest(
         "get",
-        `http://localhost:5101/api/produto/lista-por-nome/${name}`,
+        `${BASE_URL}/api/produto/lista-por-nome/${name}`,
+        navigateHook
+    );
+};
+
+export const getProductListPaged = (name, page, navigateHook) => {
+    return makeRequest(
+        "get",
+        `${BASE_URL}/api/produto/lista-por-nome-paginada/${name}/${page}`,
+        navigateHook
+    );
+};
+
+export const getAllProductList = (navigateHook) => {
+    return makeRequest(
+        "get",
+        `${BASE_URL}/api/produto/listar-todos`,
         navigateHook
     );
 };
 
 export const getProduct = (id, navigateHook) => {
-    return makeRequest(
-        "get",
-        `http://localhost:5101/api/produto/${id}`,
-        navigateHook
-    );
+    return makeRequest("get", `${BASE_URL}/api/produto/${id}`, navigateHook);
 };
 
 export const postProduct = (product, navigateHook) => {
     return makeRequest(
         "post",
-        "http://localhost:5101/api/produto/",
+        `${BASE_URL}/api/produto/`,
         navigateHook,
         product
     );
 };
 
 export const deleteProduct = (id, navigateHook) => {
-    return makeRequest(
-        "delete",
-        `http://localhost:5101/api/produto/${id}`,
-        navigateHook
-    );
+    return makeRequest("delete", `${BASE_URL}/api/produto/${id}`, navigateHook);
 };
 
 export const updateProduct = (id, product, navigateHook) => {
     return makeRequest(
         "put",
-        `http://localhost:5101/api/produto/${id}`,
+        `${BASE_URL}/api/produto/${id}`,
         navigateHook,
         product
     );

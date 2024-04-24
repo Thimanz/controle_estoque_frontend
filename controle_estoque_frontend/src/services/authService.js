@@ -1,12 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const BASE_URL = "http://localhost:5101";
+
 export const postAuth = createAsyncThunk(
     "user/postAuth",
     async (login, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(
-                "http://localhost:5101/api/identidade/autenticar",
+                `${BASE_URL}/api/identidade/autenticar`,
                 login
             );
             return data;
@@ -21,7 +23,7 @@ export const postNewUserAccount = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(
-                "http://localhost:5101/api/identidade/nova-conta",
+                `${BASE_URL}/api/identidade/nova-conta`,
                 user
             );
             return data;

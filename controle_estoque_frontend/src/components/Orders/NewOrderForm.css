@@ -1,0 +1,69 @@
+.order-forms {
+    width: 100%;
+    display: flex;
+}
+
+.right-order-form,
+.left-order-form {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-order {
+    min-height: 80dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .main-order button {
+    border: none;
+    width: 300px;
+    display: flex;
+    padding: 23px 32px;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px 0px rgba(136, 144, 194, 0.20000000298023224);
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 999px;
+    justify-content: center;
+    background-color: rgba(49, 44, 255, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%;
+    font-stretch: normal;
+    text-decoration: none;
+} */
+
+.order-items,
+.new-product,
+.total-price {
+    margin: 20px 0;
+    place-self: start;
+}
+
+.order-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-order .item-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.item-inputs > input {
+    min-width: 152px;
+    width: 50%;
+}
+
+.item-inputs > label {
+    left: 40px;
+}
