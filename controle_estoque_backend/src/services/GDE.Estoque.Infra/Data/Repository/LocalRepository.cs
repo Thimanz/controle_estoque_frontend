@@ -19,14 +19,14 @@ namespace GDE.Estoque.Infra.Data.Repository
             return await _context.Locais.FirstOrDefaultAsync(l => l.Id == id);
         }
 
-        public Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId)
+        public async Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId)
         {
-            throw new NotImplementedException();
+            return _context.Locais.Include(i => i.LocalItens).Where(l => l.LocalItens.Any(i => i.ProdutoId == produtoId));
         }
 
-        public void Atualizar(Local local)
+        public void AtualizarLocalItens(LocalItem localItem)
         {
-            throw new NotImplementedException();
+            _context.LocalItens.Add(localItem);
         }
 
         public void Dispose()

@@ -9,13 +9,14 @@ namespace GDE.Estoque.Infra.Data
     public class EstoqueContext : DbContext, IUnitOfWork
     {
         public EstoqueContext(DbContextOptions<EstoqueContext> options)
+            : base(options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
         public DbSet<Local> Locais { get; set; }
-        public DbSet<Item> Items { get; set; }
+        public DbSet<LocalItem> LocalItens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

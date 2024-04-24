@@ -1,68 +1,76 @@
-﻿using GDE.Core.DomainObjects;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using GDE.Core.DomainObjects;
 
 namespace GDE.Estoque.Domain
 {
     public class Local : Entity, IAggregateRoot
     {
-        public Local(string? nome, decimal altura, decimal largura, decimal comprimento, List<Item> itens)
+        public Local(string? nome, decimal altura, decimal largura, decimal comprimento, List<LocalItem> localItens)
         {
             Nome = nome;
-            EspacoLivre = new Dimensoes(comprimento, largura, altura);
-            _items = itens;
+            Dimensoes = new Dimensoes(comprimento, largura, altura);
+            _localItens = localItens;
 
             CalcularEspacoLivre();
         }
 
-        public string? Nome { get; private set; }
-        public Dimensoes EspacoLivre { get; private set; }
-        public readonly List<Item> _items;
-        public IReadOnlyCollection<Item> Items => _items;
+        //EF ctor
+        public Local() { }
 
-        public void AdicionarItem(Item item)
+        public string? Nome { get; private set; }
+        public Dimensoes Dimensoes { get; private set; }
+
+        public readonly List<LocalItem> _localItens;
+        public IReadOnlyCollection<LocalItem> LocalItens => _localItens;
+
+        [NotMapped]
+        public Dimensoes EspacoLivre { get; private set; }
+
+        public void AdicionarItem(LocalItem item)
         {
             if(!VerificarEspacoLivre(item))
                 throw new DomainException("O local não possui espaço suficiente");
 
             item.AssociarLocal(Id);
-            _items.Add(item);
+            _localItens.Add(item);
 
             CalcularEspacoLivre();
         }
 
-        public void RemoverItem(Item item)
+        public void RemoverItem(LocalItem item)
         {
             if (!ItemExistente(item))
                 throw new DomainException("Item não encontrado no local");
 
-            _items.Remove(ObterPorProdutoId(item.ProdutoId));
+            _localItens.Remove(ObterPorProdutoId(item.ProdutoId));
 
             CalcularEspacoLivre();
         }
 
         private void CalcularEspacoLivre()
         {
-            var alturaLivre = EspacoLivre.Altura - Items.Sum(i => i.Dimensoes.Altura);
-            var larguraLivre = EspacoLivre.Largura - Items.Sum(i => i.Dimensoes.Largura);
-            var comprimentoLivre = EspacoLivre.Comprimento - Items.Sum(i => i.Dimensoes.Comprimento);
+            var alturaLivre = Dimensoes.Altura - LocalItens.Sum(i => i.Dimensoes.Altura);
+            var larguraLivre = Dimensoes.Largura - LocalItens.Sum(i => i.Dimensoes.Largura);
+            var comprimentoLivre = Dimensoes.Comprimento - LocalItens.Sum(i => i.Dimensoes.Comprimento);
 
             EspacoLivre = new Dimensoes(comprimentoLivre, larguraLivre, alturaLivre);
         }
 
-        public bool VerificarEspacoLivre(Item item)
+        public bool VerificarEspacoLivre(LocalItem item)
         {
             return (EspacoLivre.Altura - item.Dimensoes.Altura >= 0
                 && EspacoLivre.Largura - item.Dimensoes.Largura >= 0
                 && EspacoLivre.Comprimento - item.Dimensoes.Comprimento >= 0);
         }
 
-        public Item ObterPorProdutoId(Guid produtoId)
+        public LocalItem ObterPorProdutoId(Guid produtoId)
         {
-            return Items.FirstOrDefault(p => p.ProdutoId == produtoId);
+            return LocalItens.FirstOrDefault(p => p.ProdutoId == produtoId);
         }
 
-        public bool ItemExistente(Item item)
+        public bool ItemExistente(LocalItem item)
         {
-            return Items.Any(i => i.ProdutoId ==  item.ProdutoId);
+            return LocalItens.Any(i => i.ProdutoId ==  item.ProdutoId);
         }
     }
 }

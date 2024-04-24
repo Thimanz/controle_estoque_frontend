@@ -32,20 +32,21 @@ namespace GDE.Estoque.API.Application.Commands
                 }
 
                 local.AdicionarItem(item);
+                _localRepository.AtualizarLocalItens(item);
             }
-
-            _localRepository.Atualizar(local);
 
             return await PersistirDados(_localRepository.UnitOfWork);
         }
 
-        private List<Item> MapearItens(AdicionarItensEstoqueCommand message)
+        private List<LocalItem> MapearItens(AdicionarItensEstoqueCommand message)
         {
-            return message.Items
-                .ConvertAll(i => new Item(
+            return message.LocalItens
+                .ConvertAll(i => new LocalItem(
                     i.ProdutoId,
                     i.Nome,
-                    new Dimensoes(i.Comprimento, i.Largura, i.Altura)));
+                    new Dimensoes(i.Comprimento, i.Largura, i.Altura),
+                    i.Preco,
+                    i.Quantidade));
         }
     }
 }

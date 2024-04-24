@@ -1,51 +1,52 @@
-﻿using GDE.Estoque.Infra.Data;
+﻿using GDE.Core.Identidade;
+using GDE.Estoque.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace GDE.Estoque.API.Configuration
 {
     public static class ApiConfig
     {
-        //public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
-        //{
-        //    services.AddDbContext<EstoqueContext>(options =>
-        //        options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<EstoqueContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-        //    services.AddControllers();
+            services.AddControllers();
 
-        //    services.AddCors(options =>
-        //    {
-        //        options.AddPolicy("Total",
-        //            builder =>
-        //                builder
-        //                    .AllowAnyOrigin()
-        //                    .AllowAnyMethod()
-        //                    .AllowAnyHeader());
-        //    });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Total",
+                    builder =>
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+            });
 
-        //    services.AddEndpointsApiExplorer();
-        //}
+            services.AddEndpointsApiExplorer();
+        }
 
-        //public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
-        //{
+        public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
+        {
 
-        //    if (env.IsDevelopment() || env.IsEnvironment("Local"))
-        //    {
-        //        app.UseDeveloperExceptionPage();
-        //        app.UseSwaggerConfiguration();
-        //    }
+            if (env.IsDevelopment() || env.IsEnvironment("Local"))
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwaggerConfiguration();
+            }
 
-        //    app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
-        //    app.UseRouting();
+            app.UseRouting();
 
-        //    app.UseCors("Total");
+            app.UseCors("Total");
 
-        //    app.UseAuthConfiguration();
+            app.UseAuthConfiguration();
 
-        //    app.UseEndpoints(endpoints =>
-        //    {
-        //        endpoints.MapControllers();
-        //    });
-        //}
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
     }
 }
