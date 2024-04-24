@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -25,10 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\GDE.Core\GDE.Core.csproj" />
     <ProjectReference Include="..\..\building blocks\GDE.MessageBus\GDE.MessageBus.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
