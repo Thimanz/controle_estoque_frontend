@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GDE.Core.Domain_Objects
+namespace GDE.Core.DomainObjects
 {
     public interface IAggregateRoot
     {

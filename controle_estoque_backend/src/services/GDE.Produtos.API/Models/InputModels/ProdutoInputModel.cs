@@ -16,10 +16,9 @@ namespace GDE.Produtos.API.Models.InputModels
         public decimal Comprimento { get; set; }
         public decimal Largura { get; set; }
         public decimal Altura { get; set; }
-        public decimal Peso { get; set; }
 
         public Produto ToEntity() =>
             new Produto(Nome, Descricao, CodigoBarras, CategoriaId, PrecoCusto, PrecoVenda, 
-                     NivelMinimoEstoque, Comprimento, Largura, Altura, Peso);
+                     NivelMinimoEstoque, Comprimento, Largura, Altura);
     }
 }

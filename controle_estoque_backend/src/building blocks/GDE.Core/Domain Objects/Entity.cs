@@ -1,6 +1,6 @@
 ﻿using GDE.Core.Messages;
 
-namespace GDE.Core.Domain_Objects
+namespace GDE.Core.DomainObjects
 {
     public abstract class Entity
     {

@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 using GDE.Core.Data;
-using GDE.Core.Domain_Objects;
+using GDE.Core.DomainObjects;
 using GDE.Core.Mediator;
 using GDE.Core.Messages;
 using GDE.Funcionarios.API.Models;

@@ -1,4 +1,4 @@
-﻿using GDE.Core.Domain_Objects;
+﻿using GDE.Core.DomainObjects;
 using System.Text.RegularExpressions;
 
 namespace GDE.Funcionarios.API.Models

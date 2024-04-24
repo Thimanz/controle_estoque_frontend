@@ -17,7 +17,7 @@ namespace GDE.Produtos.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -77,6 +77,9 @@ namespace GDE.Produtos.API.Migrations
                     b.Property<decimal>("PrecoVenda")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("QuantidadeEstoque")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
@@ -108,10 +111,6 @@ namespace GDE.Produtos.API.Migrations
                             b1.Property<decimal>("Largura")
                                 .HasColumnType("decimal(18,2)")
                                 .HasColumnName("Largura");
-
-                            b1.Property<decimal>("Peso")
-                                .HasColumnType("decimal(18,2)")
-                                .HasColumnName("Peso");
 
                             b1.HasKey("ProdutoId");
 
