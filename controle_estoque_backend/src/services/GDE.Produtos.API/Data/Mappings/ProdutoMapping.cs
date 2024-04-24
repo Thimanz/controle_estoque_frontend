@@ -19,7 +19,6 @@ namespace GDE.Produtos.API.Data.Mappings
                 .HasColumnType("varchar(500)");
 
             builder.Property(c => c.Imagem)
-                //.IsRequired()
                 .HasColumnType("varchar(250)");
 
             builder.OwnsOne(c => c.Dimensoes, tf =>
@@ -30,8 +29,6 @@ namespace GDE.Produtos.API.Data.Mappings
                     .HasColumnName("Altura");
                 tf.Property(c => c.Largura)
                     .HasColumnName("Largura");
-                tf.Property(c => c.Peso)
-                    .HasColumnName("Peso");
 
             });
 

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GDE.Produtos.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ProdutosController : MainController
     {
         private readonly ProdutoContext _context;
@@ -33,9 +33,6 @@ namespace GDE.Produtos.API.Controllers
                 return NotFound();
 
             var produtoViewModel = ProdutoViewModel.FromEntity(produto);
-
-
-
 
             return CustomResponse(produtoViewModel);
         }
@@ -98,6 +95,8 @@ namespace GDE.Produtos.API.Controllers
                 return CustomResponse();
             }
 
+            produto.Id = produtoId;
+
             ValidarProduto(produto);
             if (!OperacaoValida()) return CustomResponse();
 
@@ -119,8 +118,8 @@ namespace GDE.Produtos.API.Controllers
                 return CustomResponse();
             }
 
-            await PersistirDados();
             _context.Remove(produtoExistente);
+            await PersistirDados();
 
             return CustomResponse();
         }

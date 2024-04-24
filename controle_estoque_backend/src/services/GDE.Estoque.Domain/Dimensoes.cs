@@ -1,4 +1,4 @@
-﻿namespace GDE.Produtos.API.Entities
+﻿namespace GDE.Estoque.Domain
 {
     public class Dimensoes
     {

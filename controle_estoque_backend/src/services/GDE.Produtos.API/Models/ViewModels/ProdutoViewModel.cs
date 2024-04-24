@@ -30,7 +30,7 @@ namespace GDE.Produtos.API.Models.ViewModels
                 Comprimento = produto.Dimensoes.Comprimento,
                 Largura = produto.Dimensoes.Largura,
                 Altura = produto.Dimensoes.Altura,
-                Peso = produto.Dimensoes.Peso
+                //Peso = produto.Dimensoes.Peso
             };
 
     }

@@ -51,3 +51,19 @@ services:
     depends_on:
       - sql-server
       - rabbitmq
+
+  
+  api-produtos:
+    image: lucasmanzi/gde-api-produtos:lastest
+    container_name: gde-api-produtos
+    build:
+      context: ../src
+      dockerfile: ./services/GDE.Produtos.API/Dockerfile
+    ports:
+      - 5301:5301
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:5301
+    depends_on:
+      - sql-server
+      - rabbitmq

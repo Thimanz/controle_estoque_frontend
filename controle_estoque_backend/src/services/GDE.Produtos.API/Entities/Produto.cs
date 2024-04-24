@@ -10,7 +10,7 @@ namespace GDE.Produtos.API.Entities
 
         public Produto(string? nome, string? descricao, string? codigoBarras, Guid categoriaId,
             decimal precoCusto, decimal precoVenda, int nivelMinimoEstoque,
-            decimal comprimento, decimal largura, decimal altura, decimal peso)
+            decimal comprimento, decimal largura, decimal altura)
         {
             Id = Guid.NewGuid();
             Nome = nome;
@@ -21,29 +21,40 @@ namespace GDE.Produtos.API.Entities
             PrecoVenda = precoVenda;
             NivelMinimoEstoque = nivelMinimoEstoque;
             DataCadastro = DateTime.Now;
-            Dimensoes = new Dimensoes(comprimento, largura, altura, peso);
+            Dimensoes = new Dimensoes(comprimento, largura, altura);
             Ativo = true;
         }
 
         public Guid Id { get; set; }
-        public string? Nome { get; set; }
-        public string? Descricao { get; set; }
-        public bool Ativo { get; set; }
-        public Guid CategoriaId { get; set; }
-        public string? CodigoBarras { get; set; }
-        public decimal PrecoCusto { get; set; }
-        public decimal PrecoVenda { get; set; }
-        public string? Imagem { get; set; }
-        //public int QuantidadeEstoque { get; private set; }
-        public int NivelMinimoEstoque { get; set; }
-        public DateTime DataCadastro { get; set; }
-        public Dimensoes? Dimensoes { get; set; }
+        public string? Nome { get; private set; }
+        public string? Descricao { get; private set; }
+        public bool Ativo { get; private set; }
+        public Guid CategoriaId { get; private set; }
+        public string? CodigoBarras { get; private set; }
+        public decimal PrecoCusto { get; private set; }
+        public decimal PrecoVenda { get; private set; }
+        public string? Imagem { get; private set; }
+        public int QuantidadeEstoque { get; private set; }
+        public int NivelMinimoEstoque { get; private set; }
+        public DateTime DataCadastro { get; private set; }
+        public Dimensoes? Dimensoes { get; private set; }
 
         [JsonIgnore]
         public Categoria Categoria { get; set; }
 
         [JsonIgnore]
         public ValidationResult? ValidationResult { get; set; }
+
+        public void RetirarEstoque(int quantidade)
+        {
+            if (QuantidadeEstoque >= quantidade)
+                QuantidadeEstoque -= quantidade;
+        }
+
+        public bool EstaDisponivel(int quantidade)
+        {
+            return Ativo && QuantidadeEstoque >= quantidade;
+        }
 
         public bool IsValid()
         {

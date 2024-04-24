@@ -9,10 +9,11 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/services/GDE.Produtos.API/GDE.Produtos.API.csproj", "src/services/GDE.Produtos.API/"]
-RUN dotnet restore "./src/services/GDE.Produtos.API/GDE.Produtos.API.csproj"
+COPY ["./services/GDE.Produtos.API/GDE.Produtos.API.csproj", "services/GDE.Produtos.API/"]
+COPY ["./building blocks/GDE.Core/GDE.Core.csproj", "building blocks/GDE.Core/"]
+RUN dotnet restore "./services/GDE.Produtos.API/GDE.Produtos.API.csproj"
 COPY . .
-WORKDIR "/src/src/services/GDE.Produtos.API"
+WORKDIR "services/GDE.Produtos.API"
 RUN dotnet build "./GDE.Produtos.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

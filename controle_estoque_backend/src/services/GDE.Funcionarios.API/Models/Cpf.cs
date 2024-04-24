@@ -1,4 +1,4 @@
-﻿using GDE.Core.Domain_Objects;
+﻿using GDE.Core.DomainObjects;
 using GDE.Core.Utils;
 
 namespace GDE.Funcionarios.API.Models
