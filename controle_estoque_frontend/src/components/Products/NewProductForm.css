@@ -77,7 +77,6 @@
 }
 
 .dropdown {
-    z-index: 10000;
     height: 49px;
 }
 
@@ -90,6 +89,7 @@
     position: absolute;
     z-index: 1000;
     left: 0;
+    top: 100%;
     width: 100%;
     background-color: #fff;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.07);

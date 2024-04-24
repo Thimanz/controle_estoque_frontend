@@ -14,12 +14,13 @@
 
 .main-order {
     min-height: 80dvh;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
-/* .main-order button {
+.centered-block > .confirm-order {
     border: none;
     width: 300px;
     display: flex;
@@ -37,7 +38,7 @@
     line-height: 100%;
     font-stretch: normal;
     text-decoration: none;
-} */
+}
 
 .order-items,
 .new-product,
@@ -52,18 +53,58 @@
     justify-content: space-between;
 }
 
-.main-order .item-inputs {
+.item-name-inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    margin-left: 30px;
+    place-self: start;
+    margin-bottom: 5px;
+}
+
+.main-order .item-input {
+    margin: 10px 0 0 0;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.item-inputs > input {
-    min-width: 152px;
-    width: 50%;
+.item-inputs {
+    display: flex;
 }
 
-.item-inputs > label {
-    left: 40px;
+.item-input > input {
+    min-width: 152px;
+    width: 60%;
+}
+
+.item-input > label {
+    left: 10%;
+}
+
+.order-items .item-amount {
+    place-self: end;
+    margin: 10px 0 0 0;
+}
+
+.item-dropdown-content {
+    max-height: 120px;
+    overflow-y: scroll;
+}
+
+.item-dropdown-content::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+}
+.item-dropdown-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.item-dropdown-content::-webkit-scrollbar-thumb {
+    background: #888;
+}
+.item-dropdown-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

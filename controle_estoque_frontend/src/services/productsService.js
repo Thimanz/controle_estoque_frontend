@@ -13,7 +13,7 @@ export const getProductList = (name, navigateHook) => {
 export const getProductListPaged = (name, page, navigateHook) => {
     return makeRequest(
         "get",
-        `${BASE_URL}/api/produto/lista-por-nome-paginada/${name}/${page}`,
+        `${BASE_URL}/api/produto/lista-por-nome/${name}/${page}`,
         navigateHook
     );
 };
