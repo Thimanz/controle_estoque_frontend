@@ -6,11 +6,17 @@ namespace GDE.Estoque.API.Controllers
 {
     public class LocalController : MainController
     {
-        //[HttpGet("local")]
-        //public async Task<Local> ObterLocal(Guid id)
-        //{
-        //    return Task.CompletedTask
-        //}
+        private readonly ILocalRepository _localRepository;
 
+        public LocalController(ILocalRepository localRepository)
+        {
+            _localRepository = localRepository;
+        }
+
+        [HttpGet("local")]
+        public async Task<Local> ObterLocal(Guid id)
+        {
+            return await _localRepository.ObterPorId(id);
+        }
     }
 }

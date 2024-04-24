@@ -2,7 +2,7 @@
 
 namespace GDE.Estoque.API.Application.DTO
 {
-    public class ItemDTO
+    public class LocalItemDTO
     {
         public Guid LocalId { get; set; }
         public Guid ProdutoId { get; set; }
@@ -10,6 +10,7 @@ namespace GDE.Estoque.API.Application.DTO
         public decimal Comprimento { get; set; }
         public decimal Largura { get; set; }
         public decimal Altura { get; set; }
-
+        public decimal Preco { get; set; }
+        public int Quantidade { get; set; }
     }
 }

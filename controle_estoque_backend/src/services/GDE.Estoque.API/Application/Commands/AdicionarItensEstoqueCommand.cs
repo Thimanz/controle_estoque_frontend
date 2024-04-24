@@ -7,8 +7,8 @@ namespace GDE.Estoque.API.Application.Commands
     public class AdicionarItensEstoqueCommand : Command
     {
         public Guid LocalId { get; set; }
-        public List<ItemDTO> Items { get; set; }
-
+        public List<LocalItemDTO> LocalItens { get; set; }
+        
         public class AdicionarItensEstoqueValidation : AbstractValidator<AdicionarItensEstoqueCommand>
         {
             public AdicionarItensEstoqueValidation()
@@ -17,7 +17,7 @@ namespace GDE.Estoque.API.Application.Commands
                     .NotEqual(Guid.Empty)
                     .WithMessage("Local não informado");
 
-                RuleFor(c => c.Items.Any())
+                RuleFor(c => c.LocalItens.Any())
                     .Equal(true)
                     .WithMessage("Nenhum item informado");
             }
