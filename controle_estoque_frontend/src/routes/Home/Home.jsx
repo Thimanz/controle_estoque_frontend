@@ -9,8 +9,9 @@ import Stock from "../../components/Svgs/Stock";
 import Truck from "../../components/Svgs/Truck";
 import Access from "../../components/Svgs/Access";
 import { AnimatePresence } from "framer-motion";
+import PedidosTab from "../../components/Home/PedidosTab";
 
-const Home = () => {
+const Home = ({ tab }) => {
     const options = [
         {
             description: "Produtos",
@@ -21,14 +22,20 @@ const Home = () => {
             description: "Estoques",
             image: <Stock height="25px" width="25px" />,
         },
-        { description: "Pedidos", image: <Truck height="25px" width="25px" /> },
+        {
+            description: "Pedidos",
+            image: <Truck height="25px" width="25px" />,
+            tab: <PedidosTab />,
+        },
         {
             description: "Acessos",
             image: <Access height="25px" width="25px" />,
         },
     ];
 
-    const [selectedTab, setSelectedTab] = useState(options[0]);
+    const [selectedTab, setSelectedTab] = useState(
+        tab ? options.find((e) => e.description === tab) : options[0]
+    );
 
     return (
         <>

@@ -95,6 +95,8 @@ const NewProductForm = () => {
                         <div className="input-group">
                             <input
                                 type="number"
+                                pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                step="any"
                                 onBlur={(e) => {
                                     setCostPrice(e.target.value);
                                 }}
@@ -106,6 +108,8 @@ const NewProductForm = () => {
                         <div className="input-group">
                             <input
                                 type="number"
+                                pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                step="any"
                                 onBlur={(e) => {
                                     setMinInStock(e.target.value);
                                 }}
@@ -119,6 +123,8 @@ const NewProductForm = () => {
                         <div className="input-group">
                             <input
                                 type="number"
+                                pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                step="any"
                                 onBlur={(e) => {
                                     setWidth(e.target.value);
                                 }}
@@ -184,6 +190,8 @@ const NewProductForm = () => {
                         <div className="input-group">
                             <input
                                 type="number"
+                                pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                step="any"
                                 onBlur={(e) => {
                                     setSellingPrice(e.target.value);
                                 }}
@@ -195,6 +203,8 @@ const NewProductForm = () => {
                         <div className="input-group">
                             <input
                                 type="number"
+                                pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                step="any"
                                 onBlur={(e) => {
                                     setWeight(e.target.value);
                                 }}
@@ -206,6 +216,8 @@ const NewProductForm = () => {
                         <div className="input-group">
                             <input
                                 type="number"
+                                pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                step="any"
                                 onBlur={(e) => {
                                     setLength(e.target.value);
                                 }}
@@ -219,6 +231,8 @@ const NewProductForm = () => {
                         <div className="input-group">
                             <input
                                 type="number"
+                                pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                step="any"
                                 onBlur={(e) => {
                                     setHeight(e.target.value);
                                 }}

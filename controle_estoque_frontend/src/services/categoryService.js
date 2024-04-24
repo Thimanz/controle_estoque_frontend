@@ -1,9 +1,11 @@
 import { makeRequest } from "./requestManager";
 
+const BASE_URL = "http://localhost:5101";
+
 export const getCategoryList = (navigateHook) => {
     return makeRequest(
         "get",
-        `http://localhost:5101/api/produto/categorias`,
+        `${BASE_URL}/api/produto/categorias`,
         navigateHook
     );
 };

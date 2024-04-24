@@ -89,6 +89,7 @@ const ProductPage = () => {
         if (response.status === 200) {
             setIsSuccess(true);
             setrequestMsgs(["Produto Atualizado com Sucesso"]);
+            setTimeout(() => navigate("/inicio"), 1000);
         } else {
             setIsSuccess(false);
             setrequestMsgs(response.erros.mensagens);
@@ -152,6 +153,8 @@ const ProductPage = () => {
                             <div className="product-input-group">
                                 <input
                                     type="number"
+                                    pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                    step="any"
                                     onChange={(e) => {
                                         setCostPrice(e.target.value);
                                     }}
@@ -166,6 +169,8 @@ const ProductPage = () => {
                             <div className="product-input-group">
                                 <input
                                     type="number"
+                                    pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                    step="any"
                                     onChange={(e) => {
                                         setMinInStock(e.target.value);
                                     }}
@@ -180,6 +185,8 @@ const ProductPage = () => {
                             <div className="product-input-group">
                                 <input
                                     type="number"
+                                    pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                    step="any"
                                     onChange={(e) => {
                                         setWidth(e.target.value);
                                     }}
@@ -246,6 +253,8 @@ const ProductPage = () => {
                             <div className="product-input-group">
                                 <input
                                     type="number"
+                                    pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                    step="any"
                                     onChange={(e) => {
                                         setSellingPrice(e.target.value);
                                     }}
@@ -260,6 +269,8 @@ const ProductPage = () => {
                             <div className="product-input-group">
                                 <input
                                     type="number"
+                                    pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                    step="any"
                                     onChange={(e) => {
                                         setWeight(e.target.value);
                                     }}
@@ -272,6 +283,8 @@ const ProductPage = () => {
                             <div className="product-input-group">
                                 <input
                                     type="number"
+                                    pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                    step="any"
                                     onChange={(e) => {
                                         setLength(e.target.value);
                                     }}
@@ -286,6 +299,8 @@ const ProductPage = () => {
                             <div className="product-input-group">
                                 <input
                                     type="number"
+                                    pattern="[-+]?[0-9]*[.,]?[0-9]+"
+                                    step="any"
                                     onChange={(e) => {
                                         setHeight(e.target.value);
                                     }}
