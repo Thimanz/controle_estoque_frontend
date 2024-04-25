@@ -26,7 +26,7 @@ namespace GDE.Estoque.Domain
         // EF Rel.
         public Local Local { get; set; }
 
-        internal void AssociarLocal(Guid localId)
+        internal void AssociarLocal(Guid localId) 
         {
             LocalId = localId;
         }

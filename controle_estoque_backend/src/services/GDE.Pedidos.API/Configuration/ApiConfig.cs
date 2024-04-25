@@ -1,5 +1,6 @@
 ﻿using GDE.Core.Identidade;
-//using GDE.Pedidos.API.Data;
+using GDE.Pedidos.API.Data;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace GDE.Pedidos.API.Configuration
@@ -8,8 +9,8 @@ namespace GDE.Pedidos.API.Configuration
     {
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddDbContext<PedidosContext>(options =>
-            //    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<PedidosContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
 

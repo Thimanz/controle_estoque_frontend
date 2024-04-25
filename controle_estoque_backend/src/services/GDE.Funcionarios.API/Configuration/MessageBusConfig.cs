@@ -10,7 +10,6 @@ namespace GDE.Funcionarios.API.Configuration
         {
             services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"))
                 .AddHostedService<RegistroFuncionarioIntegrationHandler>();
-            ;
         }
     }
 }

@@ -1,23 +1,24 @@
 ﻿using FluentValidation.Results;
+using GDE.Core.DomainObjects;
 
 namespace GDE.Pedidos.API.Models
 {
-    public abstract class Pedido
+    public abstract class Pedido : Entity
     {
-        public Pedido(Guid idFuncionarioResponsavel, List<PedidoItem> pedidoItens)
+        protected Pedido(Guid idFuncionarioResponsavel, List<PedidoItem> pedidoItens)
         {
-            Id = Guid.NewGuid();
             IdFuncionarioResponsavel = idFuncionarioResponsavel;
             PedidoItens = pedidoItens;
 
             CalcularPrecoTotal();
         }
 
-        public Guid Id { get; private set; }
+        protected Pedido() { }
+        
         public Guid IdFuncionarioResponsavel { get; private set; }
         public decimal PrecoTotal { get; private set; }
         public List<PedidoItem> PedidoItens { get; private set; } = new List<PedidoItem>();
-        
+
         public ValidationResult ValidationResult { get; private set; }
 
         private void CalcularPrecoTotal()

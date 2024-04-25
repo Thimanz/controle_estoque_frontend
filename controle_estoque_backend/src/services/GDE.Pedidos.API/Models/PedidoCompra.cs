@@ -1,14 +1,18 @@
-﻿namespace GDE.Pedidos.API.Models
+﻿using FluentValidation.Results;
+using GDE.Core.DomainObjects;
+
+namespace GDE.Pedidos.API.Models
 {
-    public class PedidoCompra : Pedido
+    public class PedidoCompra : Pedido, IAggregateRoot
     {
-        public PedidoCompra(Guid idFuncinarioResposavel, string nomeFornecedor, List<PedidoItem> pedidoItens)
-            : base(idFuncinarioResposavel, pedidoItens)
+        public PedidoCompra(string? nomeFornecedor, Guid idFuncionarioResponsavel, List<PedidoItem> pedidoItens)
+            : base(idFuncionarioResponsavel, pedidoItens)
         {
             NomeFornecedor = nomeFornecedor;
         }
+        public PedidoCompra() : base() { }
 
         public string? NomeFornecedor { get; private set; }
-  
+
     }
 }
