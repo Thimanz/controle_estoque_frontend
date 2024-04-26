@@ -4,8 +4,9 @@ namespace GDE.Estoque.Domain
 {
     public class LocalItem : Entity
     {
-        public LocalItem(Guid produtoId, string? nome, Dimensoes dimensoes, decimal preco, int quantidade)
+        public LocalItem(Guid localId, Guid produtoId, string? nome, Dimensoes dimensoes, decimal preco, int quantidade)
         {
+            LocalId = localId;
             ProdutoId = produtoId;
             Nome = nome;
             Dimensoes = dimensoes;

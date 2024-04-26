@@ -27,7 +27,7 @@ namespace GDE.Estoque.API.Application.Commands
 
                 if(local is null)
                 {
-                    AdicionarErro($"Local {local.Nome} não encontrado");
+                    AdicionarErro($"Local {localId} não encontrado");
                     return message.ValidationResult;
                 }
 
@@ -51,6 +51,7 @@ namespace GDE.Estoque.API.Application.Commands
         {
             return message.LocalItens
                 .ConvertAll(i => new LocalItem(
+                    i.LocalId,
                     i.ProdutoId,
                     i.Nome,
                     new Dimensoes(i.Comprimento, i.Largura, i.Altura),
