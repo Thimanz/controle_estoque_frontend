@@ -1,25 +1,16 @@
+using GDE.Core.Identidade;
+using GDE.Pedidos.API.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddDependencyInjectionConfiguration();
+builder.Services.AddApiConfiguration(builder.Configuration);
+builder.Services.AddJwtConfiguration(builder.Configuration);
+builder.Services.AddSwaggerConfiguration();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(Program)));
+builder.Services.AddMessageBusConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
+app.UseApiConfiguration(app.Environment);
 app.Run();

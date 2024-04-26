@@ -19,20 +19,29 @@ namespace GDE.Estoque.API.Application.Commands
         {
             if (!message.IsValid()) return message.ValidationResult;
 
-            var local = await _localRepository.ObterPorId(message.LocalId);
-
             var itens = MapearItens(message);
 
-            foreach (var item in itens)
+            foreach (var localId in itens.Select(i => i.LocalId).Distinct())
             {
-                if (!local.VerificarEspacoLivre(item))
+                var local = await _localRepository.ObterPorId(localId);
+
+                if(local is null)
                 {
-                    AdicionarErro("Não há espaço suficiente no local");
+                    AdicionarErro($"Local {localId} não encontrado");
                     return message.ValidationResult;
                 }
 
-                local.AdicionarItem(item);
-                _localRepository.AtualizarLocalItens(item);
+                foreach (var item in itens.Where(i => i.LocalId == local.Id))
+                {
+                    if (!local.VerificarEspacoLivre(item))
+                    {
+                        AdicionarErro($"Não há espaço suficiente no local {local.Nome} para adicionar o item {item.Nome}");
+                        return message.ValidationResult;
+                    }
+
+                    local.AdicionarItem(item);
+                    _localRepository.AdicionarItemLocal(item);
+                }
             }
 
             return await PersistirDados(_localRepository.UnitOfWork);
@@ -42,6 +51,7 @@ namespace GDE.Estoque.API.Application.Commands
         {
             return message.LocalItens
                 .ConvertAll(i => new LocalItem(
+                    i.LocalId,
                     i.ProdutoId,
                     i.Nome,
                     new Dimensoes(i.Comprimento, i.Largura, i.Altura),

@@ -15,7 +15,10 @@ namespace GDE.Estoque.Domain
         }
 
         //EF ctor
-        public Local() { }
+        public Local() 
+        {
+            _localItens = new List<LocalItem>();
+        }
 
         public string? Nome { get; private set; }
         public Dimensoes Dimensoes { get; private set; }
@@ -58,6 +61,8 @@ namespace GDE.Estoque.Domain
 
         public bool VerificarEspacoLivre(LocalItem item)
         {
+            CalcularEspacoLivre();
+
             return (EspacoLivre.Altura - item.Dimensoes.Altura >= 0
                 && EspacoLivre.Largura - item.Dimensoes.Largura >= 0
                 && EspacoLivre.Comprimento - item.Dimensoes.Comprimento >= 0);

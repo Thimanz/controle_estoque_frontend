@@ -24,7 +24,7 @@ namespace GDE.Estoque.Infra.Data.Repository
             return _context.Locais.Include(i => i.LocalItens).Where(l => l.LocalItens.Any(i => i.ProdutoId == produtoId));
         }
 
-        public void AtualizarLocalItens(LocalItem localItem)
+        public void AdicionarItemLocal(LocalItem localItem)
         {
             _context.LocalItens.Add(localItem);
         }

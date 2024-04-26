@@ -10,8 +10,8 @@ namespace GDE.Pedidos.API.Configuration
             {
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "Gerenciador de Estoque - Funcionario API",
-                    Description = "Esta API é responsável por fornecer o controle sobre o cadastro de funcionários.",
+                    Title = "Gerenciador de Estoque - Pedido API",
+                    Description = "Esta API é responsável por fornecer o controle sobre o fluxo de pedidos.",
                     Contact = new OpenApiContact() { Name = "Lucas Manzi", Email = "lucas.manzi.5@gmail.com" },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
                 });
