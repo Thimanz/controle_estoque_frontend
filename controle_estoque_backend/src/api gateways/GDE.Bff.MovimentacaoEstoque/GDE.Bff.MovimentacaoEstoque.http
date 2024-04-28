@@ -1,0 +1,6 @@
+@GDE.Bff.MovimentacaoEstoque_HostAddress = http://localhost:5152
+
+GET {{GDE.Bff.MovimentacaoEstoque_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

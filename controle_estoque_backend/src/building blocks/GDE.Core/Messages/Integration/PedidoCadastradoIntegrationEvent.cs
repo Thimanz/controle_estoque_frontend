@@ -11,10 +11,15 @@
 
         public class PedidoItemIntegrationEvent
         {
-            public PedidoItemIntegrationEvent(Guid produtoId, Guid localId, int quantidade, decimal precoUnitario, Guid? pedidoCompraId, Guid? pedidoVendaId)
+            public PedidoItemIntegrationEvent(Guid produtoId, Guid localId, string nomeProduto, decimal comprimento, decimal largura, decimal altura, 
+                int quantidade, decimal precoUnitario, Guid? pedidoCompraId, Guid? pedidoVendaId)
             {
                 ProdutoId = produtoId;
                 LocalId = localId;
+                NomeProduto = nomeProduto;
+                Comprimento = comprimento;
+                Largura = largura;
+                Altura = altura;
                 Quantidade = quantidade;
                 PrecoUnitario = precoUnitario;
                 PedidoCompraId = pedidoCompraId;
@@ -23,6 +28,10 @@
 
             public Guid ProdutoId { get; private set; }
             public Guid LocalId { get; private set; }
+            public string NomeProduto { get; private set; }
+            public decimal Comprimento { get; private set; }
+            public decimal Largura { get; private set; }
+            public decimal Altura { get; private set; }
             public int Quantidade { get; private set; }
             public decimal PrecoUnitario { get; private set; }
             public Guid? PedidoCompraId { get; private set; }

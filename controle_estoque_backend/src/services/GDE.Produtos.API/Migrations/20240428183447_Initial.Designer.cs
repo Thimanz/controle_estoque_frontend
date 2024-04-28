@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GDE.Produtos.API.Migrations
 {
     [DbContext(typeof(ProdutoContext))]
-    [Migration("20240403213700_Initial")]
+    [Migration("20240428183447_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace GDE.Produtos.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -65,7 +65,6 @@ namespace GDE.Produtos.API.Migrations
                         .HasColumnType("varchar(500)");
 
                     b.Property<string>("Imagem")
-                        .IsRequired()
                         .HasColumnType("varchar(250)");
 
                     b.Property<int>("NivelMinimoEstoque")
@@ -80,6 +79,9 @@ namespace GDE.Produtos.API.Migrations
 
                     b.Property<decimal>("PrecoVenda")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("QuantidadeEstoque")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -112,10 +114,6 @@ namespace GDE.Produtos.API.Migrations
                             b1.Property<decimal>("Largura")
                                 .HasColumnType("decimal(18,2)")
                                 .HasColumnName("Largura");
-
-                            b1.Property<decimal>("Peso")
-                                .HasColumnType("decimal(18,2)")
-                                .HasColumnName("Peso");
 
                             b1.HasKey("ProdutoId");
 

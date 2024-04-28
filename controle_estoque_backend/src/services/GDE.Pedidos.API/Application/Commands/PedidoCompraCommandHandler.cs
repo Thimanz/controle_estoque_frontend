@@ -28,17 +28,24 @@ namespace GDE.Pedidos.API.Application.Commands
 
             _pedidoCompraRepository.AdicionarPedidoCompra(pedidoCompra);
 
-            await AdicionarItensEstoque(pedidoCompra);
+            var response = await AdicionarItensEstoque(message);
+
+            if(!response.ValidationResult.IsValid)
+                return response.ValidationResult;
 
             return await PersistirDados(_pedidoCompraRepository.UnitOfWork);
         }
 
-        private async Task<ResponseMessage> AdicionarItensEstoque(PedidoCompra pedidoCompra)
+        private async Task<ResponseMessage> AdicionarItensEstoque(AdicionarPedidoCompraCommand pedidoCompra)
         {
             var pedidoItemCadastrado = pedidoCompra.PedidoItens.ConvertAll(i => new PedidoItemIntegrationEvent
             (
                 i.ProdutoId,
                 i.LocalId,
+                i.NomeProduto,
+                i.Comprimento,
+                i.Largura,
+                i.Altura,
                 i.Quantidade,
                 i.PrecoUnitario,
                 i.PedidoCompraId,

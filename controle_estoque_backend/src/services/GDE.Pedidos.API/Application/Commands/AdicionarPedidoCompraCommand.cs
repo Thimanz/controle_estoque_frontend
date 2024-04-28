@@ -6,9 +6,16 @@ namespace GDE.Pedidos.API.Application.Commands
 {
     public class AdicionarPedidoCompraCommand : Command
     {
+        public AdicionarPedidoCompraCommand(Guid idFuncionarioResponsavel, string? nomeFornecedor, List<PedidoItemDTO> pedidoItens)
+        {
+            IdFuncionarioResponsavel = idFuncionarioResponsavel;
+            NomeFornecedor = nomeFornecedor;
+            PedidoItens = pedidoItens;
+        }
+
         public Guid IdFuncionarioResponsavel { get; set; }
-        public string? NomeFornecedor { get; set; }
-        public List<PedidoItemDTO> PedidoItens { get; set; }
+        public string? NomeFornecedor { get; private set; }
+        public List<PedidoItemDTO> PedidoItens { get; private set; }
 
         public override bool IsValid()
         {

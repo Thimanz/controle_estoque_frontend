@@ -36,13 +36,13 @@ namespace GDE.Produtos.API.Migrations
                     CodigoBarras = table.Column<string>(type: "varchar(100)", nullable: true),
                     PrecoCusto = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PrecoVenda = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Imagem = table.Column<string>(type: "varchar(250)", nullable: false),
+                    Imagem = table.Column<string>(type: "varchar(250)", nullable: true),
+                    QuantidadeEstoque = table.Column<int>(type: "int", nullable: false),
                     NivelMinimoEstoque = table.Column<int>(type: "int", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Comprimento = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Largura = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Altura = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Peso = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    Altura = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -53,9 +53,9 @@ namespace GDE.Estoque.API.Application.Commands
                 .ConvertAll(i => new LocalItem(
                     i.LocalId,
                     i.ProdutoId,
-                    i.Nome,
+                    i.NomeProduto,
                     new Dimensoes(i.Comprimento, i.Largura, i.Altura),
-                    i.Preco,
+                    i.PrecoUnitario,
                     i.Quantidade));
         }
     }
