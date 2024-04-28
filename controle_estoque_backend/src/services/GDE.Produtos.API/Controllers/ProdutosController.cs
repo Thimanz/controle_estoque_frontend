@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GDE.Produtos.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProdutosController : MainController
     {
         private readonly ProdutoContext _context;

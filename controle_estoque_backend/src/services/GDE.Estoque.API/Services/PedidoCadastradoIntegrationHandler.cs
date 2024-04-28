@@ -42,6 +42,10 @@ namespace GDE.Estoque.API.Services
                 message.Itens.ConvertAll(m => new LocalItemDTO(
                 m.LocalId,
                 m.ProdutoId,
+                m.NomeProduto,
+                m.Comprimento,
+                m.Largura,
+                m.Altura,
                 m.PrecoUnitario,
                 m.Quantidade
             )));
