@@ -1,4 +1,4 @@
-﻿using GDE.Produtos.API.Models;
+﻿using GDE.Produtos.API.Data;
 
 namespace GDE.Produtos.API.Configuration
 {
@@ -6,7 +6,8 @@ namespace GDE.Produtos.API.Configuration
     {
         public static IServiceCollection AddDependencyInjectionConfiguration(this IServiceCollection services)
         {
-            
+            services.AddScoped<ProdutoContext>();
+
             return services;
         }
     }

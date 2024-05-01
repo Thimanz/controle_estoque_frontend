@@ -101,6 +101,9 @@ namespace GDE.Identidade.API.Controllers
             var identityClaims = await ObterClaimsUsuario(claims, user!);
             var encodedToken = CodificarToken(identityClaims);
 
+            identityClaims.AddClaim(new Claim("JWT", encodedToken));
+            encodedToken = CodificarToken(identityClaims);
+
             return ObterRespostaToken(encodedToken, user!, claims);
         }
 

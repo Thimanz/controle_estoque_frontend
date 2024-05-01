@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using GDE.Core.Messages;
+using GDE.Estoque.API.Application.Events;
 using GDE.Estoque.Domain;
 using MediatR;
 
@@ -25,7 +26,7 @@ namespace GDE.Estoque.API.Application.Commands
             {
                 var local = await _localRepository.ObterPorId(localId);
 
-                if(local is null)
+                if (local is null)
                 {
                     AdicionarErro($"Local {localId} não encontrado");
                     return message.ValidationResult;
@@ -41,6 +42,8 @@ namespace GDE.Estoque.API.Application.Commands
 
                     local.AdicionarItem(item);
                     _localRepository.AdicionarItemLocal(item);
+
+                    item.AdicionarEvento(new ProdutoMovimentadoEvent(item.ProdutoId, item.Quantidade));
                 }
             }
 

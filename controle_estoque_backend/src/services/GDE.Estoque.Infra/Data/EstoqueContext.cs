@@ -1,16 +1,21 @@
 ﻿using FluentValidation.Results;
 using GDE.Core.Data;
+using GDE.Core.DomainObjects;
+using GDE.Core.Mediator;
 using GDE.Core.Messages;
 using GDE.Estoque.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace GDE.Estoque.Infra.Data
 {
-    public class EstoqueContext : DbContext, IUnitOfWork
+    public sealed class EstoqueContext : DbContext, IUnitOfWork
     {
-        public EstoqueContext(DbContextOptions<EstoqueContext> options)
+        private readonly IMediatorHandler _mediatorHandler;
+
+        public EstoqueContext(DbContextOptions<EstoqueContext> options, IMediatorHandler mediatorHandler)
             : base(options)
         {
+            _mediatorHandler = mediatorHandler;
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
@@ -33,7 +38,39 @@ namespace GDE.Estoque.Infra.Data
 
         public async Task<bool> Commit()
         {
-            return await base.SaveChangesAsync() > 0;
+            try
+            {
+                var sucesso = await base.SaveChangesAsync() > 0;
+
+                if (sucesso) await _mediatorHandler.PublicarEventos(this);
+
+                return sucesso;
+            }
+            catch (Exception ex) { return false; }
+        }
+    }
+
+    public static class MediatorExtension
+    {
+        public static async Task PublicarEventos<T>(this IMediatorHandler mediator, T ctx) where T : DbContext
+        {
+            var domainEntities = ctx.ChangeTracker
+                .Entries<Entity>()
+                .Where(x => x.Entity.Notificacoes != null && x.Entity.Notificacoes.Any());
+
+            var domainEvents = domainEntities
+                .SelectMany(x => x.Entity.Notificacoes)
+                .ToList();
+
+            domainEntities.ToList()
+                .ForEach(entity => entity.Entity.LimparEventos());
+
+            var tasks = domainEvents
+                .Select(async (domainEvent) => {
+                    await mediator.PublicarEvento(domainEvent);
+                });
+
+            await Task.WhenAll(tasks);
         }
     }
 }

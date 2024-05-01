@@ -47,8 +47,12 @@ namespace GDE.Produtos.API.Entities
 
         public void RetirarEstoque(int quantidade)
         {
-            if (QuantidadeEstoque >= quantidade)
-                QuantidadeEstoque -= quantidade;
+            QuantidadeEstoque -= quantidade;
+        }
+
+        public void AdicionarEstoque(int quantidade)
+        {
+            QuantidadeEstoque += quantidade;
         }
 
         public bool EstaDisponivel(int quantidade)
