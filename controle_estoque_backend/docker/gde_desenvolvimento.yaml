@@ -67,3 +67,50 @@ services:
     depends_on:
       - sql-server
       - rabbitmq
+
+  api-estoque:
+    image: lucasmanzi/gde-api-estoque:lastest
+    container_name: gde-api-estoque
+    build:
+      context: ../src
+      dockerfile: ./services/GDE.Estoque.API/Dockerfile
+    ports:
+      - 5501:5501
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:5501
+    depends_on:
+      - sql-server
+      - rabbitmq
+
+  api-pedidos:
+    image: lucasmanzi/gde-api-pedidos:lastest
+    container_name: gde-api-pedidos
+    build:
+      context: ../src
+      dockerfile: ./services/GDE.Pedidos.API/Dockerfile
+    ports:
+      - 5601:5601
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:5601
+    depends_on:
+      - sql-server
+      - rabbitmq
+
+  bff-movimentacao-estoque:
+    image: lucasmanzi/gde-bff-movimentacao-estoque:lastest
+    container_name: gde-bff-movimentacao-estoque
+    build:
+      context: ../src
+      dockerfile: ./api gateways/GDE.Bff.MovimentacaoEstoque/Dockerfile
+    ports:
+      - 5701:5701
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:5701
+    depends_on:
+      - sql-server
+      - rabbitmq
+
+      
