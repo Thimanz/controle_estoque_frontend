@@ -17,6 +17,7 @@ namespace GDE.Pedidos.API.Data
 
         public DbSet<PedidoVenda> PedidosVenda { get; set; }
         public DbSet<PedidoCompra> PedidosCompra { get; set; }
+        public DbSet<PedidoTransferencia> PedidosTransferencia { get; set; }
         public DbSet<PedidoItem> PedidoItens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

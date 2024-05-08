@@ -18,7 +18,8 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
         {
             var response = await _httpClient.GetAsync($"api/produto/{Id}");
 
-            TratarErrosResponse(response);
+            if (!TratarErrosResponse(response))
+                return null;
 
             return await DeserializarObjetoResponse<ProdutoDTO>(response);
         }

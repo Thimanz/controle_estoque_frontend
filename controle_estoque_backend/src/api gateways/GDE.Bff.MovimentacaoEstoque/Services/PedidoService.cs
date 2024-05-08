@@ -15,9 +15,9 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
             _httpClient.BaseAddress = new Uri(settings.Value.PedidoUrl);
         }
 
-        public async Task<ResponseResult> AdicionarPedidoCompra(PedidoCompraDTO pedidoDTO)
+        public async Task<ResponseResult> AdicionarPedidoCompra(PedidoCompraDTO pedidoCompraDTO)
         {
-            var pedidoContent = ObterConteudo(pedidoDTO);
+            var pedidoContent = ObterConteudo(pedidoCompraDTO);
             try
             {
                 var response = await _httpClient.PostAsync("api/pedido/compra", pedidoContent);
@@ -25,12 +25,42 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
 
-            
             return RetornoOk();
         }
+        public async Task<ResponseResult> AdicionarPedidoVenda(PedidoVendaDTO pedidoVendaDTO)
+        {
+            var pedidoContent = ObterConteudo(pedidoVendaDTO);
+            try
+            {
+                var response = await _httpClient.PostAsync("api/pedido/venda", pedidoContent);
+                if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return RetornoOk();
+        }
+
+        public async Task<ResponseResult> AdicionarPedidoTransferencia(PedidoTransferenciaDTO pedidoTransferenciaDTO)
+        {
+            var pedidoContent = ObterConteudo(pedidoTransferenciaDTO);
+            try
+            {
+                var response = await _httpClient.PostAsync("api/pedido/transferencia", pedidoContent);
+                if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return RetornoOk();
+        }
+
     }
 }

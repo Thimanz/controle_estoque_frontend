@@ -19,7 +19,7 @@ namespace GDE.Estoque.API.Configuration
             services.AddScoped<IAspNetUser, AspNetUser>();
 
 
-            services.AddScoped<IRequestHandler<AdicionarItensEstoqueCommand, ValidationResult>, EstoqueCommandHandler>();
+            services.AddScoped<IRequestHandler<MovimentarItensEstoqueCommand, ValidationResult>, EstoqueCommandHandler>();
             services.AddScoped<INotificationHandler<ProdutoMovimentadoEvent>, ProdutoEventHandler>();
 
             return services;

@@ -7,37 +7,40 @@ using MediatR;
 
 namespace GDE.Pedidos.API.Application.Commands
 {
-    public class PedidoCompraCommandHandler : CommandHandler,
-        IRequestHandler<AdicionarPedidoCompraCommand, ValidationResult>
+    public class PedidoVendaCommandHandler : CommandHandler,
+        IRequestHandler<AdicionarPedidoVendaCommand, ValidationResult>
     {
-        private readonly IPedidoCompraRepository _pedidoCompraRepository;
+        private readonly IPedidoVendaRepository _pedidoVendaRepository;
         private readonly IMessageBus _bus;
 
-        public PedidoCompraCommandHandler(IPedidoCompraRepository pedidoCompraRepository, IMessageBus messageBus)
+        public PedidoVendaCommandHandler(IPedidoVendaRepository pedidoVendaRepository, IMessageBus bus)
         {
-            _pedidoCompraRepository = pedidoCompraRepository;
-            _bus = messageBus;
+            _pedidoVendaRepository = pedidoVendaRepository;
+            _bus = bus;
         }
 
-        public async Task<ValidationResult> Handle(AdicionarPedidoCompraCommand message, CancellationToken cancellationToken)
+        public async Task<ValidationResult> Handle(AdicionarPedidoVendaCommand message, CancellationToken cancellationToken)
         {
             if (!message.IsValid()) return message.ValidationResult;
 
-            var pedidoCompra = MapearItens(message);
+            var pedidoVenda = MapearItens(message);
 
-            _pedidoCompraRepository.Adicionar(pedidoCompra);
+            _pedidoVendaRepository.Adicionar(pedidoVenda);
 
-            var response = await AdicionarItensEstoque(message);
+            if (!message.ValidationResult.IsValid)
+                return message.ValidationResult;
+
+            var response = await RemoverItensEstoque(message);
 
             if(!response.ValidationResult.IsValid)
                 return response.ValidationResult;
 
-            return await PersistirDados(_pedidoCompraRepository.UnitOfWork);
+            return await PersistirDados(_pedidoVendaRepository.UnitOfWork);
         }
 
-        private async Task<ResponseMessage> AdicionarItensEstoque(AdicionarPedidoCompraCommand pedidoCompra)
+        private async Task<ResponseMessage> RemoverItensEstoque(AdicionarPedidoVendaCommand pedidoVenda)
         {
-            var pedidoItemCadastrado = pedidoCompra.PedidoItens.ConvertAll(i => new PedidoItemIntegrationEvent
+            var pedidoItemCadastrado = pedidoVenda.PedidoItens.ConvertAll(i => new PedidoItemIntegrationEvent
             (
                 i.ProdutoId,
                 i.LocalId,
@@ -52,7 +55,8 @@ namespace GDE.Pedidos.API.Application.Commands
                 i.PedidoTransferenciaId)
             );
 
-            var pedidoCadastrado = new PedidoCadastradoIntegrationEvent(TipoMovimentacao.Entrada, pedidoItemCadastrado);
+
+            var pedidoCadastrado = new PedidoCadastradoIntegrationEvent(TipoMovimentacao.Saida, pedidoItemCadastrado);
 
             try
             {
@@ -62,10 +66,9 @@ namespace GDE.Pedidos.API.Application.Commands
             {
                 throw;
             }
-
         }
 
-        private PedidoCompra MapearItens(AdicionarPedidoCompraCommand message)
+        private PedidoVenda MapearItens(AdicionarPedidoVendaCommand message)
         {
             var itens = message.PedidoItens
                 .ConvertAll(i => new PedidoItem(
@@ -73,11 +76,11 @@ namespace GDE.Pedidos.API.Application.Commands
                     i.LocalId,
                     i.Quantidade,
                     i.PrecoUnitario,
-                    i.PedidoCompraId,
                     null,
+                    i.PedidoVendaId,
                     null));
 
-            return new PedidoCompra(message.NomeFornecedor, message.IdFuncionarioResponsavel, itens); 
+            return new PedidoVenda(message.NomeCliente, message.IdFuncionarioResponsavel, itens);
         }
     }
 }

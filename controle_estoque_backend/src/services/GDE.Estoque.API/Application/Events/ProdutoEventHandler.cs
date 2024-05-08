@@ -15,7 +15,7 @@ namespace GDE.Estoque.API.Application.Events
 
         public async Task Handle(ProdutoMovimentadoEvent message, CancellationToken cancellationToken)
         {
-            await _bus.PublishAsync(new ProdutoMovimentadoIntegrationEvent(message.ProdutoId, message.Quantidade));
+            await _bus.PublishAsync(new ProdutoMovimentadoIntegrationEvent(message.ProdutoId, message.Quantidade, (TipoMovimentacao)message.Tipo.GetHashCode()));
         }
     }
 }

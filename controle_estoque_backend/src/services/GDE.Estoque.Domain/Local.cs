@@ -15,7 +15,7 @@ namespace GDE.Estoque.Domain
         }
 
         //EF ctor
-        public Local() 
+        public Local()
         {
             _localItens = new List<LocalItem>();
         }
@@ -31,7 +31,7 @@ namespace GDE.Estoque.Domain
 
         public void AdicionarItem(LocalItem item)
         {
-            if(!VerificarEspacoLivre(item))
+            if (!VerificarEspacoLivre(item))
                 throw new DomainException("O local não possui espaço suficiente");
 
             item.AssociarLocal(Id);
@@ -45,7 +45,41 @@ namespace GDE.Estoque.Domain
             if (!ItemExistente(item))
                 throw new DomainException("Item não encontrado no local");
 
-            _localItens.Remove(ObterPorProdutoId(item.ProdutoId));
+            //var quantidadeAtual = ObterQuantidadePorProduto(item.ProdutoId);
+
+            //if (item.Quantidade > quantidadeAtual)
+            //    throw new DomainException("A quantidade informada é maior que a existente no local");
+
+            _localItens.Remove(item);
+
+
+            //var quantidadeARemover = item.Quantidade;
+
+            //var listaProduto = _localItens.Where(i => i.ProdutoId == item.ProdutoId);
+
+            //try
+            //{
+            //    foreach (var itemExistente in listaProduto.Reverse())
+            //    {
+            //        if (itemExistente.Quantidade > quantidadeARemover)
+            //        {
+            //            _localItens.Remove(itemExistente);
+            //            itemExistente.AdicionarQuantidadeItem(quantidadeARemover * -1);
+            //            _localItens.Add(itemExistente);
+
+            //            break;
+            //        }
+            //        else
+            //        {
+            //            _localItens.Remove(itemExistente);
+            //            quantidadeARemover -= itemExistente.Quantidade;
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+            //}
 
             CalcularEspacoLivre();
         }
@@ -68,14 +102,19 @@ namespace GDE.Estoque.Domain
                 && EspacoLivre.Comprimento - item.Dimensoes.Comprimento >= 0);
         }
 
-        public LocalItem ObterPorProdutoId(Guid produtoId)
+        public List<LocalItem> ObterPorProdutoId(Guid produtoId)
         {
-            return LocalItens.FirstOrDefault(p => p.ProdutoId == produtoId);
+            return LocalItens.Where(p => p.ProdutoId == produtoId).ToList();
+        }
+
+        public int ObterQuantidadePorProduto(Guid produtoId)
+        {
+            return LocalItens.Where(p => p.ProdutoId == produtoId).Sum(i => i.Quantidade);
         }
 
         public bool ItemExistente(LocalItem item)
         {
-            return LocalItens.Any(i => i.ProdutoId ==  item.ProdutoId);
+            return LocalItens.Any(i => i.ProdutoId == item.ProdutoId);
         }
     }
 }

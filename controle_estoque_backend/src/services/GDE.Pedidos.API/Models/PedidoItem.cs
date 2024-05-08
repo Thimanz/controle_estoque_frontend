@@ -4,7 +4,8 @@ namespace GDE.Pedidos.API.Models
 {
     public class PedidoItem : Entity
     {
-        public PedidoItem(Guid produtoId, Guid localId, int quantidade, decimal precoUnitario, Guid? pedidoCompraId, Guid? pedidoVendaId)
+        public PedidoItem(Guid produtoId, Guid localId, int quantidade, decimal precoUnitario, 
+            Guid? pedidoCompraId, Guid? pedidoVendaId, Guid? pedidoTransferenciaId)
         {
             ProdutoId = produtoId;
             LocalId = localId;
@@ -12,6 +13,7 @@ namespace GDE.Pedidos.API.Models
             PrecoUnitario = precoUnitario;
             PedidoCompraId = pedidoCompraId;
             PedidoVendaId = pedidoVendaId;
+            PedidoTransferenciaId = pedidoTransferenciaId;
         }
 
         public Guid ProdutoId { get; set; }
@@ -20,9 +22,11 @@ namespace GDE.Pedidos.API.Models
         public decimal PrecoUnitario { get; set; }
         public Guid? PedidoCompraId { get; set; }
         public Guid? PedidoVendaId { get; set; }
+        public Guid? PedidoTransferenciaId { get; set; }
 
         //EF Relations
         public PedidoCompra PedidoCompra { get; set; }
         public PedidoVenda PedidoVenda { get; set; }
+        public PedidoTransferencia PedidoTransferencia { get; set; }
     }
 }

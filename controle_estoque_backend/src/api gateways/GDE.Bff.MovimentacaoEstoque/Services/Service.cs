@@ -27,7 +27,8 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
 
         protected bool TratarErrosResponse(HttpResponseMessage response)
         {
-            if (response.StatusCode == HttpStatusCode.BadRequest) return false;
+            if (response.StatusCode == HttpStatusCode.BadRequest
+                || response.StatusCode == HttpStatusCode.NotFound) return false;
 
             response.EnsureSuccessStatusCode();
             return true;
