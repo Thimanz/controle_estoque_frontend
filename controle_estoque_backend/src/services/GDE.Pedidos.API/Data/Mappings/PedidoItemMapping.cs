@@ -15,6 +15,9 @@ namespace GDE.Pedidos.API.Data.Mappings
 
             builder.HasOne(c => c.PedidoVenda)
                 .WithMany(c => c.PedidoItens);
+
+            builder.HasOne(c => c.PedidoTransferencia)
+                .WithMany(c => c.PedidoItens);
         }
     }
 }

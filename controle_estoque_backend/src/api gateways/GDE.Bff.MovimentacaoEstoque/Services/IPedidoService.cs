@@ -5,6 +5,8 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
 {
     public interface IPedidoService
     {
-        Task<ResponseResult> AdicionarPedidoCompra(PedidoCompraDTO pedidoDTO);
+        Task<ResponseResult> AdicionarPedidoCompra(PedidoCompraDTO pedidoCompraDTO);
+        Task<ResponseResult> AdicionarPedidoVenda(PedidoVendaDTO pedidoVendaDTO);
+        Task<ResponseResult> AdicionarPedidoTransferencia(PedidoTransferenciaDTO pedidoTransferenciaDTO);
     }
 }

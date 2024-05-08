@@ -16,8 +16,14 @@ namespace GDE.Pedidos.API.Configuration
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<IAspNetUser, AspNetUser>();
+
             services.AddScoped<IRequestHandler<AdicionarPedidoCompraCommand, ValidationResult>, PedidoCompraCommandHandler>();
+            services.AddScoped<IRequestHandler<AdicionarPedidoVendaCommand, ValidationResult>, PedidoVendaCommandHandler>();
+            services.AddScoped<IRequestHandler<AdicionarPedidoTransferenciaCommand, ValidationResult>, PedidoTransferenciaCommandHandler>();
+
             services.AddScoped<IPedidoCompraRepository, PedidoCompraRepository>();
+            services.AddScoped<IPedidoVendaRepository, PedidoVendaRepository>();
+            services.AddScoped<IPedidoTransferenciaRepository, PedidoTransferenciaRepository>();
 
             return services;
         }

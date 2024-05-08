@@ -11,14 +11,15 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["./services/GDE.Identidade.API/GDE.Identidade.API.csproj", "services/GDE.Identidade.API/"]
 COPY ["./building blocks/GDE.Core/GDE.Core.csproj", "building blocks/GDE.Core/"]
-RUN dotnet restore "./services/GDE.Identidade.API/GDE.Identidade.API.csproj"
+COPY ["./building blocks/GDE.MessageBus/GDE.MessageBus.csproj", "building blocks/GDE.MessageBus/"]
+RUN dotnet restore "services/GDE.Identidade.API/GDE.Identidade.API.csproj"
 COPY . .
 WORKDIR "services/GDE.Identidade.API"
-RUN dotnet build "./GDE.Identidade.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "GDE.Identidade.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./GDE.Identidade.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "GDE.Identidade.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

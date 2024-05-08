@@ -6,6 +6,7 @@ namespace GDE.Pedidos.API.Application.DTO
     {
         public Guid? PedidoCompraId { get; set; }
         public Guid? PedidoVendaId { get; set; }
+        public Guid? PedidoTransferenciaId { get; set; }
         public Guid ProdutoId { get; set; }
         public Guid LocalId { get; set; }
         public string? NomeProduto { get; set; }

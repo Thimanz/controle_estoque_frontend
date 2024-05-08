@@ -4,6 +4,7 @@ namespace GDE.Produtos.API.Models.ViewModels
 {
     public class ProdutoViewModel
     {
+        public Guid Id { get; set; }
         public string? Nome { get; set; }
         public string? Descricao { get; set; }
         public string? CodigoBarras { get; set; }
@@ -20,6 +21,7 @@ namespace GDE.Produtos.API.Models.ViewModels
         public static ProdutoViewModel FromEntity(Produto produto) =>
             new ProdutoViewModel()
             {
+                Id = produto.Id,
                 Nome = produto.Nome,
                 Descricao = produto.Descricao,
                 CodigoBarras = produto.CodigoBarras,

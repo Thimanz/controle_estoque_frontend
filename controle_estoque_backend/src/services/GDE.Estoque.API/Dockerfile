@@ -9,15 +9,18 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["GDE.Estoque.API/GDE.Estoque.API.csproj", "GDE.Estoque.API/"]
-RUN dotnet restore "./GDE.Estoque.API/GDE.Estoque.API.csproj"
+COPY ["./services/GDE.Estoque.API/GDE.Estoque.API.csproj", "services/GDE.Estoque.API/"]
+COPY ["./building blocks/GDE.Core/GDE.Core.csproj", "building blocks/GDE.Core/"]
+COPY ["./building blocks/GDE.MessageBus/GDE.MessageBus.csproj", "building blocks/GDE.MessageBus/"]
+
+RUN dotnet restore "services/GDE.Estoque.API/GDE.Estoque.API.csproj"
 COPY . .
-WORKDIR "/src/GDE.Estoque.API"
-RUN dotnet build "./GDE.Estoque.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "services/GDE.Estoque.API"
+RUN dotnet build "GDE.Estoque.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./GDE.Estoque.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "GDE.Estoque.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

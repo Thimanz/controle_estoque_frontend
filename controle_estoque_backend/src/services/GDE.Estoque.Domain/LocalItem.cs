@@ -31,5 +31,10 @@ namespace GDE.Estoque.Domain
         {
             LocalId = localId;
         }
+
+        public void AdicionarQuantidadeItem(int quantidade)
+        {
+            Quantidade += quantidade;
+        }
     }
 }

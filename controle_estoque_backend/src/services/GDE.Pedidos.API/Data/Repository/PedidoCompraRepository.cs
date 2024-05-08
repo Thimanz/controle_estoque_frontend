@@ -14,19 +14,19 @@ namespace GDE.Pedidos.API.Data.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
-        public void AdicionarPedidoCompra(PedidoCompra pedidoCompra)
+        public void Adicionar(PedidoCompra pedidoCompra)
         {
             _context.PedidosCompra.Add(pedidoCompra);
         }
 
-        public void RemoverPedidoCompra(Guid id)
+        public void Remover(Guid id)
         {
             _context.Remove(id);
         }
 
         public void Dispose()
         {
-            _context.Dispose();
+            _context?.Dispose();
         }
     }
 }

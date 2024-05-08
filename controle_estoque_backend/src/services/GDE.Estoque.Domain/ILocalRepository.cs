@@ -7,6 +7,9 @@ namespace GDE.Estoque.Domain
     {
         Task<Local> ObterPorId(Guid id);
         Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId);
-        void AdicionarItemLocal(LocalItem localItem);
+        Task<LocalItem> ObterItemLocalPorProdutoId(Guid localId, Guid produtoId);
+        void AdicionarItem(LocalItem localItem);
+        void RemoverItem(LocalItem localItem);
+        void AtualizarItem(LocalItem localItem);
     }
 }

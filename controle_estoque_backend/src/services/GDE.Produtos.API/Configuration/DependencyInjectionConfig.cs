@@ -1,12 +1,9 @@
-﻿using GDE.Produtos.API.Models;
-
-namespace GDE.Produtos.API.Configuration
+﻿namespace GDE.Produtos.API.Configuration
 {
     public static class DependencyInjectionConfig
     {
         public static IServiceCollection AddDependencyInjectionConfiguration(this IServiceCollection services)
         {
-            
             return services;
         }
     }

@@ -54,6 +54,9 @@ namespace GDE.Pedidos.API.Migrations
                     b.Property<Guid?>("PedidoCompraId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("PedidoTransferenciaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("PedidoVendaId")
                         .HasColumnType("uniqueidentifier");
 
@@ -70,9 +73,31 @@ namespace GDE.Pedidos.API.Migrations
 
                     b.HasIndex("PedidoCompraId");
 
+                    b.HasIndex("PedidoTransferenciaId");
+
                     b.HasIndex("PedidoVendaId");
 
                     b.ToTable("PedidoItens");
+                });
+
+            modelBuilder.Entity("GDE.Pedidos.API.Models.PedidoTransferencia", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdFuncionarioResponsavel")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdLocalDestino")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("PrecoTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PedidosTransferencia");
                 });
 
             modelBuilder.Entity("GDE.Pedidos.API.Models.PedidoVenda", b =>
@@ -101,16 +126,27 @@ namespace GDE.Pedidos.API.Migrations
                         .WithMany("PedidoItens")
                         .HasForeignKey("PedidoCompraId");
 
+                    b.HasOne("GDE.Pedidos.API.Models.PedidoTransferencia", "PedidoTransferencia")
+                        .WithMany("PedidoItens")
+                        .HasForeignKey("PedidoTransferenciaId");
+
                     b.HasOne("GDE.Pedidos.API.Models.PedidoVenda", "PedidoVenda")
                         .WithMany("PedidoItens")
                         .HasForeignKey("PedidoVendaId");
 
                     b.Navigation("PedidoCompra");
 
+                    b.Navigation("PedidoTransferencia");
+
                     b.Navigation("PedidoVenda");
                 });
 
             modelBuilder.Entity("GDE.Pedidos.API.Models.PedidoCompra", b =>
+                {
+                    b.Navigation("PedidoItens");
+                });
+
+            modelBuilder.Entity("GDE.Pedidos.API.Models.PedidoTransferencia", b =>
                 {
                     b.Navigation("PedidoItens");
                 });

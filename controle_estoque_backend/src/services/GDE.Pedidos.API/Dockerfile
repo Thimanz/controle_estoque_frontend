@@ -9,15 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/services/GDE.Pedidos.API/GDE.Pedidos.API.csproj", "src/services/GDE.Pedidos.API/"]
-RUN dotnet restore "./src/services/GDE.Pedidos.API/GDE.Pedidos.API.csproj"
+COPY ["./services/GDE.Pedidos.API/GDE.Pedidos.API.csproj", "services/GDE.Pedidos.API/"]
+COPY ["./building blocks/GDE.Core/GDE.Core.csproj", "building blocks/GDE.Core/"]
+COPY ["./building blocks/GDE.MessageBus/GDE.MessageBus.csproj", "building blocks/GDE.MessageBus/"]
+RUN dotnet restore "services/GDE.Pedidos.API/GDE.Pedidos.API.csproj"
 COPY . .
-WORKDIR "/src/src/services/GDE.Pedidos.API"
-RUN dotnet build "./GDE.Pedidos.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "services/GDE.Pedidos.API"
+RUN dotnet build "GDE.Pedidos.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./GDE.Pedidos.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "GDE.Pedidos.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

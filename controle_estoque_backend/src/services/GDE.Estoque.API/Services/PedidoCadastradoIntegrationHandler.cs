@@ -20,7 +20,7 @@ namespace GDE.Estoque.API.Services
 
         private void SetResponder()
         {
-            _bus.RespondAsync<PedidoCadastradoIntegrationEvent, ResponseMessage>(AdicionarItensEstoque);
+            _bus.RespondAsync<PedidoCadastradoIntegrationEvent, ResponseMessage>(MovimentarItensEstoque);
             _bus.AdvancedBus.Connected += OnConnect!;
         }
 
@@ -36,9 +36,9 @@ namespace GDE.Estoque.API.Services
             SetResponder();
         }
 
-        private async Task<ResponseMessage> AdicionarItensEstoque(PedidoCadastradoIntegrationEvent message)
+        private async Task<ResponseMessage> MovimentarItensEstoque(PedidoCadastradoIntegrationEvent message)
         {
-            var adicionarItensEstoqueCommand = new AdicionarItensEstoqueCommand(
+            var movimentarItensEstoqueCommand = new MovimentarItensEstoqueCommand((TipoMovimentacao)message.Tipo.GetHashCode(),
                 message.Itens.ConvertAll(m => new LocalItemDTO(
                 m.LocalId,
                 m.ProdutoId,
@@ -47,15 +47,18 @@ namespace GDE.Estoque.API.Services
                 m.Largura,
                 m.Altura,
                 m.PrecoUnitario,
-                m.Quantidade
-            )));
+                m.Quantidade,
+                m.PedidoCompraId,
+                m.PedidoVendaId
+                )),
+                message.IdLocalDestino);
 
             ValidationResult result;
 
             using (var scope = _serviceProvider.CreateScope())
             {
                 var mediator = scope.ServiceProvider.GetService<IMediatorHandler>();
-                result = await mediator.EnviarComando(adicionarItensEstoqueCommand);
+                result = await mediator.EnviarComando(movimentarItensEstoqueCommand);
             }
 
             return new ResponseMessage(result);
