@@ -37,7 +37,6 @@ namespace GDE.Produtos.API.Controllers
             return CustomResponse(produtoViewModel);
         }
 
-
         [HttpGet("api/produto/lista-por-nome/{nome}")]
         public async Task<IActionResult> ListaProdutosPorNome(string nome)
         {

@@ -41,7 +41,6 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
             return CustomResponse(response);
         }
 
-
         [HttpPost("api/movimentacao/pedido/venda")]
         public async Task<IActionResult> AdicionarPedidoVenda(PedidoVendaDTO pedidoVendaDTO)
         {

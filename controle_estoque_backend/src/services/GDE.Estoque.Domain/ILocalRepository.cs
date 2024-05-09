@@ -6,6 +6,7 @@ namespace GDE.Estoque.Domain
     public interface ILocalRepository : IRepository<Local>
     {
         Task<Local> ObterPorId(Guid id);
+        Task<IEnumerable<Local>> ObterTodos();
         Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId);
         Task<LocalItem> ObterItemLocalPorProdutoId(Guid localId, Guid produtoId);
         void AdicionarItem(LocalItem localItem);

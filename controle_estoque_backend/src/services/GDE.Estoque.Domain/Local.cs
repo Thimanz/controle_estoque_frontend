@@ -45,41 +45,7 @@ namespace GDE.Estoque.Domain
             if (!ItemExistente(item))
                 throw new DomainException("Item não encontrado no local");
 
-            //var quantidadeAtual = ObterQuantidadePorProduto(item.ProdutoId);
-
-            //if (item.Quantidade > quantidadeAtual)
-            //    throw new DomainException("A quantidade informada é maior que a existente no local");
-
             _localItens.Remove(item);
-
-
-            //var quantidadeARemover = item.Quantidade;
-
-            //var listaProduto = _localItens.Where(i => i.ProdutoId == item.ProdutoId);
-
-            //try
-            //{
-            //    foreach (var itemExistente in listaProduto.Reverse())
-            //    {
-            //        if (itemExistente.Quantidade > quantidadeARemover)
-            //        {
-            //            _localItens.Remove(itemExistente);
-            //            itemExistente.AdicionarQuantidadeItem(quantidadeARemover * -1);
-            //            _localItens.Add(itemExistente);
-
-            //            break;
-            //        }
-            //        else
-            //        {
-            //            _localItens.Remove(itemExistente);
-            //            quantidadeARemover -= itemExistente.Quantidade;
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw;
-            //}
 
             CalcularEspacoLivre();
         }

@@ -13,10 +13,22 @@ namespace GDE.Estoque.API.Controllers
             _localRepository = localRepository;
         }
 
-        [HttpGet("local")]
+        [HttpGet("api/estoque/{id}")]
         public async Task<Local> ObterLocal(Guid id)
         {
             return await _localRepository.ObterPorId(id);
+        }
+
+        [HttpGet("api/estoque")]
+        public async Task<IEnumerable<Local>> ListaLocais()
+        {
+            return await _localRepository.ObterTodos();
+        }
+
+        [HttpGet("api/estoque/obter-lista-por-produto-id")]
+        public async Task<IEnumerable<Local>> ListaPorProdutoId(Guid produtoId)
+        {
+            return await _localRepository.ObterListaPorProdutoId(produtoId);
         }
     }
 }
