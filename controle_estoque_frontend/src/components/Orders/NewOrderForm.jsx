@@ -8,17 +8,26 @@ import {
     getStocksListByProductId,
 } from "../../services/stocksService";
 import OrderItemStockDropdown from "./OrderItemStockDropdown";
-import { postOrder } from "../../services/orderService";
+import {
+    postBuyOrder,
+    postSellOrder,
+    postTransferOrder,
+} from "../../services/orderService";
 
 const NewOrderForm = () => {
     const typeRef = useRef();
     const navigate = useNavigate();
+    const stockRef = useRef();
 
     const orderTypes = {
         ENTRADA: "Entrada",
         SAIDA: "Saída",
         TRANSFERENCIA: "Transferência",
     };
+
+    const [stockDropdownActive, setStockDropdownActive] = useState(false);
+    const [selectedStock, setSelectedStock] = useState("");
+    const [selectedStockId, setSelectedStockId] = useState("");
 
     const [orderItems, setOrderItems] = useState([]);
     const [amounts, setAmounts] = useState([]);
@@ -39,7 +48,7 @@ const NewOrderForm = () => {
     const [stocksListFrom, setStocksListFrom] = useState([]);
     const [stocksListTo, setStocksListTo] = useState([]);
 
-    //carregar todos os estoques de retirada
+    //carregar todos os estoques de destino
     useEffect(() => {
         const fetchAllStocks = async () => {
             const stocksData = await getAllStocksList(navigate);
@@ -48,7 +57,7 @@ const NewOrderForm = () => {
         fetchAllStocks();
     }, []);
 
-    //atualizar quantidades e estoques de destino
+    //atualizar quantidades e estoques de retirada
     useEffect(() => {
         if (orderItems.length > 0) {
             setAmounts([...amounts, 1]);
@@ -87,62 +96,57 @@ const NewOrderForm = () => {
     const [isSuccess, setIsSuccess] = useState(false);
 
     const sendOrder = async () => {
-        const response = await postOrder(
-            {
-                tipo: typeKey,
-                nomeFornecedor: supplierName,
-                itens: orderItems.map((item, index) => {
-                    const itemObject = {
-                        id: item.id,
-                        quantidade: amounts[index],
-                    };
-                    if (typeKey !== "TRANSFERENCIA") {
-                        typeKey === "ENTRADA"
-                            ? Object.defineProperties(itemObject, {
-                                  precoCusto: {
-                                      value: item.precoCusto,
-                                      writable: true,
-                                      enumerable: true,
-                                  },
-                                  localDestino: {
-                                      value: stocksTo[index],
-                                      writable: true,
-                                      enumerable: true,
-                                  },
-                              })
-                            : Object.defineProperties(itemObject, {
-                                  precoVenda: {
-                                      value: item.precoVenda,
-                                      writable: true,
-                                      enumerable: true,
-                                  },
-                                  localRetirada: {
-                                      value: stocksFrom[index],
-                                      writable: true,
-                                      enumerable: true,
-                                  },
-                              });
-                    } else {
-                        Object.defineProperties(itemObject, {
-                            localDestino: {
-                                value: stocksTo[index],
-                                writable: true,
-                                enumerable: true,
-                            },
-                            localRetirada: {
-                                value: stocksFrom[index],
-                                writable: true,
-                                enumerable: true,
-                            },
-                        });
-                    }
-                    console.log(itemObject);
-                    return itemObject;
-                }),
-            },
-            navigate
-        );
-        console.log(response);
+        let response;
+        switch (typeKey) {
+            case "ENTRADA":
+                response = await postBuyOrder(
+                    {
+                        nomeFornecedor: supplierName,
+                        pedidoItens: orderItems.map((item, index) => {
+                            return {
+                                produtoId: item.id,
+                                quantidade: amounts[index],
+                                precoUnitario: item.precoCusto,
+                                localId: stocksTo[index].id,
+                            };
+                        }),
+                    },
+                    navigate
+                );
+                break;
+            case "SAIDA":
+                response = await postSellOrder(
+                    {
+                        nomeFornecedor: supplierName,
+                        pedidoItens: orderItems.map((item, index) => {
+                            return {
+                                produtoId: item.id,
+                                quantidade: amounts[index],
+                                precoUnitario: item.precoVenda,
+                                localId: stocksFrom[index].id,
+                            };
+                        }),
+                    },
+                    navigate
+                );
+                break;
+            case "TRANSFERENCIA":
+                response = await postTransferOrder(
+                    {
+                        nomeFornecedor: supplierName,
+                        idLocalDestino: selectedStockId,
+                        pedidoItens: orderItems.map((item, index) => {
+                            return {
+                                produtoId: item.id,
+                                quantidade: amounts[index],
+                                localId: stocksFrom[index].id,
+                            };
+                        }),
+                    },
+                    navigate
+                );
+                break;
+        }
         if (response.status === 201) {
             setIsSuccess(true);
             setrequestMsgs(["Seu pedido foi registrado"]);
@@ -208,17 +212,78 @@ const NewOrderForm = () => {
                         </div>
                     </section>
                     <section className="right-order-form">
-                        <div className="input-group">
-                            <input
-                                type="text"
-                                onBlur={(e) => {
-                                    setSupplierName(e.target.value);
-                                }}
-                                required
-                                autoComplete="off"
-                            />
-                            <label htmlFor="nome">Nome do Fornecedor</label>
-                        </div>
+                        {typeKey !== "TRANSFERENCIA" && (
+                            <div className="input-group">
+                                <input
+                                    type="text"
+                                    onBlur={(e) => {
+                                        setSupplierName(e.target.value);
+                                    }}
+                                    required
+                                    autoComplete="off"
+                                />
+                                <label htmlFor="nome">Nome do Fornecedor</label>
+                            </div>
+                        )}
+                        {typeKey === "TRANSFERENCIA" && (
+                            <div className="input-group dropdown">
+                                <div
+                                    onClick={(e) => {
+                                        setStockDropdownActive(
+                                            !stockDropdownActive
+                                        );
+                                        stockRef.current.focus();
+                                    }}
+                                >
+                                    <input
+                                        ref={stockRef}
+                                        type="button"
+                                        value={selectedStock}
+                                        required
+                                        className="dropdown-btn"
+                                    />
+                                    <label htmlFor="categoria">
+                                        {"Estoque de destino"}
+                                    </label>
+                                    {stockDropdownActive ? (
+                                        <FaCaretUp className="arrow-icon" />
+                                    ) : (
+                                        <FaCaretDown className="arrow-icon" />
+                                    )}
+                                </div>
+                                <div
+                                    className="dropdown-content item-dropdown-content"
+                                    style={{
+                                        display: stockDropdownActive
+                                            ? "block"
+                                            : "none",
+                                    }}
+                                >
+                                    {stocksListTo &&
+                                        stocksListTo.map((stock) => {
+                                            return (
+                                                <div
+                                                    key={stock.id}
+                                                    onClick={(e) => {
+                                                        setSelectedStock(
+                                                            e.target.textContent
+                                                        );
+                                                        setSelectedStockId(
+                                                            stock.id
+                                                        );
+                                                        setStockDropdownActive(
+                                                            !stockDropdownActive
+                                                        );
+                                                    }}
+                                                    className="item"
+                                                >
+                                                    {stock.nome}
+                                                </div>
+                                            );
+                                        })}
+                                </div>
+                            </div>
+                        )}
                     </section>
                 </div>
                 {orderItems.map((item, index) => (
@@ -299,7 +364,8 @@ const NewOrderForm = () => {
                                         Quantidade
                                     </label>
                                 </div>
-                                {typeKey !== "ENTRADA" && (
+                                {(typeKey === "SAIDA" ||
+                                    typeKey === "TRANSFERENCIA") && (
                                     <OrderItemStockDropdown
                                         stocksList={stocksListFrom[index]}
                                         selectedStocks={stocksFrom}
@@ -308,7 +374,7 @@ const NewOrderForm = () => {
                                         prompt={"Local de Retirada"}
                                     />
                                 )}
-                                {typeKey !== "SAIDA" && (
+                                {typeKey === "ENTRADA" && (
                                     <OrderItemStockDropdown
                                         stocksList={stocksListTo}
                                         selectedStocks={stocksTo}

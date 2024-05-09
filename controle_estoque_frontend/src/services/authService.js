@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5101";
+const BASE_URL = "http://localhost:44396";
 
 export const postAuth = createAsyncThunk(
     "user/postAuth",
