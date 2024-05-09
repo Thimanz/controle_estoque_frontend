@@ -2,8 +2,8 @@
 {
     public class PedidoItemDTO
     {
-        public Guid? PedidoCompraId { get; set; }
-        public Guid? PedidoVendaId { get; set; }
+        //public Guid? PedidoCompraId { get; set; }
+        //public Guid? PedidoVendaId { get; set; }
         public Guid ProdutoId { get; set; }
         public Guid LocalId { get; set; }
         public string? NomeProduto { get; set; }
