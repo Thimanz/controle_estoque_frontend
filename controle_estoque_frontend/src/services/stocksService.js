@@ -1,6 +1,6 @@
 import { makeRequest } from "./requestManager";
 
-const BASE_URL = "http://localhost:5101";
+const BASE_URL = "http://localhost:44341";
 
 export const getStocksListByProductId = (id, navigateHook) => {
     return makeRequest(
@@ -11,9 +11,5 @@ export const getStocksListByProductId = (id, navigateHook) => {
 };
 
 export const getAllStocksList = (navigateHook) => {
-    return makeRequest(
-        "get",
-        `${BASE_URL}/api/estoque/listar-todos`,
-        navigateHook
-    );
+    return makeRequest("get", `${BASE_URL}/api/estoque`, navigateHook);
 };

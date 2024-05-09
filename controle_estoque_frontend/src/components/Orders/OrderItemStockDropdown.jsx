@@ -57,8 +57,7 @@ const OrderItemStockDropdown = ({
                                     const newSelectedStock = [
                                         ...selectedStocks,
                                     ];
-                                    newSelectedStock[itemIndex] =
-                                        e.target.textContent;
+                                    newSelectedStock[itemIndex] = stock;
                                     setSelectedStocks(newSelectedStock);
                                 }}
                                 className="item"
