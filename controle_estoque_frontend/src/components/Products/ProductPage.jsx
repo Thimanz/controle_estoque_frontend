@@ -10,7 +10,7 @@ import { getCategoryList } from "../../services/categoryService";
 import "./ProductPage.css";
 
 const ProductPage = () => {
-    const productId = useParams().productId;
+    const productId = useParams().id;
     const categoryRef = useRef();
     const navigate = useNavigate();
 
