@@ -1,6 +1,6 @@
 import { makeRequest } from "./requestManager";
 
-const BASE_URL = "http://localhost:44372";
+const BASE_URL = "https://localhost:44372";
 
 export const postBuyOrder = (order, navigateHook) => {
     return makeRequest(
