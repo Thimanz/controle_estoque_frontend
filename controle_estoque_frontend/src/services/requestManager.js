@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const headers = {
-    Authorization: "Bearer " + localStorage.getItem("accessToken"),
-};
-
 export const makeRequest = async (
     method,
     url,
     navigateHook,
     payload = null
 ) => {
+    const headers = {
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+    };
+
     if (payload) {
         try {
             const { data, status } = await axios({
@@ -31,9 +31,7 @@ export const makeRequest = async (
         const { data, status } = await axios({ method, url, headers });
         return { data, status };
     } catch (error) {
-        if (error.code === "ERR_NETWORK") {
-            navigateHook("/not-found");
-        } else if (error.response.status === 401) {
+        if (error.response.status === 401) {
             navigateHook("/autenticar/login");
         }
         return error.response.data;

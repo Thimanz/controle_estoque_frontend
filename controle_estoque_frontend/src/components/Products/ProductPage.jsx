@@ -86,7 +86,7 @@ const ProductPage = () => {
             },
             navigate
         );
-        if (response.status === 200) {
+        if (response.status === 204) {
             setIsSuccess(true);
             setrequestMsgs(["Produto Atualizado com Sucesso"]);
             setTimeout(() => navigate("/inicio"), 1000);
@@ -100,7 +100,7 @@ const ProductPage = () => {
     const deleteButton = async () => {
         setDisableButtons(true);
         const response = await deleteProduct(productId, navigate);
-        if (response.status === 200) {
+        if (response.status === 204) {
             setIsSuccess(true);
             setrequestMsgs(["Produto Deletado"]);
             setTimeout(() => navigate("/inicio"), 1000);

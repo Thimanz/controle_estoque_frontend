@@ -54,7 +54,7 @@ const NewProductForm = () => {
             },
             navigate
         );
-        if (response.status === 201) {
+        if (response.status === 204) {
             setIsSuccess(true);
             setrequestMsgs(["Produto Cadastrado com Sucesso"]);
         } else {
