@@ -10,6 +10,7 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
 
     const [search, setSearch] = useState("");
     const [productsList, setProductsList] = useState([]);
+    const [maxPage, setmaxPage] = useState();
 
     const [currentPage, setCurrentPage] = useState(0);
 
@@ -25,7 +26,8 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
             navigate
         );
         if (response.status === 200) {
-            setProductsList(response.data);
+            setProductsList(response.data.List);
+            setmaxPage(response.data.TotalPages);
         }
     };
 
@@ -68,39 +70,38 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
                             </svg>
                         </form>
                     </section>
-                    <div className="paged-products">
-                        {Object.keys(productsList).length !== 0 &&
-                            productsList.List.map((produto) => {
-                                return (
-                                    <m.div
-                                        initial={{ opacity: 0.5 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="product-box item-product-box"
-                                        key={produto.id}
-                                        onClick={() => {
-                                            setSelectedProducts(
-                                                selectedProducts.concat([
-                                                    produto,
-                                                ])
-                                            );
-                                            onClose();
-                                        }}
-                                    >
-                                        <img
-                                            src={"\\" + produto.imagem}
-                                            alt="imagem do produto"
-                                            className="product-image"
-                                        />
-                                        <h4 className="product-name">
-                                            {produto.nome}
-                                        </h4>
-                                    </m.div>
-                                );
-                            })}
-                    </div>
-                    {Object.keys(productsList).length !== 0 &&
-                        productsList.List.length > 0 && (
+                    {productsList.length > 0 && (
+                        <>
+                            <div className="paged-products">
+                                {productsList.map((produto) => {
+                                    return (
+                                        <m.div
+                                            initial={{ opacity: 0.5 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="product-box item-product-box"
+                                            key={produto.id}
+                                            onClick={() => {
+                                                setSelectedProducts(
+                                                    selectedProducts.concat([
+                                                        produto,
+                                                    ])
+                                                );
+                                                onClose();
+                                            }}
+                                        >
+                                            <img
+                                                src={"\\" + produto.imagem}
+                                                alt="imagem do produto"
+                                                className="product-image"
+                                            />
+                                            <h4 className="product-name">
+                                                {produto.nome}
+                                            </h4>
+                                        </m.div>
+                                    );
+                                })}
+                            </div>
                             <div className="pagination-buttons">
                                 <button
                                     className="button-last"
@@ -119,8 +120,7 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
                                     className="button-next"
                                     onClick={() => {
                                         setCurrentPage(
-                                            currentPage ===
-                                                productsList.TotalPages
+                                            currentPage === maxPage
                                                 ? currentPage
                                                 : currentPage + 1
                                         );
@@ -129,7 +129,8 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
                                     <FaChevronRight size={40} />
                                 </button>
                             </div>
-                        )}
+                        </>
+                    )}
                 </div>
             </m.div>
         </section>
