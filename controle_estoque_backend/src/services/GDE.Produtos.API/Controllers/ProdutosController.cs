@@ -1,4 +1,5 @@
 ﻿using GDE.Core.Controllers;
+using GDE.Core.Data;
 using GDE.Produtos.API.Data;
 using GDE.Produtos.API.Entities;
 using GDE.Produtos.API.Models.InputModels;
@@ -37,12 +38,24 @@ namespace GDE.Produtos.API.Controllers
             return CustomResponse(produtoViewModel);
         }
 
-        [HttpGet("api/produto/lista-por-nome/{nome}")]
-        public async Task<IActionResult> ListaProdutosPorNome(string nome)
+        [HttpGet("api/produto/lista-por-nome")]
+        public async Task<IActionResult> ListaProdutosPorNome([FromQuery] string nome, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
         {
-            var produtos = await _context.Produtos.Include(p => p.Categoria).Where(p => p.Nome!.Contains(nome)).ToListAsync();
+            var produtos = await _context.Produtos.Include(p => p.Categoria)
+                .OrderBy(p => p.Nome)
+                .Skip(pageSize * (pageIndex - 1))
+                .Take(pageSize)
+                .Where(p => p.Nome!.Contains(nome)).ToListAsync();
 
-            return !produtos.Any() ? NotFound() : CustomResponse(produtos.Select(ProdutoViewModel.FromEntity));
+            return !produtos.Any()
+                ? NotFound()
+                : CustomResponse(new PagedResult<ProdutoViewModel>()
+                {
+                    List = produtos.Select(ProdutoViewModel.FromEntity),
+                    TotalResults = produtos.Count(),
+                    PageIndex = pageIndex,
+                    PageSize = pageSize
+                });
         }
 
 
