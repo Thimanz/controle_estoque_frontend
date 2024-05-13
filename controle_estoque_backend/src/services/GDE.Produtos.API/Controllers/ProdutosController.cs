@@ -53,6 +53,7 @@ namespace GDE.Produtos.API.Controllers
                 {
                     List = produtos.Select(ProdutoViewModel.FromEntity),
                     TotalResults = produtos.Count(),
+                    TotalPages = ((produtos.Count() + pageSize - 1) /pageSize),
                     PageIndex = pageIndex,
                     PageSize = pageSize
                 });
