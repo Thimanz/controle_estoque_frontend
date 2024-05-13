@@ -54,9 +54,9 @@ namespace GDE.Core.Controllers
 
         protected bool ResponsePossuiErros(ResponseResult resposta)
         {
-            if (resposta == null || !resposta.Erros.Mensagens.Any()) return false;
+            if (resposta == null || !resposta.Errors.Mensagens.Any()) return false;
 
-            foreach (var mensagem in resposta.Erros.Mensagens)
+            foreach (var mensagem in resposta.Errors.Mensagens)
             {
                 AdicionarErroProcessamento(mensagem);
             }

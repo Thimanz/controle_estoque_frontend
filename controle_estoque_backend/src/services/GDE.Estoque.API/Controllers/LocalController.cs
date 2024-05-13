@@ -25,7 +25,7 @@ namespace GDE.Estoque.API.Controllers
             return await _localRepository.ObterTodos();
         }
 
-        [HttpGet("api/estoque/obter-lista-por-produto-id")]
+        [HttpGet("api/estoque/obter-lista-por-produto-id/{produtoId}")]
         public async Task<IEnumerable<Local>> ListaPorProdutoId(Guid produtoId)
         {
             return await _localRepository.ObterListaPorProdutoId(produtoId);

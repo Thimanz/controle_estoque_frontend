@@ -26,7 +26,7 @@ namespace GDE.Estoque.Infra.Data.Repository
 
         public async Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId)
         {
-            return _context.Locais.Include(i => i.LocalItens).Where(l => l.LocalItens.Any(i => i.ProdutoId == produtoId));
+            return _context.Locais.Where(l => l.LocalItens.Any(i => i.ProdutoId == produtoId));
         }
 
         public async Task<LocalItem> ObterItemLocalPorProdutoId(Guid localId, Guid produtoId)
