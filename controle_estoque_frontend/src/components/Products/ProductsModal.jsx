@@ -12,11 +12,7 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
     const [productsList, setProductsList] = useState([]);
     const [maxPage, setmaxPage] = useState();
 
-    const [currentPage, setCurrentPage] = useState(0);
-
-    useEffect(() => {
-        searchProducts();
-    }, [currentPage]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const searchProducts = async () => {
         if (!search) return;
@@ -61,7 +57,7 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
                                 viewBox="0 0 24 24"
                                 className="search__icon"
                                 onClick={() => {
-                                    setCurrentPage(1);
+                                    searchProducts();
                                 }}
                             >
                                 <g>
