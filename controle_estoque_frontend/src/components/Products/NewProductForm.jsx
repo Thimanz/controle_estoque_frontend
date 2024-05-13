@@ -59,7 +59,7 @@ const NewProductForm = () => {
             setrequestMsgs(["Produto Cadastrado com Sucesso"]);
         } else {
             setIsSuccess(false);
-            setrequestMsgs(response.erros.mensagens);
+            setrequestMsgs(response.errors.mensagens);
         }
     };
 

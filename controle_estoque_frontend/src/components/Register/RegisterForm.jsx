@@ -92,7 +92,7 @@ const RegisterForm = () => {
             setErrorMsgs([]);
             navigate("/inicio", { replace: true });
         } catch (error) {
-            setErrorMsgs(error.erros.mensagens);
+            setErrorMsgs(error.errors.mensagens);
         }
     };
 

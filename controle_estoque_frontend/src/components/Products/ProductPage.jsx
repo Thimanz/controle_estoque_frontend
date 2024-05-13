@@ -92,7 +92,7 @@ const ProductPage = () => {
             setTimeout(() => navigate("/inicio"), 1000);
         } else {
             setIsSuccess(false);
-            setrequestMsgs(response.erros.mensagens);
+            setrequestMsgs(response.errors.mensagens);
         }
         setDisableButtons(false);
     };
@@ -106,7 +106,7 @@ const ProductPage = () => {
             setTimeout(() => navigate("/inicio"), 1000);
         } else {
             setIsSuccess(false);
-            setrequestMsgs(response.erros.mensagens);
+            setrequestMsgs(response.errors.mensagens);
         }
         setDisableButtons(false);
     };
