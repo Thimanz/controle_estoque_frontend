@@ -14,11 +14,16 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
 
     const [currentPage, setCurrentPage] = useState(1);
 
+    useEffect(() => {
+        searchProducts();
+    }, [currentPage]);
+
     const searchProducts = async () => {
         if (!search) return;
         const response = await getProductListPaged(
             search,
             currentPage,
+            4,
             navigate
         );
         if (response.status === 200) {
@@ -107,6 +112,7 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
                                                 ? currentPage
                                                 : currentPage - 1
                                         );
+                                        searchProducts();
                                     }}
                                 >
                                     <FaChevronLeft size={40} />

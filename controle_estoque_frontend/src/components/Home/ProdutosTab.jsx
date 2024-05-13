@@ -1,21 +1,34 @@
 import { useNavigate } from "react-router-dom";
-import Product from "../Svgs/Product";
 import "./ProdutosTab.css";
-import { motion as m, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { getProductList } from "../../services/productsService";
+import { motion as m } from "framer-motion";
+import { useState, useEffect } from "react";
+import { getProductListPaged } from "../../services/productsService";
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 
 const ProdutosTab = () => {
     const navigate = useNavigate();
 
     const [search, setSearch] = useState("");
     const [productsList, setProductsList] = useState([]);
+    const [maxPage, setmaxPage] = useState();
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        searchProducts();
+    }, [currentPage]);
 
     const searchProducts = async () => {
         if (!search) return;
-        const response = await getProductList(search, navigate);
+        const response = await getProductListPaged(
+            search,
+            currentPage,
+            12,
+            navigate
+        );
         if (response.status === 200) {
-            setProductsList(response.data);
+            setProductsList(response.data.List);
+            setmaxPage(response.data.TotalPages);
         }
     };
 
@@ -80,22 +93,59 @@ const ProdutosTab = () => {
                 transition={{ duration: 0.2 }}
                 className="products-searched"
             >
-                {productsList.map((produto) => {
-                    return (
-                        <div
-                            className="product-box"
-                            key={produto.id}
-                            onClick={() => navigate(`/produtos/${produto.id}`)}
-                        >
-                            <img
-                                src={"\\" + produto.imagem}
-                                alt="imagem do produto"
-                                className="product-image"
-                            />
-                            <h4 className="product-name">{produto.nome}</h4>
+                {productsList.length > 0 && (
+                    <>
+                        {productsList.map((produto) => {
+                            return (
+                                <div
+                                    className="product-box"
+                                    key={produto.id}
+                                    onClick={() =>
+                                        navigate(`/produtos/${produto.id}`)
+                                    }
+                                >
+                                    <img
+                                        src={"\\" + produto.imagem}
+                                        alt="imagem do produto"
+                                        className="product-image"
+                                    />
+                                    <h4 className="product-name">
+                                        {produto.nome}
+                                    </h4>
+                                </div>
+                            );
+                        })}
+                        <div className="pagination-buttons">
+                            <button
+                                className="button-last bg-color-main-blue"
+                                onClick={() => {
+                                    setCurrentPage(
+                                        currentPage === 1
+                                            ? currentPage
+                                            : currentPage - 1
+                                    );
+                                }}
+                            >
+                                <FaChevronLeft size={40} />
+                            </button>
+                            <h4 className="current-page current-page-black">
+                                {currentPage}
+                            </h4>
+                            <button
+                                className="button-next bg-color-main-blue"
+                                onClick={() => {
+                                    setCurrentPage(
+                                        currentPage === maxPage
+                                            ? currentPage
+                                            : currentPage + 1
+                                    );
+                                }}
+                            >
+                                <FaChevronRight size={40} />
+                            </button>
                         </div>
-                    );
-                })}
+                    </>
+                )}
             </m.div>
         </main>
     );
