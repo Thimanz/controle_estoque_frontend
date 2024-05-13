@@ -38,6 +38,10 @@ namespace GDE.Pedidos.API.Application.Commands
                 RuleFor(c => c.PedidoItens.Any())
                     .Equal(true)
                     .WithMessage("Nenhum item informado");
+
+                RuleFor(c => c.PedidoItens.Any(i => i.LocalId == c.IdLocalDestino))
+                    .NotEqual(true)
+                    .WithMessage("O Local de Origem não pode ser igual ao Local de Destino");
             }
         }
     }

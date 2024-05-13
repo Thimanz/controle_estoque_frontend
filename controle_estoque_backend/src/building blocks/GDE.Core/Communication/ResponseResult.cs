@@ -4,12 +4,12 @@
     {
         public ResponseResult()
         {
-            Erros = new ResponseErrorMessages();
+            Errors = new ResponseErrorMessages();
         }
 
         public string? Title { get; set; }
         public int Status { get; set; }
-        public ResponseErrorMessages Erros { get; set; }
+        public ResponseErrorMessages Errors { get; set; }
     }
 
     public class ResponseErrorMessages
