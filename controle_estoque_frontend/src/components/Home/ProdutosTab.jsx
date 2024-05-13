@@ -28,7 +28,7 @@ const ProdutosTab = () => {
         );
         if (response.status === 200) {
             setProductsList(response.data.list);
-            setmaxPage(response.data.TotalPages);
+            setmaxPage(response.data.totalPages);
         }
     };
 
