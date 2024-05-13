@@ -27,7 +27,7 @@ const ProdutosTab = () => {
             navigate
         );
         if (response.status === 200) {
-            setProductsList(response.data.List);
+            setProductsList(response.data.list);
             setmaxPage(response.data.TotalPages);
         }
     };
