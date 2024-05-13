@@ -41,7 +41,7 @@ const NewOrderForm = () => {
     const [stocksFrom, setStocksFrom] = useState([]);
     const [stocksTo, setStocksTo] = useState([]);
 
-    const [supplierName, setSupplierName] = useState("");
+    const [name, setName] = useState("");
 
     const [showProductModal, setShowProductModal] = useState(false);
 
@@ -101,7 +101,7 @@ const NewOrderForm = () => {
             case "ENTRADA":
                 response = await postBuyOrder(
                     {
-                        nomeFornecedor: supplierName,
+                        nomeFornecedor: name,
                         pedidoItens: orderItems.map((item, index) => {
                             return {
                                 produtoId: item.id,
@@ -117,7 +117,7 @@ const NewOrderForm = () => {
             case "SAIDA":
                 response = await postSellOrder(
                     {
-                        nomeFornecedor: supplierName,
+                        nomeCliente: name,
                         pedidoItens: orderItems.map((item, index) => {
                             return {
                                 produtoId: item.id,
@@ -133,7 +133,6 @@ const NewOrderForm = () => {
             case "TRANSFERENCIA":
                 response = await postTransferOrder(
                     {
-                        nomeFornecedor: supplierName,
                         idLocalDestino: selectedStockId,
                         pedidoItens: orderItems.map((item, index) => {
                             return {
@@ -217,12 +216,16 @@ const NewOrderForm = () => {
                                 <input
                                     type="text"
                                     onBlur={(e) => {
-                                        setSupplierName(e.target.value);
+                                        setName(e.target.value);
                                     }}
                                     required
                                     autoComplete="off"
                                 />
-                                <label htmlFor="nome">Nome do Fornecedor</label>
+                                <label htmlFor="nome">
+                                    {typeKey === "ENTRADA"
+                                        ? "Nome do Fornecedor"
+                                        : "Nome do Cliente"}
+                                </label>
                             </div>
                         )}
                         {typeKey === "TRANSFERENCIA" && (
