@@ -147,7 +147,7 @@ const NewOrderForm = () => {
                 );
                 break;
         }
-        if (response.status === 201) {
+        if (response.status === 204) {
             setIsSuccess(true);
             setrequestMsgs(["Seu pedido foi registrado"]);
             setTimeout(() => navigate("/inicio"), 1000);
