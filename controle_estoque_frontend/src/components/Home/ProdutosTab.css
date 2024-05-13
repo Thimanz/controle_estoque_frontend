@@ -179,3 +179,13 @@
     height: 100px;
     aspect-ratio: 1;
 }
+
+.current-page-black {
+    color: black;
+    text-decoration: underline black;
+}
+
+.bg-color-main-blue {
+    background-color: #474787;
+    color: white;
+}

@@ -10,10 +10,10 @@ export const getProductList = (name, navigateHook) => {
     );
 };
 
-export const getProductListPaged = (name, page, navigateHook) => {
+export const getProductListPaged = (name, page, pageSize, navigateHook) => {
     return makeRequest(
         "get",
-        `${BASE_URL}/api/produto/lista-por-nome/${name}/${page}`,
+        `${BASE_URL}/api/produto/lista-por-nome?nome=${name}&pageSize=${pageSize}&pageIndex=${page}`,
         navigateHook
     );
 };
