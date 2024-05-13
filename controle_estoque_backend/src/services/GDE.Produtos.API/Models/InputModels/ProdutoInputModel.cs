@@ -10,7 +10,7 @@ namespace GDE.Produtos.API.Models.InputModels
         public Guid CategoriaId { get; set; }
         public decimal PrecoCusto { get; set; }
         public decimal PrecoVenda { get; set; }
-        //public IFormFile? Imagem { get; set; }
+        public IFormFile? Imagem { get; set; }
 
         public int NivelMinimoEstoque { get; set; }
         public decimal Comprimento { get; set; }

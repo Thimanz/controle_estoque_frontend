@@ -15,12 +15,12 @@ namespace GDE.Produtos.API.Controllers
     public class ProdutosController : MainController
     {
         private readonly ProdutoContext _context;
-        //private readonly IUploadImagemRepository _imagemRepository;
+        private readonly IUploadImagemRepository _imagemRepository;
 
-        public ProdutosController(ProdutoContext context)
+        public ProdutosController(ProdutoContext context, IUploadImagemRepository imagemRepository)
         {
             _context = context;
-            //_imagemRepository = imagemRepository;
+            _imagemRepository = imagemRepository;
         }
 
 
@@ -35,6 +35,9 @@ namespace GDE.Produtos.API.Controllers
 
             var produtoViewModel = ProdutoViewModel.FromEntity(produto);
 
+            if (!string.IsNullOrEmpty(produto.Imagem))
+                produtoViewModel.Imagem = _imagemRepository.GetImagem(produto.Imagem);
+
             return CustomResponse(produtoViewModel);
         }
 
@@ -45,7 +48,18 @@ namespace GDE.Produtos.API.Controllers
                 .OrderBy(p => p.Nome)
                 .Skip(pageSize * (pageIndex - 1))
                 .Take(pageSize)
-                .Where(p => p.Nome!.Contains(nome)).ToListAsync();
+                .Where(p => p.Nome!.Contains(nome)).ToListAsync();  
+
+            var produtosViewModel = produtos.Select(ProdutoViewModel.FromEntity);
+
+            foreach (var produto in produtos)
+            {
+                if (!string.IsNullOrEmpty(produto.Imagem))
+                {
+                    var imagem = _imagemRepository.GetImagem(produto.Imagem);
+                    produtosViewModel.First(p => p.Id == produto.Id).Imagem = imagem;
+                }
+            }
 
             return !produtos.Any()
                 ? NotFound()
@@ -53,7 +67,7 @@ namespace GDE.Produtos.API.Controllers
                 {
                     List = produtos.Select(ProdutoViewModel.FromEntity),
                     TotalResults = produtos.Count(),
-                    TotalPages = ((produtos.Count() + pageSize - 1) /pageSize),
+                    TotalPages = ((produtos.Count() + pageSize - 1) / pageSize),
                     PageIndex = pageIndex,
                     PageSize = pageSize
                 });
@@ -82,8 +96,8 @@ namespace GDE.Produtos.API.Controllers
                 return CustomResponse();
             }
 
-            //if (produtoInputModel.Imagem is not null)
-            //    produto.Imagem = await _imagemRepository.UploadImagem(produtoInputModel.Imagem);
+            if (produtoInputModel.Imagem is not null)
+                produto.AlterarNomeImagem(await _imagemRepository.UploadImagem(produtoInputModel.Imagem));
 
             ValidarProduto(produto);
             if (!OperacaoValida()) return CustomResponse();

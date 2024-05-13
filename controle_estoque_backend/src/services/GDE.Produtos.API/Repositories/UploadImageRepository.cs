@@ -1,5 +1,4 @@
 ﻿using GDE.Core.DomainObjects;
-using GDE.Produtos.API.Repositories;
 
 namespace GDE.Produtos.API.Repositories
 {

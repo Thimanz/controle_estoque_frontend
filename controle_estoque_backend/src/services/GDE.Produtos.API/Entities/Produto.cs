@@ -60,6 +60,11 @@ namespace GDE.Produtos.API.Entities
             return Ativo && QuantidadeEstoque >= quantidade;
         }
 
+        public void AlterarNomeImagem(string nomeImagem)
+        {
+            Imagem = nomeImagem;
+        }
+
         public bool IsValid()
         {
             var erros = new AdicionarProdutoValidation().Validate(this).Errors;
