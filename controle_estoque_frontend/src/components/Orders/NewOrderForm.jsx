@@ -210,84 +210,87 @@ const NewOrderForm = () => {
                             </div>
                         </div>
                     </section>
-                    <section className="right-order-form">
-                        {typeKey !== "TRANSFERENCIA" && (
-                            <div className="input-group">
-                                <input
-                                    type="text"
-                                    onBlur={(e) => {
-                                        setName(e.target.value);
-                                    }}
-                                    required
-                                    autoComplete="off"
-                                />
-                                <label htmlFor="nome">
-                                    {typeKey === "ENTRADA"
-                                        ? "Nome do Fornecedor"
-                                        : "Nome do Cliente"}
-                                </label>
-                            </div>
-                        )}
-                        {typeKey === "TRANSFERENCIA" && (
-                            <div className="input-group dropdown">
-                                <div
-                                    onClick={(e) => {
-                                        setStockDropdownActive(
-                                            !stockDropdownActive
-                                        );
-                                        stockRef.current.focus();
-                                    }}
-                                >
+                    {typeKey && (
+                        <section className="right-order-form">
+                            {typeKey !== "TRANSFERENCIA" && (
+                                <div className="input-group">
                                     <input
-                                        ref={stockRef}
-                                        type="button"
-                                        value={selectedStock}
+                                        type="text"
+                                        onBlur={(e) => {
+                                            setName(e.target.value);
+                                        }}
                                         required
-                                        className="dropdown-btn"
+                                        autoComplete="off"
                                     />
-                                    <label htmlFor="categoria">
-                                        {"Estoque de destino"}
+                                    <label htmlFor="nome">
+                                        {typeKey === "ENTRADA"
+                                            ? "Nome do Fornecedor"
+                                            : "Nome do Cliente"}
                                     </label>
-                                    {stockDropdownActive ? (
-                                        <FaCaretUp className="arrow-icon" />
-                                    ) : (
-                                        <FaCaretDown className="arrow-icon" />
-                                    )}
                                 </div>
-                                <div
-                                    className="dropdown-content item-dropdown-content"
-                                    style={{
-                                        display: stockDropdownActive
-                                            ? "block"
-                                            : "none",
-                                    }}
-                                >
-                                    {stocksListTo &&
-                                        stocksListTo.map((stock) => {
-                                            return (
-                                                <div
-                                                    key={stock.id}
-                                                    onClick={(e) => {
-                                                        setSelectedStock(
-                                                            e.target.textContent
-                                                        );
-                                                        setSelectedStockId(
-                                                            stock.id
-                                                        );
-                                                        setStockDropdownActive(
-                                                            !stockDropdownActive
-                                                        );
-                                                    }}
-                                                    className="item"
-                                                >
-                                                    {stock.nome}
-                                                </div>
+                            )}
+                            {typeKey === "TRANSFERENCIA" && (
+                                <div className="input-group dropdown">
+                                    <div
+                                        onClick={(e) => {
+                                            setStockDropdownActive(
+                                                !stockDropdownActive
                                             );
-                                        })}
+                                            stockRef.current.focus();
+                                        }}
+                                    >
+                                        <input
+                                            ref={stockRef}
+                                            type="button"
+                                            value={selectedStock}
+                                            required
+                                            className="dropdown-btn"
+                                        />
+                                        <label htmlFor="categoria">
+                                            {"Estoque de destino"}
+                                        </label>
+                                        {stockDropdownActive ? (
+                                            <FaCaretUp className="arrow-icon" />
+                                        ) : (
+                                            <FaCaretDown className="arrow-icon" />
+                                        )}
+                                    </div>
+                                    <div
+                                        className="dropdown-content item-dropdown-content"
+                                        style={{
+                                            display: stockDropdownActive
+                                                ? "block"
+                                                : "none",
+                                        }}
+                                    >
+                                        {stocksListTo &&
+                                            stocksListTo.map((stock) => {
+                                                return (
+                                                    <div
+                                                        key={stock.id}
+                                                        onClick={(e) => {
+                                                            setSelectedStock(
+                                                                e.target
+                                                                    .textContent
+                                                            );
+                                                            setSelectedStockId(
+                                                                stock.id
+                                                            );
+                                                            setStockDropdownActive(
+                                                                !stockDropdownActive
+                                                            );
+                                                        }}
+                                                        className="item"
+                                                    >
+                                                        {stock.nome}
+                                                    </div>
+                                                );
+                                            })}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                    </section>
+                            )}
+                        </section>
+                    )}
                 </div>
                 {orderItems.map((item, index) => (
                     <div className="order-items" key={index}>
@@ -390,42 +393,50 @@ const NewOrderForm = () => {
                         </div>
                     </div>
                 ))}
-                <button
-                    className="new-product"
-                    onClick={() => setShowProductModal(true)}
-                >
-                    <div className="sign">+</div>
-                    <div className="text">Adicionar Item</div>
-                </button>
-                {typeKey === "ENTRADA" && (
-                    <h2 className="total-price">
-                        Custo total: R$
-                        {totalValue}
-                    </h2>
+                {typeKey && (
+                    <>
+                        <button
+                            className="new-product"
+                            onClick={() => setShowProductModal(true)}
+                        >
+                            <div className="sign">+</div>
+                            <div className="text">Adicionar Item</div>
+                        </button>
+                        {typeKey === "ENTRADA" && (
+                            <h2 className="total-price">
+                                Custo total: R$
+                                {totalValue}
+                            </h2>
+                        )}
+                        {typeKey === "SAIDA" && (
+                            <h2 className="total-price">
+                                Valor total: R$
+                                {totalValue}
+                            </h2>
+                        )}
+                        {showProductModal && (
+                            <ProductsModal
+                                onClose={() => setShowProductModal(false)}
+                                selectedProducts={orderItems}
+                                setSelectedProducts={setOrderItems}
+                            />
+                        )}
+                        <button className="confirm-order" onClick={sendOrder}>
+                            Confirmar Pedido
+                        </button>
+                        {requestMsgs ? (
+                            <h3
+                                className={
+                                    isSuccess ? "success-msg" : "error-msg"
+                                }
+                            >
+                                {requestMsgs.map((msg) => (
+                                    <p>{msg}</p>
+                                ))}
+                            </h3>
+                        ) : null}
+                    </>
                 )}
-                {typeKey === "SAIDA" && (
-                    <h2 className="total-price">
-                        Valor total: R$
-                        {totalValue}
-                    </h2>
-                )}
-                {showProductModal && (
-                    <ProductsModal
-                        onClose={() => setShowProductModal(false)}
-                        selectedProducts={orderItems}
-                        setSelectedProducts={setOrderItems}
-                    />
-                )}
-                <button className="confirm-order" onClick={sendOrder}>
-                    Confirmar Pedido
-                </button>
-                {requestMsgs ? (
-                    <h3 className={isSuccess ? "success-msg" : "error-msg"}>
-                        {requestMsgs.map((msg) => (
-                            <p>{msg}</p>
-                        ))}
-                    </h3>
-                ) : null}
             </section>
         </main>
     );

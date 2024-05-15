@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaBell, FaCircleExclamation, FaX } from "react-icons/fa6";
+import { FaBell, FaCircleExclamation, FaPlus } from "react-icons/fa6";
 import "./Notifications.css";
 import { getNotifications } from "../../services/notificationService";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ const Notifications = () => {
             setNotifications(response.data);
         };
 
+        fetchNotifications();
         const interval = setInterval(() => {
             fetchNotifications();
         }, 5000);
@@ -23,8 +24,7 @@ const Notifications = () => {
     }, []);
 
     const closeNotification = (index) => {
-        notifications.splice(index, 1);
-        setNotifications([...notifications]);
+        navigate("/pedidos/novo-pedido");
     };
 
     const [isDropdownActive, setIsDropdownActive] = useState(false);
@@ -36,9 +36,13 @@ const Notifications = () => {
                     color={isDropdownActive ? "#bada55" : "white"}
                     size={25}
                 />
-                <p className="notification-ammount">{notifications.length}</p>
+                {notifications.length > 0 && (
+                    <p className="notification-ammount">
+                        {notifications.length}
+                    </p>
+                )}
             </a>
-            {isDropdownActive && (
+            {isDropdownActive && notifications.length > 0 && (
                 <ul className="notifications-menu">
                     {notifications.map((notification, index) => (
                         <li key={notification.id} className="notification">
@@ -58,9 +62,9 @@ const Notifications = () => {
                             </p>
                             <div
                                 onClick={() => closeNotification(index)}
-                                className="notification-close"
+                                className="notification-plus"
                             >
-                                <FaX size={20} color="white" />
+                                <FaPlus size={20} color="white" />
                             </div>
                         </li>
                     ))}

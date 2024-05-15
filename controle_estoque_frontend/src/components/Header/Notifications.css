@@ -32,21 +32,21 @@
     fill: rgb(240, 175, 175);
 }
 
-.notification-close {
+.notification-plus {
     margin-left: 10px;
     align-self: stretch;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(240, 175, 175);
+    background-color: rgb(219, 255, 219);
 }
 
-.notification:hover .notification-close:hover svg {
+.notification:hover .notification-plus:hover svg {
     fill: white;
 }
 
-.notification:hover .notification-close:hover {
-    background-color: red;
+.notification:hover .notification-plus:hover {
+    background-color: rgb(148, 255, 148);
 }
 
 .notification-ammount {
