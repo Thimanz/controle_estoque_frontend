@@ -1,5 +1,6 @@
 .header {
     position: sticky;
+    z-index: 10000;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,8 +10,12 @@
 }
 
 .nav-item {
+    position: relative;
     list-style: none;
     margin: 0 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav-item a {
@@ -22,6 +27,18 @@
 .nav-item:hover,
 .logo:hover {
     cursor: pointer;
+}
+
+.nav-user:hover a {
+    color: #bada55;
+}
+
+.nav-user:hover svg {
+    fill: #bada55;
+}
+
+.nav-item svg:hover {
+    fill: #bada55;
 }
 
 .nav-item a:hover {
@@ -36,6 +53,8 @@
     display: flex;
     flex-direction: row;
     margin-right: 5dvw;
+    text-align: center;
+    vertical-align: middle;
 }
 
 @media (max-width: 767px) {
