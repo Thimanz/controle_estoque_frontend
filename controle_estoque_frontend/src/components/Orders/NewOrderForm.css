@@ -1,6 +1,8 @@
 .order-forms {
     width: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .right-order-form,
@@ -44,6 +46,18 @@
 .new-product,
 .total-price {
     margin: 20px 0;
+    place-self: start;
+}
+
+.total-price {
+    place-self: end;
+}
+
+.new-product {
+    place-self: center;
+}
+
+.itens-h3 {
     place-self: start;
 }
 
