@@ -60,7 +60,7 @@ const ProductPage = () => {
 
         fetchProduct();
         fetchCategories();
-    }, []);
+    }, [productId]);
 
     const [requestMsgs, setrequestMsgs] = useState([]);
     const [isSuccess, setIsSuccess] = useState(false);

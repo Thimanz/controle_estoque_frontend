@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Notifications from "./Notifications";
 import { FaBars, FaUser } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
 import { motion as m } from "framer-motion";
@@ -43,7 +43,7 @@ const Header = () => {
                     <a href="/">Sobre</a>
                 </li>
                 <li
-                    className="nav-item"
+                    className="nav-item nav-user"
                     onClick={() => navigate("/autenticar/login")}
                 >
                     <FaUser />
@@ -52,6 +52,9 @@ const Header = () => {
                             ? `Olá, ${localStorage.getItem("userEmail")}`
                             : "Faça Login"}
                     </a>
+                </li>
+                <li className="nav-item">
+                    <Notifications />
                 </li>
             </ul>
             <div className="mobile-dropdown">
@@ -84,6 +87,9 @@ const Header = () => {
                                 ? `Olá, ${localStorage.getItem("userEmail")}`
                                 : "Faça Login"}
                         </a>
+                    </li>
+                    <li className="nav-item">
+                        <Notifications />
                     </li>
                 </m.ul>
             </div>
