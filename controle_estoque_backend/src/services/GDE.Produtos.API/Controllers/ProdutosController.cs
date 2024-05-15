@@ -53,7 +53,7 @@ namespace GDE.Produtos.API.Controllers
                 {
                     List = produtos.Select(ProdutoViewModel.FromEntity),
                     TotalResults = produtos.Count(),
-                    TotalPages = ((produtos.Count() + pageSize - 1) /pageSize),
+                    TotalPages = ((produtos.Count() + pageSize - 1) / pageSize),
                     PageIndex = pageIndex,
                     PageSize = pageSize
                 });
@@ -66,6 +66,25 @@ namespace GDE.Produtos.API.Controllers
             var categorias = _context.Categorias.Select(CategoriaViewModel.FromEntity);
 
             return !categorias.Any() ? NotFound() : CustomResponse(categorias);
+        }
+
+        [HttpGet("api/produto/nivel-estoque-baixo")]
+        public async Task<IActionResult> ProdutosNivelEstoqueBaixo()
+        {
+            var produtos = await _context.Produtos.Include(p => p.Categoria).Where(p => p.QuantidadeEstoque <= p.NivelMinimoEstoque).ToListAsync();
+
+            var viewModels = new List<ProdutosEstoqueBaixoViewModel>();
+
+            foreach (var produto in produtos)
+            {
+                viewModels.Add(new ProdutosEstoqueBaixoViewModel(
+                    produto.Id,
+                    produto.Nome,
+                    $"O nível de estoque do produto {produto.Nome} está baixo"
+                ));
+            }
+
+            return CustomResponse(viewModels);
         }
 
         //[ClaimsAuthorize("Produto", "Adicionar")]

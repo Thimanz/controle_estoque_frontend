@@ -13,7 +13,6 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(settings.Value.ProdutoUrl);
         }
-
         public async Task<ProdutoDTO> ObterProdutoPorId(Guid Id)
         {
             var response = await _httpClient.GetAsync($"api/produto/{Id}");
@@ -22,6 +21,16 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
                 return null;
 
             return await DeserializarObjetoResponse<ProdutoDTO>(response);
+        }
+
+        public async Task<IEnumerable<NotificacaoDTO>> ObterNotificacoesEstoqueBaixo()
+        {
+            var response = await _httpClient.GetAsync($"api/produto/nivel-estoque-baixo");
+
+            if (!TratarErrosResponse(response))
+                return null;
+
+            return await DeserializarObjetoResponse<IEnumerable<NotificacaoDTO>>(response);
         }
     }
 }
