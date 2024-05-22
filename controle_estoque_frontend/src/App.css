@@ -28,3 +28,9 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+main {
+    position: absolute;
+    top: 62px;
+    width: 100dvw;
+}

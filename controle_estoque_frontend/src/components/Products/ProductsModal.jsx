@@ -2,7 +2,7 @@ import { FaX, FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 import { motion as m } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getProductListPaged } from "../../services/productsService";
+import { getProductListByName } from "../../services/productsService";
 import "./ProductModal.css";
 
 const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
@@ -20,7 +20,7 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
 
     const searchProducts = async () => {
         if (!search) return;
-        const response = await getProductListPaged(
+        const response = await getProductListByName(
             search,
             currentPage,
             4,

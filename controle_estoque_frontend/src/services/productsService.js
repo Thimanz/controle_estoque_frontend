@@ -2,15 +2,7 @@ import { makeRequest } from "./requestManager";
 
 const BASE_URL = "https://localhost:44323";
 
-export const getProductList = (name, navigateHook) => {
-    return makeRequest(
-        "get",
-        `${BASE_URL}/api/produto/lista-por-nome/${name}`,
-        navigateHook
-    );
-};
-
-export const getProductListPaged = (name, page, pageSize, navigateHook) => {
+export const getProductListByName = (name, page, pageSize, navigateHook) => {
     return makeRequest(
         "get",
         `${BASE_URL}/api/produto/lista-por-nome?nome=${name}&pageSize=${pageSize}&pageIndex=${page}`,
@@ -18,10 +10,10 @@ export const getProductListPaged = (name, page, pageSize, navigateHook) => {
     );
 };
 
-export const getAllProductList = (navigateHook) => {
+export const getAllProductList = (page, pageSize, navigateHook) => {
     return makeRequest(
         "get",
-        `${BASE_URL}/api/produto/listar-todos`,
+        `${BASE_URL}/api/produto/listar-todos?pageSize=${pageSize}&pageIndex=${page}`,
         navigateHook
     );
 };

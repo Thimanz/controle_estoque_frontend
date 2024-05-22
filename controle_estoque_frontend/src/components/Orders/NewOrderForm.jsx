@@ -300,7 +300,7 @@ const NewOrderForm = () => {
                             className="product-image"
                         />
                         <div className="item-name-inputs">
-                            <h4 className="product-name">{item.nome}</h4>
+                            <h4 className="item-name">{item.nome}</h4>
                             <div className="item-inputs">
                                 {typeKey !== "" &&
                                     typeKey !== "TRANSFERENCIA" && (

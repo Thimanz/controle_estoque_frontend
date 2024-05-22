@@ -1,34 +1,64 @@
 import { useNavigate } from "react-router-dom";
 import "./ProdutosTab.css";
 import { motion as m } from "framer-motion";
-import { useState, useEffect } from "react";
-import { getProductListPaged } from "../../services/productsService";
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
+import { useState, useEffect, useRef } from "react";
+import {
+    getAllProductList,
+    getProductListByName,
+} from "../../services/productsService";
 
 const ProdutosTab = () => {
     const navigate = useNavigate();
+    const loadRef = useRef();
 
     const [search, setSearch] = useState("");
     const [productsList, setProductsList] = useState([]);
-    const [maxPage, setmaxPage] = useState();
+    const [maxPage, setmaxPage] = useState(1);
 
     const [currentPage, setCurrentPage] = useState(1);
 
+    const searchAllProducts = async () => {
+        const response = await getAllProductList(currentPage, 12, navigate);
+        if (response.status === 200) {
+            setProductsList([...productsList, ...response.data.list]);
+            setmaxPage(response.data.totalPages);
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
     useEffect(() => {
-        searchProducts();
-    }, [currentPage]);
+        const observer = new IntersectionObserver(onIntersection);
+        if (observer && loadRef.current) {
+            observer.observe(loadRef.current);
+        }
+
+        return () => {
+            if (observer) observer.disconnect();
+        };
+    }, [productsList]);
+
+    const onIntersection = (entries) => {
+        const firstEntry = entries[0];
+        if (firstEntry.isIntersecting && currentPage <= maxPage) {
+            searchProducts();
+        }
+    };
 
     const searchProducts = async () => {
-        if (!search) return;
-        const response = await getProductListPaged(
+        if (!search) {
+            searchAllProducts();
+            return;
+        }
+        const response = await getProductListByName(
             search,
             currentPage,
             12,
             navigate
         );
         if (response.status === 200) {
-            setProductsList(response.data.list);
+            setProductsList([...productsList, ...response.data.list]);
             setmaxPage(response.data.totalPages);
+            setCurrentPage(currentPage + 1);
         }
     };
 
@@ -46,7 +76,8 @@ const ProdutosTab = () => {
                         className="search-container"
                         onSubmit={(e) => {
                             e.preventDefault();
-                            searchProducts();
+                            setCurrentPage(1);
+                            setProductsList([]);
                         }}
                     >
                         <input
@@ -58,7 +89,10 @@ const ProdutosTab = () => {
                         <svg
                             viewBox="0 0 24 24"
                             className="search__icon"
-                            onClick={searchProducts}
+                            onClick={() => {
+                                setCurrentPage(1);
+                                setProductsList([]);
+                            }}
                         >
                             <g>
                                 <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
@@ -82,71 +116,39 @@ const ProdutosTab = () => {
                     </button>
                 </m.section>
             </div>
-            <m.div
-                initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{
-                    y: -10,
-                    opacity: 0,
-                    transition: { delay: 0.2 },
-                }}
-                transition={{ duration: 0.2 }}
-                className="products-searched"
-            >
-                {productsList.length > 0 && (
-                    <>
-                        {productsList.map((produto) => {
-                            return (
-                                <div
-                                    className="product-box"
-                                    key={produto.id}
-                                    onClick={() =>
-                                        navigate(`/produtos/${produto.id}`)
-                                    }
-                                >
-                                    <img
-                                        src={"\\" + produto.imagem}
-                                        alt="imagem do produto"
-                                        className="product-image"
-                                    />
-                                    <h4 className="product-name">
-                                        {produto.nome}
-                                    </h4>
-                                </div>
-                            );
-                        })}
-                        <div className="pagination-buttons">
-                            <button
-                                className="button-last bg-color-main-blue"
-                                onClick={() => {
-                                    setCurrentPage(
-                                        currentPage === 1
-                                            ? currentPage
-                                            : currentPage - 1
-                                    );
-                                }}
+            {productsList.length > 0 && (
+                <m.div
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{
+                        y: -10,
+                        opacity: 0,
+                        transition: { delay: 0.2 },
+                    }}
+                    transition={{ duration: 0.2 }}
+                    className="products-searched"
+                >
+                    {productsList.map((produto) => {
+                        return (
+                            <div
+                                className="product-box"
+                                key={produto.id}
+                                onClick={() =>
+                                    navigate(`/produtos/${produto.id}`)
+                                }
                             >
-                                <FaChevronLeft size={40} />
-                            </button>
-                            <h4 className="current-page current-page-black">
-                                {currentPage}
-                            </h4>
-                            <button
-                                className="button-next bg-color-main-blue"
-                                onClick={() => {
-                                    setCurrentPage(
-                                        currentPage === maxPage
-                                            ? currentPage
-                                            : currentPage + 1
-                                    );
-                                }}
-                            >
-                                <FaChevronRight size={40} />
-                            </button>
-                        </div>
-                    </>
-                )}
-            </m.div>
+                                <img
+                                    src={"\\" + produto.imagem}
+                                    alt="imagem do produto"
+                                    className="product-image"
+                                />
+                                <h4 className="product-name">{produto.nome}</h4>
+                            </div>
+                        );
+                    })}
+                </m.div>
+            )}
+            {currentPage <= maxPage && <h4 ref={loadRef}>Carregando...</h4>}
         </main>
     );
 };

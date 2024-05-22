@@ -1,5 +1,6 @@
 .Page {
     display: flex;
+    top: 0;
     align-items: center;
     justify-content: center;
     width: 100dvw;
@@ -56,4 +57,8 @@
     line-height: 100%;
     font-stretch: normal;
     text-decoration: none;
+}
+
+.Page button:hover {
+    background-color: #003157;
 }

@@ -33,7 +33,7 @@ const Notifications = () => {
         <>
             <a onClick={() => setIsDropdownActive(!isDropdownActive)}>
                 <FaBell
-                    color={isDropdownActive ? "#bada55" : "white"}
+                    color={isDropdownActive ? "#04d9ff" : "white"}
                     size={25}
                 />
                 {notifications.length > 0 && (

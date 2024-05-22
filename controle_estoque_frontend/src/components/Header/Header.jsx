@@ -67,8 +67,8 @@ const Header = () => {
                 <m.ul
                     className="mobile-nav"
                     style={{ display: isMobileNavOpen ? "flex" : "none" }}
-                    initial={{ opacity: 0, x: "-70dvw" }}
-                    animate={{ opacity: 1, x: "-60dvw" }}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.5 }}
                 >
                     <li className="nav-item">
