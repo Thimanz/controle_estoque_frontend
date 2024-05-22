@@ -15,11 +15,10 @@
 }
 
 .main-order {
-    min-height: 80dvh;
-    margin-top: 20px;
+    min-height: calc(100dvh - 62px);
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .centered-block > .confirm-order {
@@ -28,7 +27,6 @@
     display: flex;
     padding: 23px 32px;
     overflow: hidden;
-    box-shadow: 0px 2px 4px 0px rgba(136, 144, 194, 0.20000000298023224);
     align-items: center;
     flex-shrink: 0;
     border-radius: 999px;
@@ -46,19 +44,15 @@
 .new-product,
 .total-price {
     margin: 20px 0;
-    place-self: start;
 }
 
 .total-price {
     place-self: end;
+    margin-right: 100px;
 }
 
 .new-product {
     place-self: center;
-}
-
-.itens-h3 {
-    place-self: start;
 }
 
 .order-items {
@@ -72,7 +66,7 @@
     flex-direction: column;
 }
 
-.product-name {
+.item-name {
     margin-left: 30px;
     place-self: start;
     margin-bottom: 5px;
@@ -121,4 +115,8 @@
 }
 .item-dropdown-content::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+.confirm-order:hover {
+    background-color: #003157;
 }

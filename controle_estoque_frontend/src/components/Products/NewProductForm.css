@@ -1,5 +1,5 @@
 .main-product {
-    min-height: 80dvh;
+    min-height: calc(100dvh - 62px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -115,7 +115,6 @@
     display: flex;
     padding: 23px 32px;
     overflow: hidden;
-    box-shadow: 0px 2px 4px 0px rgba(136, 144, 194, 0.20000000298023224);
     align-items: center;
     flex-shrink: 0;
     border-radius: 999px;
@@ -135,4 +134,8 @@
 
 .error-msg {
     color: red;
+}
+
+.confirm-product:hover {
+    background-color: #003157;
 }
