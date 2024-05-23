@@ -13,6 +13,8 @@ import {
     postSellOrder,
     postTransferOrder,
 } from "../../services/orderService";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NewOrderForm = () => {
     const typeRef = useRef();
@@ -92,9 +94,6 @@ const NewOrderForm = () => {
         setTotalValue(newTotalValue);
     }, [JSON.stringify(orderItems), amounts, typeKey]);
 
-    const [requestMsgs, setrequestMsgs] = useState([]);
-    const [isSuccess, setIsSuccess] = useState(false);
-
     const sendOrder = async () => {
         let response;
         switch (typeKey) {
@@ -147,17 +146,32 @@ const NewOrderForm = () => {
                 break;
         }
         if (response.status === 204) {
-            setIsSuccess(true);
-            setrequestMsgs(["Seu pedido foi registrado"]);
-            setTimeout(() => navigate("/inicio"), 1000);
+            navigate("/inicio", {
+                state: {
+                    successMsg: "Pedido Cadastrado com Sucesso",
+                    tab: "Pedidos",
+                },
+            });
         } else {
-            setIsSuccess(false);
-            setrequestMsgs(response.errors.mensagens);
+            response.errors.mensagens.forEach((mensagem) => {
+                toast.error(mensagem, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
+            });
         }
     };
 
     return (
         <main className="main-order">
+            <ToastContainer />
             <section className="centered-block">
                 <div className="order-forms">
                     <section className="left-order-form">
@@ -424,17 +438,6 @@ const NewOrderForm = () => {
                         <button className="confirm-order" onClick={sendOrder}>
                             Confirmar Pedido
                         </button>
-                        {requestMsgs ? (
-                            <h3
-                                className={
-                                    isSuccess ? "success-msg" : "error-msg"
-                                }
-                            >
-                                {requestMsgs.map((msg) => (
-                                    <p>{msg}</p>
-                                ))}
-                            </h3>
-                        ) : null}
                     </>
                 )}
             </section>

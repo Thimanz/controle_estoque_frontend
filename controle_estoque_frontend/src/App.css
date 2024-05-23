@@ -34,3 +34,7 @@ main {
     top: 62px;
     width: 100dvw;
 }
+
+#root .Toastify__toast-container {
+    z-index: 20000;
+}

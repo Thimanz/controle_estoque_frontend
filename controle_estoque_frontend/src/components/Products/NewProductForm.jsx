@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { getCategoryList } from "../../services/categoryService";
 import { useNavigate } from "react-router-dom";
 import { postProduct } from "../../services/productsService";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NewProductForm = () => {
     const categoryRef = useRef();
@@ -33,9 +35,6 @@ const NewProductForm = () => {
         fetchCategories();
     }, []);
 
-    const [requestMsgs, setrequestMsgs] = useState([]);
-    const [isSuccess, setIsSuccess] = useState(false);
-
     const sendProduct = async () => {
         const response = await postProduct(
             {
@@ -55,16 +54,32 @@ const NewProductForm = () => {
             navigate
         );
         if (response.status === 204) {
-            setIsSuccess(true);
-            setrequestMsgs(["Produto Cadastrado com Sucesso"]);
+            navigate("/inicio", {
+                state: {
+                    successMsg: "Produto Cadastrado com Sucesso",
+                    tab: "Produtos",
+                },
+            });
         } else {
-            setIsSuccess(false);
-            setrequestMsgs(response.errors.mensagens);
+            response.errors.mensagens.forEach((mensagem) => {
+                toast.error(mensagem, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
+            });
         }
     };
 
     return (
         <main className="main-product">
+            <ToastContainer />
             <section className="centered-block">
                 <div className="product-forms">
                     <section className="left-product-form">
@@ -257,13 +272,6 @@ const NewProductForm = () => {
                 <button className="confirm-product" onClick={sendProduct}>
                     Cadastrar Produto
                 </button>
-                {requestMsgs ? (
-                    <h3 className={isSuccess ? "success-msg" : "error-msg"}>
-                        {requestMsgs.map((msg) => (
-                            <p>{msg}</p>
-                        ))}
-                    </h3>
-                ) : null}
             </section>
         </main>
     );
