@@ -2,7 +2,8 @@ import Header from "../../components/Header/Header";
 import "./Home.css";
 import ProdutosTab from "../../components/Home/ProdutosTab";
 import HomeMenu from "../../components/HomeMenu/HomeMenu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ToastContainer, toast, Bounce } from "react-toastify";
 
 import Product from "../../components/Svgs/Product";
 import Stock from "../../components/Svgs/Stock";
@@ -10,8 +11,11 @@ import Truck from "../../components/Svgs/Truck";
 import Access from "../../components/Svgs/Access";
 import { AnimatePresence } from "framer-motion";
 import PedidosTab from "../../components/Home/PedidosTab";
+import { useLocation } from "react-router-dom";
 
-const Home = ({ tab }) => {
+const Home = () => {
+    const { state } = useLocation();
+
     const options = [
         {
             description: "Produtos",
@@ -33,12 +37,28 @@ const Home = ({ tab }) => {
         },
     ];
 
-    const [selectedTab, setSelectedTab] = useState(
-        tab ? options.find((e) => e.description === tab) : options[0]
-    );
+    const [selectedTab, setSelectedTab] = useState(options[0]);
+
+    useEffect(() => {
+        try {
+            setSelectedTab(options.find((e) => e.description === state.tab));
+            toast.success(state.successMsg, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
+        } catch {}
+    }, []);
 
     return (
         <>
+            <ToastContainer />
             <Header />
             <HomeMenu
                 selectedTab={selectedTab}

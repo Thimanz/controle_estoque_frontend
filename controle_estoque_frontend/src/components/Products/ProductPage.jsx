@@ -7,6 +7,8 @@ import {
     updateProduct,
 } from "../../services/productsService";
 import { getCategoryList } from "../../services/categoryService";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./ProductPage.css";
 
 const ProductPage = () => {
@@ -62,12 +64,7 @@ const ProductPage = () => {
         fetchCategories();
     }, [productId]);
 
-    const [requestMsgs, setrequestMsgs] = useState([]);
-    const [isSuccess, setIsSuccess] = useState(false);
-    const [disableButtons, setDisableButtons] = useState(false);
-
     const updateButton = async () => {
-        setDisableButtons(true);
         const response = await updateProduct(
             productId,
             {
@@ -87,32 +84,58 @@ const ProductPage = () => {
             navigate
         );
         if (response.status === 204) {
-            setIsSuccess(true);
-            setrequestMsgs(["Produto Atualizado com Sucesso"]);
-            setTimeout(() => navigate("/inicio"), 1000);
+            navigate("/inicio", {
+                state: {
+                    successMsg: "Produto Atualizado com Sucesso",
+                    tab: "Produtos",
+                },
+            });
         } else {
-            setIsSuccess(false);
-            setrequestMsgs(response.errors.mensagens);
+            response.errors.mensagens.forEach((mensagem) => {
+                toast.error(mensagem, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
+            });
         }
-        setDisableButtons(false);
     };
 
     const deleteButton = async () => {
-        setDisableButtons(true);
         const response = await deleteProduct(productId, navigate);
         if (response.status === 204) {
-            setIsSuccess(true);
-            setrequestMsgs(["Produto Deletado"]);
-            setTimeout(() => navigate("/inicio"), 1000);
+            navigate("/inicio", {
+                state: {
+                    successMsg: "Produto Deletado com Sucesso",
+                    tab: "Produtos",
+                },
+            });
         } else {
-            setIsSuccess(false);
-            setrequestMsgs(response.errors.mensagens);
+            response.errors.mensagens.forEach((mensagem) => {
+                toast.error(mensagem, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
+            });
         }
-        setDisableButtons(false);
     };
 
     return (
         <main className="main-product-page">
+            <ToastContainer />
             <div className="product-info-image">
                 <section className="product-image-container">
                     <img
@@ -327,28 +350,13 @@ const ProductPage = () => {
                 </section>
             </div>
             <div className="product-buttons">
-                <button
-                    className="delete-product"
-                    disabled={disableButtons}
-                    onClick={deleteButton}
-                >
+                <button className="delete-product" onClick={deleteButton}>
                     <FaTrash />
                 </button>
-                <button
-                    className="update-product"
-                    disabled={disableButtons}
-                    onClick={updateButton}
-                >
+                <button className="update-product" onClick={updateButton}>
                     Atualizar
                 </button>
             </div>
-            {requestMsgs ? (
-                <h3 className={isSuccess ? "success-msg" : "error-msg"}>
-                    {requestMsgs.map((msg) => (
-                        <p>{msg}</p>
-                    ))}
-                </h3>
-            ) : null}
         </main>
     );
 };
