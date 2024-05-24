@@ -92,7 +92,7 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
                                             }}
                                         >
                                             <img
-                                                src={"\\" + produto.imagem}
+                                                src={produto.imagem}
                                                 alt="imagem do produto"
                                                 className="product-image"
                                             />

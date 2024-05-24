@@ -1,4 +1,4 @@
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { FaCaretDown, FaCaretUp, FaUpload } from "react-icons/fa";
 import "./NewProductForm.css";
 import { useEffect, useRef, useState } from "react";
 import { getCategoryList } from "../../services/categoryService";
@@ -24,6 +24,7 @@ const NewProductForm = () => {
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("");
     const [weight, setWeight] = useState("");
+    const [image, setImage] = useState(null);
 
     const [categories, setCategories] = useState([]);
 
@@ -44,7 +45,7 @@ const NewProductForm = () => {
                 categoriaId: categoryId,
                 precoCusto: costPrice,
                 precoVenda: sellingPrice,
-                imagem: null,
+                imagem: image,
                 nivelMinimoEstoque: parseInt(minInStock),
                 comprimento: parseFloat(length),
                 largura: parseFloat(width),
@@ -75,6 +76,17 @@ const NewProductForm = () => {
                 });
             });
         }
+    };
+
+    const loadImage = (e) => {
+        const fileReader = new FileReader();
+
+        fileReader.onloadend = () => {
+            console.log(fileReader.result);
+            setImage(fileReader.result);
+        };
+
+        if (e.target.files[0]) fileReader.readAsDataURL(e.target.files[0]);
     };
 
     return (
@@ -147,6 +159,23 @@ const NewProductForm = () => {
                                 autoComplete="off"
                             />
                             <label htmlFor="largura">Largura (cm)</label>
+                        </div>
+                        <div className="input-group">
+                            <input
+                                accept="image/*"
+                                aria-label="Imagem"
+                                type="file"
+                                required
+                                autoComplete="off"
+                                onChange={loadImage}
+                            />
+                            <label
+                                htmlFor="Imagem"
+                                className="image-input-label"
+                            >
+                                <FaUpload />
+                                {" Selecione uma Imagem"}
+                            </label>
                         </div>
                     </section>
                     <section className="right-product-form">
@@ -255,6 +284,15 @@ const NewProductForm = () => {
                                 autoComplete="off"
                             />
                             <label htmlFor="altura">Altura (cm)</label>
+                        </div>
+                        <div className="input-group">
+                            <input
+                                aria-label="Date"
+                                type="date"
+                                required
+                                autoComplete="off"
+                            />
+                            <label htmlFor="Date">Data de Validade</label>
                         </div>
                     </section>
                 </div>

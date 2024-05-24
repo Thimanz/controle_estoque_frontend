@@ -128,21 +128,21 @@ const ProdutosTab = () => {
                     transition={{ duration: 0.2 }}
                     className="products-searched"
                 >
-                    {productsList.map((produto) => {
+                    {productsList.map((product) => {
                         return (
                             <div
                                 className="product-box"
-                                key={produto.id}
+                                key={product.id}
                                 onClick={() =>
-                                    navigate(`/produtos/${produto.id}`)
+                                    navigate(`/produtos/${product.id}`)
                                 }
                             >
                                 <img
-                                    src={"\\" + produto.imagem}
+                                    src={product.imagem}
                                     alt="imagem do produto"
                                     className="product-image"
                                 />
-                                <h4 className="product-name">{produto.nome}</h4>
+                                <h4 className="product-name">{product.nome}</h4>
                             </div>
                         );
                     })}
