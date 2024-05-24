@@ -309,7 +309,7 @@ const NewOrderForm = () => {
                 {orderItems.map((item, index) => (
                     <div className="order-items" key={index}>
                         <img
-                            src={"\\" + item.imagem}
+                            src={item.imagem}
                             alt="imagem do produto"
                             className="product-image"
                         />

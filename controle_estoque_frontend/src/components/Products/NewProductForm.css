@@ -53,13 +53,17 @@
     top: 0;
     padding: 0.8em;
     margin-left: 0.5em;
-    opacity: 0.7;
+
     pointer-events: none;
     transition: all 0.3s ease;
-    color: rgb(100, 100, 100);
 }
 
-.input-group input:focus ~ label,
+.input-group label:not([class="image-input-label"]) {
+    color: rgb(100, 100, 100);
+    opacity: 0.7;
+}
+
+.input-group input:not([type="file"]):focus ~ label,
 .input-group input:valid ~ label,
 .input-group input[type="button"]:not([value=""]) ~ label {
     transform: translateY(-50%) scale(0.9);
@@ -68,12 +72,19 @@
     padding: 0.4em;
     opacity: 1;
     background-color: white;
+    color: rgb(100, 100, 100);
+    border: none;
+    width: fit-content;
 }
 
 .input-group input:focus,
 .input-group input:valid,
 .input-group input[type="button"]:not([value=""]) {
     border-color: rgb(150, 150, 200);
+}
+
+.input-group input[type="file"]:invalid {
+    color: transparent;
 }
 
 .dropdown {
@@ -128,14 +139,16 @@
     text-decoration: none;
 }
 
-.success-msg {
-    color: green;
-}
-
-.error-msg {
-    color: red;
-}
-
 .confirm-product:hover {
     background-color: #003157;
+}
+
+.image-input-label {
+    width: 100%;
+    background-color: rgb(150, 150, 200);
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin-left: 0px !important;
+    border: 2px solid rgb(150, 150, 200);
+    color: white;
 }

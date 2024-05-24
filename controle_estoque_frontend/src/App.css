@@ -38,3 +38,22 @@ main {
 #root .Toastify__toast-container {
     z-index: 20000;
 }
+
+input[type="date"]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+input[type="date"]:focus::-webkit-datetime-edit {
+    color: black !important;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    display: none;
+}
+
+/* input[type="file"]::before {
+    content: "Imagem";
+    display: inline-block;
+    font-family: "Inter", sans-serif;
+    color: rgb(100, 100, 100);
+    opacity: 0.7;
+} */

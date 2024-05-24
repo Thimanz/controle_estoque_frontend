@@ -139,7 +139,7 @@ const ProductPage = () => {
             <div className="product-info-image">
                 <section className="product-image-container">
                     <img
-                        src={"\\" + product.imagem}
+                        src={product.imagem}
                         alt="imagem do produto"
                         className="product-image-L"
                     />
