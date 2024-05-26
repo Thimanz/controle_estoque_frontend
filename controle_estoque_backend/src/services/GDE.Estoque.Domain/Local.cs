@@ -52,9 +52,9 @@ namespace GDE.Estoque.Domain
 
         private void CalcularEspacoLivre()
         {
-            var alturaLivre = Dimensoes.Altura - LocalItens.Sum(i => i.Dimensoes.Altura);
-            var larguraLivre = Dimensoes.Largura - LocalItens.Sum(i => i.Dimensoes.Largura);
-            var comprimentoLivre = Dimensoes.Comprimento - LocalItens.Sum(i => i.Dimensoes.Comprimento);
+            var alturaLivre = Dimensoes.Altura - LocalItens.Sum(i => i.Dimensoes.Altura * i.Quantidade);
+            var larguraLivre = Dimensoes.Largura - LocalItens.Sum(i => i.Dimensoes.Largura * i.Quantidade);
+            var comprimentoLivre = Dimensoes.Comprimento - LocalItens.Sum(i => i.Dimensoes.Comprimento * i.Quantidade);
 
             EspacoLivre = new Dimensoes(comprimentoLivre, larguraLivre, alturaLivre);
         }
@@ -63,9 +63,9 @@ namespace GDE.Estoque.Domain
         {
             CalcularEspacoLivre();
 
-            return (EspacoLivre.Altura - item.Dimensoes.Altura >= 0
-                && EspacoLivre.Largura - item.Dimensoes.Largura >= 0
-                && EspacoLivre.Comprimento - item.Dimensoes.Comprimento >= 0);
+            return (EspacoLivre.Altura - (item.Dimensoes.Altura * item.Quantidade )>= 0
+                && EspacoLivre.Largura - (item.Dimensoes.Largura * item.Quantidade) >= 0
+                && EspacoLivre.Comprimento - (item.Dimensoes.Comprimento * item.Quantidade) >= 0);
         }
 
         public List<LocalItem> ObterPorProdutoId(Guid produtoId)
