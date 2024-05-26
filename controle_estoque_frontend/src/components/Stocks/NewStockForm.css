@@ -144,9 +144,6 @@
 }
 
 .image-input-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
     background-color: rgb(150, 150, 200);
     border-radius: 20px;
@@ -154,8 +151,4 @@
     margin-left: 0px !important;
     border: 2px solid rgb(150, 150, 200);
     color: white;
-}
-
-.image-input-label svg {
-    margin-right: 5px;
 }
