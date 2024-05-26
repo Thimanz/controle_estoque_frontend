@@ -12,6 +12,7 @@ import Access from "../../components/Svgs/Access";
 import { AnimatePresence } from "framer-motion";
 import PedidosTab from "../../components/Home/PedidosTab";
 import { useLocation } from "react-router-dom";
+import EstoquesTab from "../../components/Home/EstoquesTab";
 
 const Home = () => {
     const { state } = useLocation();
@@ -25,6 +26,7 @@ const Home = () => {
         {
             description: "Estoques",
             image: <Stock height="25px" width="25px" />,
+            tab: <EstoquesTab />,
         },
         {
             description: "Pedidos",

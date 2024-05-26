@@ -6,6 +6,7 @@ import Home from "./routes/Home/Home";
 import NewProduct from "./routes/Products/NewProduct";
 import Product from "./routes/Products/Product";
 import NewOrder from "./routes/Orders/NewOrder";
+import Stock from "./routes/Stocks/Stock";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/inicio" element={<Home />} />
                 <Route path="/produtos/novo-produto" element={<NewProduct />} />
                 <Route path="/produtos/:id" element={<Product />} />
+                <Route path="/estoques/:id" element={<Stock />} />
                 <Route path="/pedidos/novo-pedido" element={<NewOrder />} />
                 <Route
                     path="/autenticar/:authtype"
