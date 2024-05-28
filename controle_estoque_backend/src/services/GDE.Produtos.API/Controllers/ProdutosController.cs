@@ -59,7 +59,7 @@ namespace GDE.Produtos.API.Controllers
                 });
         }
 
-        [HttpGet("api/produto")]
+        [HttpGet("api/produto/listar-todos")]
         public async Task<IActionResult> ListaProdutos([FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
         {
             var produtos = await _context.Produtos.Include(p => p.Categoria)

@@ -20,7 +20,7 @@ namespace GDE.Estoque.API.Controllers
             return await _localRepository.ObterPorId(id);
         }
 
-        [HttpGet("api/estoque")]
+        [HttpGet("api/estoque/listar-todos")]
         public async Task<IEnumerable<LocalDto>> ListaLocais()
         {
             var locais = await _localRepository.ObterTodos();
