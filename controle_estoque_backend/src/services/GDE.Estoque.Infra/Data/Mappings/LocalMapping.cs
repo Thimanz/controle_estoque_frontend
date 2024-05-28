@@ -13,6 +13,9 @@ namespace GDE.Estoque.Infra.Data.Mappings
             builder.Property(c => c.Nome)
                 .IsRequired()
                 .HasColumnType("varchar(250)");
+            
+            builder.Property(c => c.Nome)
+                .HasColumnType("varchar(250)");
 
             builder.OwnsOne(c => c.Dimensoes, tf =>
             {
