@@ -9,7 +9,7 @@ namespace GDE.Produtos.API.Entities
         public Produto() { }
 
         public Produto(string? nome, string? descricao, string? codigoBarras, Guid categoriaId,
-            decimal precoCusto, decimal precoVenda, int nivelMinimoEstoque,
+            decimal precoCusto, decimal precoVenda, string? imagem, int nivelMinimoEstoque,
             decimal comprimento, decimal largura, decimal altura)
         {
             Id = Guid.NewGuid();
@@ -19,6 +19,7 @@ namespace GDE.Produtos.API.Entities
             CategoriaId = categoriaId;
             PrecoCusto = precoCusto;
             PrecoVenda = precoVenda;
+            Imagem = imagem;
             NivelMinimoEstoque = nivelMinimoEstoque;
             DataCadastro = DateTime.Now;
             Dimensoes = new Dimensoes(comprimento, largura, altura);
