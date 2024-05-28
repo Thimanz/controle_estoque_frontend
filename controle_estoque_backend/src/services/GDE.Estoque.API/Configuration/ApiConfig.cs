@@ -1,4 +1,5 @@
-﻿using GDE.Core.Identidade;
+﻿using System.Text.Json.Serialization;
+using GDE.Core.Identidade;
 using GDE.Estoque.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +12,8 @@ namespace GDE.Estoque.API.Configuration
             services.AddDbContext<EstoqueContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             services.AddCors(options =>
             {

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using FluentValidation;
 using GDE.Core.DomainObjects;
 
 namespace GDE.Estoque.Domain
@@ -11,7 +12,7 @@ namespace GDE.Estoque.Domain
             Dimensoes = new Dimensoes(comprimento, largura, altura);
             _localItens = localItens;
 
-            CalcularEspacoLivre();
+            //CalcularEspacoLivre();
         }
 
         //EF ctor
@@ -27,7 +28,14 @@ namespace GDE.Estoque.Domain
         public IReadOnlyCollection<LocalItem> LocalItens => _localItens;
 
         [NotMapped]
-        public Dimensoes EspacoLivre { get; private set; }
+        public Dimensoes EspacoLivre => CalcularEspacoLivre();
+
+        [NotMapped]
+        public decimal EspacoTotal => (Dimensoes.Altura * Dimensoes.Largura * Dimensoes.Comprimento);
+
+        [NotMapped]
+        public decimal EspacoLivreCalculado => (EspacoLivre.Altura * EspacoLivre.Largura * EspacoLivre.Comprimento);
+
 
         public void AdicionarItem(LocalItem item)
         {
@@ -36,8 +44,6 @@ namespace GDE.Estoque.Domain
 
             item.AssociarLocal(Id);
             _localItens.Add(item);
-
-            CalcularEspacoLivre();
         }
 
         public void RemoverItem(LocalItem item)
@@ -46,24 +52,20 @@ namespace GDE.Estoque.Domain
                 throw new DomainException("Item não encontrado no local");
 
             _localItens.Remove(item);
-
-            CalcularEspacoLivre();
         }
 
-        private void CalcularEspacoLivre()
+        private Dimensoes CalcularEspacoLivre()
         {
             var alturaLivre = Dimensoes.Altura - LocalItens.Sum(i => i.Dimensoes.Altura * i.Quantidade);
             var larguraLivre = Dimensoes.Largura - LocalItens.Sum(i => i.Dimensoes.Largura * i.Quantidade);
             var comprimentoLivre = Dimensoes.Comprimento - LocalItens.Sum(i => i.Dimensoes.Comprimento * i.Quantidade);
 
-            EspacoLivre = new Dimensoes(comprimentoLivre, larguraLivre, alturaLivre);
+            return new Dimensoes(comprimentoLivre, larguraLivre, alturaLivre);
         }
 
         public bool VerificarEspacoLivre(LocalItem item)
         {
-            CalcularEspacoLivre();
-
-            return (EspacoLivre.Altura - (item.Dimensoes.Altura * item.Quantidade )>= 0
+            return (EspacoLivre.Altura - (item.Dimensoes.Altura * item.Quantidade) >= 0
                 && EspacoLivre.Largura - (item.Dimensoes.Largura * item.Quantidade) >= 0
                 && EspacoLivre.Comprimento - (item.Dimensoes.Comprimento * item.Quantidade) >= 0);
         }

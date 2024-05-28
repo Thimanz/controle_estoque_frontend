@@ -1,4 +1,5 @@
 ﻿using GDE.Core.Controllers;
+using GDE.Estoque.API.DTO;
 using GDE.Estoque.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +21,11 @@ namespace GDE.Estoque.API.Controllers
         }
 
         [HttpGet("api/estoque")]
-        public async Task<IEnumerable<Local>> ListaLocais()
+        public async Task<IEnumerable<LocalDto>> ListaLocais()
         {
-            return await _localRepository.ObterTodos();
+            var locais = await _localRepository.ObterTodos();
+
+            return locais.Select(LocalDto.FromEntity);
         }
 
         [HttpGet("api/estoque/obter-lista-por-produto-id/{produtoId}")]
@@ -30,5 +33,59 @@ namespace GDE.Estoque.API.Controllers
         {
             return await _localRepository.ObterListaPorProdutoId(produtoId);
         }
+
+        [HttpPost("api/estoque")]
+        public async Task<IActionResult> AdicionarLocal(AdicionarLocalDto local)
+        {
+            _localRepository.Adicionar(AdicionarLocalDto.ToEntity(local));
+
+            await PersistirDados();
+            return CustomResponse();
+        }
+
+        [HttpPut("api/estoque/{localId}")]
+        public async Task<IActionResult> AtualizarLocal(Guid localId, AdicionarLocalDto local)
+        {
+            var localExistente = await _localRepository.ObterPorId(localId);
+
+            if (localExistente is null)
+            {
+                AdicionarErroProcessamento("Local não encontrado");
+                return CustomResponse();
+            }
+
+            var novoLocal = AdicionarLocalDto.ToEntity(local);
+
+            novoLocal.Id = localId;
+
+            _localRepository.Atualizar(novoLocal);
+
+            await PersistirDados();
+            return CustomResponse();
+        }
+        
+        [HttpDelete("api/estoque/{localId}")]
+        public async Task<IActionResult> RemoverLocal(Guid localId)
+        {
+            var localExistente = await _localRepository.ObterPorId(localId);
+
+            if (localExistente is null)
+            {
+                AdicionarErroProcessamento("Local não encontrado");
+                return CustomResponse();
+            }
+
+            _localRepository.Remover(localExistente);
+
+            await PersistirDados();
+            return CustomResponse();
+        }
+
+        private async Task PersistirDados()
+        {
+            var commited = await _localRepository.UnitOfWork.Commit();
+            if (!commited) AdicionarErroProcessamento("Não foi possível persistir os dados no banco");
+        }
+
     }
 }
