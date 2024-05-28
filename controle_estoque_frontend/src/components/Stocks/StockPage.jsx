@@ -19,7 +19,7 @@ const StockPage = () => {
     const [address, setAddress] = useState("");
     const [products, setProducts] = useState([]);
     const [totalSpace, setTotalSpace] = useState("");
-    const [usedSpace, setUsedSpace] = useState("");
+    const [freeSpace, setFreeSpace] = useState("");
     const [length, setLength] = useState("");
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("");
@@ -30,16 +30,12 @@ const StockPage = () => {
             if (response.status === 200) {
                 setName(response.data.nome);
                 setAddress(response.data.endereco);
-                setProducts(response.data.produtos);
-                setUsedSpace(response.data.espacoOcupado);
-                setTotalSpace(
-                    response.data.comprimento *
-                        response.data.largura *
-                        response.data.altura
-                );
-                setLength(response.data.comprimento);
-                setWidth(response.data.largura);
-                setHeight(response.data.altura);
+                setProducts(response.data.localItens);
+                setFreeSpace(response.data.espacoLivreCalculado);
+                setTotalSpace(response.data.espacoTotal);
+                setLength(response.data.dimensoes.comprimento);
+                setWidth(response.data.dimensoes.largura);
+                setHeight(response.data.dimensoes.altura);
             } else {
                 navigate("/not-found");
             }
@@ -195,8 +191,8 @@ const StockPage = () => {
                             <p>{`${totalSpace} cm³`}</p>
                         </div>
                         <div className="stock-info">
-                            <h3 className="stock-info-text">Espaço Ocupado:</h3>
-                            <p>{`${usedSpace} cm³`}</p>
+                            <h3 className="stock-info-text">Espaço Livre:</h3>
+                            <p>{`${freeSpace} cm³`}</p>
                         </div>
                     </div>
                 </section>
