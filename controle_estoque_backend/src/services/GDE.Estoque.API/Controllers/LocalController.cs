@@ -54,16 +54,21 @@ namespace GDE.Estoque.API.Controllers
                 return CustomResponse();
             }
 
-            var novoLocal = AdicionarLocalDto.ToEntity(local);
+            localExistente.AlterarNome(local.Nome);
+            localExistente.AlterarDimensoes(local.Comprimento, local.Largura, local.Altura);
 
-            novoLocal.Id = localId;
+            if (localExistente.EspacoLivreCalculado <= 0)
+            {
+                AdicionarErroProcessamento("Não foi possível alterar as dimensões do local, pois o tamanho dos itens existentes é maior do que as novas medidas.");
+                return CustomResponse();
+            }
 
-            _localRepository.Atualizar(novoLocal);
+            _localRepository.Atualizar(localExistente);
 
             await PersistirDados();
             return CustomResponse();
         }
-        
+
         [HttpDelete("api/estoque/{localId}")]
         public async Task<IActionResult> RemoverLocal(Guid localId)
         {

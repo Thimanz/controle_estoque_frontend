@@ -84,5 +84,15 @@ namespace GDE.Estoque.Domain
         {
             return LocalItens.Any(i => i.ProdutoId == item.ProdutoId);
         }
+
+        public void AlterarNome(string nome)
+        {
+            Nome = nome;
+        }
+
+        public void AlterarDimensoes(decimal comprimento, decimal largura, decimal altura)
+        {
+            Dimensoes = new Dimensoes(comprimento, largura, altura);
+        }
     }
 }
