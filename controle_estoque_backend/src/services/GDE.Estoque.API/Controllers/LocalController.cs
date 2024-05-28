@@ -63,9 +63,10 @@ namespace GDE.Estoque.API.Controllers
             }
 
             localExistente.AlterarNome(local.Nome);
+            localExistente.AlterarEndereco(local.Endereco);
             localExistente.AlterarDimensoes(local.Comprimento, local.Largura, local.Altura);
 
-            if (localExistente.EspacoLivreCalculado <= 0)
+            if (localExistente.EspacoLivreCalculado < 0)
             {
                 AdicionarErroProcessamento("Não foi possível alterar as dimensões do local, pois o tamanho dos itens existentes é maior do que as novas medidas.");
                 return CustomResponse();

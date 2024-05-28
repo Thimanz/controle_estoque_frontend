@@ -6,13 +6,12 @@ namespace GDE.Estoque.Domain
 {
     public class Local : Entity, IAggregateRoot
     {
-        public Local(string? nome, decimal altura, decimal largura, decimal comprimento, List<LocalItem> localItens)
+        public Local(string? nome, string? endereco, decimal altura, decimal largura, decimal comprimento, List<LocalItem> localItens)
         {
             Nome = nome;
+            Endereco = endereco;
             Dimensoes = new Dimensoes(comprimento, largura, altura);
             _localItens = localItens;
-
-            //CalcularEspacoLivre();
         }
 
         //EF ctor
@@ -22,6 +21,7 @@ namespace GDE.Estoque.Domain
         }
 
         public string? Nome { get; private set; }
+        public string? Endereco { get; private set; }
         public Dimensoes Dimensoes { get; private set; }
 
         public readonly List<LocalItem> _localItens;
@@ -88,6 +88,11 @@ namespace GDE.Estoque.Domain
         public void AlterarNome(string nome)
         {
             Nome = nome;
+        }
+
+        public void AlterarEndereco(string endereco)
+        {
+            Endereco = endereco;
         }
 
         public void AlterarDimensoes(decimal comprimento, decimal largura, decimal altura)
