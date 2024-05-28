@@ -138,9 +138,11 @@ const EstoquesTab = () => {
                                 }
                             >
                                 <h4 className="stock-name">{stock.nome}</h4>
-                                <p className="stock-address">
-                                    {stock.endereco}
-                                </p>
+                                <ul className="stock-props">
+                                    <li>{`Espaço Total: ${stock.espacoTotal}`}</li>
+                                    <li>{`Espaço Livre: ${stock.espacoLivre}`}</li>
+                                    <li>{`Quantidade de Itens: ${stock.quantidadeItens}`}</li>
+                                </ul>
                             </div>
                         );
                     })}
