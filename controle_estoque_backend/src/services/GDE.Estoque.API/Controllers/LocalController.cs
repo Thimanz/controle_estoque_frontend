@@ -1,4 +1,5 @@
 ﻿using GDE.Core.Controllers;
+using GDE.Core.Data;
 using GDE.Estoque.API.DTO;
 using GDE.Estoque.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,18 @@ namespace GDE.Estoque.API.Controllers
         }
 
         [HttpGet("api/estoque/listar-todos")]
-        public async Task<IEnumerable<LocalDto>> ListaLocais()
+        public async Task<PagedResult<LocalDto>> ListaLocais([FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
         {
-            var locais = await _localRepository.ObterTodos();
+            var locais = await _localRepository.ObterTodos(pageSize, pageIndex);
 
-            return locais.Select(LocalDto.FromEntity);
+            return new PagedResult<LocalDto>()
+            {
+                List = locais.Select(LocalDto.FromEntity),
+                TotalResults = locais.Count(),
+                TotalPages = ((locais.Count() + pageSize - 1) / pageSize),
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
         }
 
         [HttpGet("api/estoque/obter-lista-por-produto-id/{produtoId}")]

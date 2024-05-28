@@ -19,9 +19,12 @@ namespace GDE.Estoque.Infra.Data.Repository
             return await _context.Locais.Include(i => i.LocalItens).FirstOrDefaultAsync(l => l.Id == id);
         }
 
-        public async Task<IEnumerable<Local>> ObterTodos()
+        public async Task<IEnumerable<Local>> ObterTodos(int pageSize, int pageIndex)
         {
-            return _context.Locais.Include(i => i.LocalItens).ToList();
+            return await _context.Locais.Include(i => i.LocalItens)
+                .OrderBy(i => i.Nome)
+                .Skip(pageSize * (pageIndex - 1))
+                .Take(pageSize).ToListAsync(); ;
         }
 
         public async Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId)
