@@ -59,6 +59,25 @@ namespace GDE.Produtos.API.Controllers
                 });
         }
 
+        [HttpGet("api/produto")]
+        public async Task<IActionResult> ListaProdutos([FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
+        {
+            var produtos = await _context.Produtos.Include(p => p.Categoria)
+                .OrderBy(p => p.Nome)
+                .Skip(pageSize * (pageIndex - 1))
+                .Take(pageSize).ToListAsync();
+
+            return !produtos.Any()
+                ? NotFound()
+                : CustomResponse(new PagedResult<ProdutoViewModel>()
+                {
+                    List = produtos.Select(ProdutoViewModel.FromEntity),
+                    TotalResults = produtos.Count(),
+                    TotalPages = ((produtos.Count() + pageSize - 1) / pageSize),
+                    PageIndex = pageIndex,
+                    PageSize = pageSize
+                });
+        }
 
         [HttpGet("api/produto/categorias")]
         public IActionResult ListaCategorias()

@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using GDE.Core.Data;
+﻿using GDE.Core.Data;
 
 namespace GDE.Estoque.Domain
 {
@@ -9,6 +8,9 @@ namespace GDE.Estoque.Domain
         Task<IEnumerable<Local>> ObterTodos();
         Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId);
         Task<LocalItem> ObterItemLocalPorProdutoId(Guid localId, Guid produtoId);
+        void Adicionar(Local local);
+        void Remover(Local local);
+        void Atualizar(Local local); 
         void AdicionarItem(LocalItem localItem);
         void RemoverItem(LocalItem localItem);
         void AtualizarItem(LocalItem localItem);

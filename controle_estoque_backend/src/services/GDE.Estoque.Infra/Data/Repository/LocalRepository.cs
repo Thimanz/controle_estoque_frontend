@@ -21,7 +21,7 @@ namespace GDE.Estoque.Infra.Data.Repository
 
         public async Task<IEnumerable<Local>> ObterTodos()
         {
-            return _context.Locais.ToList();
+            return _context.Locais.Include(i => i.LocalItens).ToList();
         }
 
         public async Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId)
@@ -34,19 +34,34 @@ namespace GDE.Estoque.Infra.Data.Repository
             return await _context.LocalItens.FirstOrDefaultAsync(i => i.LocalId == localId && i.ProdutoId == produtoId);
         }
 
+        public void Adicionar(Local local)
+        {
+            _context.Add(local);
+        }
+
+        public void Atualizar(Local local)
+        {
+            _context.Update(local);
+        }
+
+        public void Remover(Local local)
+        {
+            _context.Remove(local);
+        }
+
         public void AdicionarItem(LocalItem localItem)
         {
             _context.Add(localItem);
         }
 
-        public void RemoverItem(LocalItem localItem)
-        {
-            _context.Remove(localItem);
-        }
-
         public void AtualizarItem(LocalItem localItem)
         {
             _context.Update(localItem);
+        }
+
+        public void RemoverItem(LocalItem localItem)
+        {
+            _context.Remove(localItem);
         }
 
         public void Dispose()

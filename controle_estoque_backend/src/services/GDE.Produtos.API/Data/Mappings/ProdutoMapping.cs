@@ -19,7 +19,7 @@ namespace GDE.Produtos.API.Data.Mappings
                 .HasColumnType("varchar(500)");
 
             builder.Property(c => c.Imagem)
-                .HasColumnType("varchar(250)");
+                .HasColumnType("varchar(max)");
 
             builder.OwnsOne(c => c.Dimensoes, tf =>
             {
