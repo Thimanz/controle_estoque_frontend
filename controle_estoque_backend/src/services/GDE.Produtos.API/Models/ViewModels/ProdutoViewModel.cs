@@ -11,7 +11,7 @@ namespace GDE.Produtos.API.Models.ViewModels
         public CategoriaViewModel? Categoria { get; set; }
         public decimal PrecoCusto { get; set; }
         public decimal PrecoVenda { get; set; }
-        public byte[]? Imagem { get; set; }
+        public string? Imagem { get; set; }
         public int NivelMinimoEstoque { get; set; }
         public decimal Comprimento { get; set; }
         public decimal Largura { get; set; }
@@ -28,6 +28,7 @@ namespace GDE.Produtos.API.Models.ViewModels
                 Categoria = CategoriaViewModel.FromEntity(produto.Categoria),
                 PrecoCusto = produto.PrecoCusto,
                 PrecoVenda = produto.PrecoVenda,
+                Imagem = produto.Imagem,
                 NivelMinimoEstoque = produto.NivelMinimoEstoque,
                 Comprimento = produto.Dimensoes.Comprimento,
                 Largura = produto.Dimensoes.Largura,
