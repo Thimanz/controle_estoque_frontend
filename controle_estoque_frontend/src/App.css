@@ -50,10 +50,6 @@ input[type="file"]::-webkit-file-upload-button {
     display: none;
 }
 
-/* input[type="file"]::before {
-    content: "Imagem";
-    display: inline-block;
-    font-family: "Inter", sans-serif;
-    color: rgb(100, 100, 100);
-    opacity: 0.7;
-} */
+.margin-0-override {
+    margin: 0 !important;
+}

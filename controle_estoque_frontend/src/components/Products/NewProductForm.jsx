@@ -82,7 +82,6 @@ const NewProductForm = () => {
         const fileReader = new FileReader();
 
         fileReader.onloadend = () => {
-            console.log(fileReader.result);
             setImage(fileReader.result);
         };
 
@@ -159,23 +158,6 @@ const NewProductForm = () => {
                                 autoComplete="off"
                             />
                             <label htmlFor="largura">Largura (cm)</label>
-                        </div>
-                        <div className="input-group">
-                            <input
-                                accept="image/*"
-                                aria-label="Imagem"
-                                type="file"
-                                required
-                                autoComplete="off"
-                                onChange={loadImage}
-                            />
-                            <label
-                                htmlFor="Imagem"
-                                className="image-input-label"
-                            >
-                                <FaUpload />
-                                {" Selecione uma Imagem"}
-                            </label>
                         </div>
                     </section>
                     <section className="right-product-form">
@@ -286,6 +268,20 @@ const NewProductForm = () => {
                             <label htmlFor="altura">Altura (cm)</label>
                         </div>
                     </section>
+                </div>
+                <div className="input-group margin-0-override">
+                    <input
+                        accept="image/*"
+                        aria-label="Imagem"
+                        type="file"
+                        required
+                        autoComplete="off"
+                        onChange={loadImage}
+                    />
+                    <label htmlFor="Imagem" className="image-input-label">
+                        <FaUpload />
+                        {" Selecione uma Imagem"}
+                    </label>
                 </div>
                 <div className="input-group">
                     <input

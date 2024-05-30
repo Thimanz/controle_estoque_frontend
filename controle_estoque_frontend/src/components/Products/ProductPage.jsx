@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { FaCaretDown, FaCaretUp, FaTrash } from "react-icons/fa";
+import { FaCaretDown, FaCaretUp, FaTrash, FaUpload } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import {
     deleteProduct,
@@ -32,6 +32,7 @@ const ProductPage = () => {
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("");
     const [weight, setWeight] = useState("");
+    const [image, setImage] = useState(null);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -74,7 +75,7 @@ const ProductPage = () => {
                 categoriaId: categoryId,
                 precoCusto: costPrice,
                 precoVenda: sellingPrice,
-                imagem: null,
+                imagem: image,
                 nivelMinimoEstoque: parseInt(minInStock),
                 comprimento: parseFloat(length),
                 largura: parseFloat(width),
@@ -131,6 +132,16 @@ const ProductPage = () => {
                 });
             });
         }
+    };
+
+    const loadImage = (e) => {
+        const fileReader = new FileReader();
+
+        fileReader.onloadend = () => {
+            setImage(fileReader.result);
+        };
+
+        if (e.target.files[0]) fileReader.readAsDataURL(e.target.files[0]);
     };
 
     return (
@@ -334,6 +345,20 @@ const ProductPage = () => {
                                 <label htmlFor="altura">Altura (cm)</label>
                             </div>
                         </section>
+                    </div>
+                    <div className="product-input-group margin-0-override">
+                        <input
+                            accept="image/*"
+                            aria-label="Imagem"
+                            type="file"
+                            required
+                            autoComplete="off"
+                            onChange={loadImage}
+                        />
+                        <label htmlFor="Imagem" className="image-input-label">
+                            <FaUpload />
+                            {" Selecione uma Imagem"}
+                        </label>
                     </div>
                     <div className="product-input-group">
                         <input
