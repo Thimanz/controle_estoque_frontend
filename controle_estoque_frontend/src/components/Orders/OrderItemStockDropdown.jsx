@@ -18,6 +18,11 @@ const OrderItemStockDropdown = ({
     return (
         <div className="input-group dropdown item-input">
             <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
                 onClick={(e) => {
                     setStockDropdownActive(!stockDropdownActive);
                     stockRef.current.focus();

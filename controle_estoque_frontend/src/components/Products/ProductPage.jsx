@@ -351,7 +351,7 @@ const ProductPage = () => {
             </div>
             <div className="product-buttons">
                 <button className="delete-product" onClick={deleteButton}>
-                    <FaTrash />
+                    Deletar
                 </button>
                 <button className="update-product" onClick={updateButton}>
                     Atualizar

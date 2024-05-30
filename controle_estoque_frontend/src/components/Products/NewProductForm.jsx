@@ -285,15 +285,6 @@ const NewProductForm = () => {
                             />
                             <label htmlFor="altura">Altura (cm)</label>
                         </div>
-                        <div className="input-group">
-                            <input
-                                aria-label="Date"
-                                type="date"
-                                required
-                                autoComplete="off"
-                            />
-                            <label htmlFor="Date">Data de Validade</label>
-                        </div>
                     </section>
                 </div>
                 <div className="input-group">

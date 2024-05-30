@@ -33,6 +33,7 @@ const NewOrderForm = () => {
 
     const [orderItems, setOrderItems] = useState([]);
     const [amounts, setAmounts] = useState([]);
+    const [expirationDates, setExpirationDates] = useState([]);
 
     const [totalValue, setTotalValue] = useState(0);
 
@@ -95,54 +96,157 @@ const NewOrderForm = () => {
     }, [JSON.stringify(orderItems), amounts, typeKey]);
 
     const sendOrder = async () => {
+        if (orderItems.length === 0) {
+            toast.error("Não Há Nenhum Item no Pedido", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
+            return;
+        }
+
         let response;
+        let errorMsgs = [];
+        let payload = {};
         switch (typeKey) {
             case "ENTRADA":
-                response = await postBuyOrder(
-                    {
-                        nomeFornecedor: name,
-                        pedidoItens: orderItems.map((item, index) => {
-                            return {
-                                produtoId: item.id,
-                                quantidade: amounts[index],
-                                precoUnitario: item.precoCusto,
-                                localId: stocksTo[index].id,
-                            };
-                        }),
-                    },
-                    navigate
-                );
+                if (!name) {
+                    errorMsgs.push("Nome de Fornecedor Vazio");
+                }
+
+                payload = {
+                    nomeFornecedor: name,
+                    pedidoItens: orderItems.map((item, index) => {
+                        if (!amounts[index]) {
+                            errorMsgs.push(`${item.nome} Com Quantidade Vazia`);
+                        }
+                        if (!stocksTo[index]) {
+                            errorMsgs.push(`${item.nome} Sem Local de Destino`);
+                        }
+                        if (!expirationDates[index]) {
+                            errorMsgs.push(`${item.nome} Sem Data de Validade`);
+                        }
+                        return {
+                            produtoId: item.id,
+                            quantidade: amounts[index],
+                            precoUnitario: item.precoCusto,
+                            localId: stocksTo[index]
+                                ? stocksTo[index].id
+                                : null,
+                            dataValidade: expirationDates[index],
+                        };
+                    }),
+                };
+
+                if (errorMsgs.length > 0) {
+                    errorMsgs.forEach((mensagem) => {
+                        toast.error(mensagem, {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: false,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                            transition: Bounce,
+                        });
+                    });
+                    return;
+                }
+                response = await postBuyOrder(payload, navigate);
                 break;
             case "SAIDA":
-                response = await postSellOrder(
-                    {
-                        nomeCliente: name,
-                        pedidoItens: orderItems.map((item, index) => {
-                            return {
-                                produtoId: item.id,
-                                quantidade: amounts[index],
-                                precoUnitario: item.precoVenda,
-                                localId: stocksFrom[index].id,
-                            };
-                        }),
-                    },
-                    navigate
-                );
+                if (!name) {
+                    errorMsgs.push("Nome de Cliente Vazio");
+                }
+
+                payload = {
+                    nomeCliente: name,
+                    pedidoItens: orderItems.map((item, index) => {
+                        if (!amounts[index]) {
+                            errorMsgs.push(`${item.nome} Com Quantidade Vazia`);
+                        }
+                        if (!stocksFrom[index]) {
+                            errorMsgs.push(
+                                `${item.nome} Sem Local de Retirada`
+                            );
+                        }
+                        return {
+                            produtoId: item.id,
+                            quantidade: amounts[index],
+                            precoUnitario: item.precoVenda,
+                            localId: stocksFrom[index]
+                                ? stocksFrom[index].id
+                                : null,
+                        };
+                    }),
+                };
+                if (errorMsgs.length > 0) {
+                    errorMsgs.forEach((mensagem) => {
+                        toast.error(mensagem, {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: false,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                            transition: Bounce,
+                        });
+                    });
+                    return;
+                }
+                response = await postSellOrder(payload, navigate);
                 break;
             case "TRANSFERENCIA":
-                response = await postTransferOrder(
-                    {
-                        idLocalDestino: selectedStockId,
-                        pedidoItens: orderItems.map((item, index) => {
-                            return {
-                                produtoId: item.id,
-                                quantidade: amounts[index],
-                                localId: stocksFrom[index].id,
-                            };
-                        }),
-                    },
-                    navigate
-                );
+                if (!selectedStockId) {
+                    errorMsgs.push("Estoque de Destino Vazio");
+                }
+                payload = {
+                    idLocalDestino: selectedStockId,
+                    pedidoItens: orderItems.map((item, index) => {
+                        if (!amounts[index]) {
+                            errorMsgs.push(`${item.nome} Com Quantidade Vazia`);
+                        }
+                        if (!stocksFrom[index]) {
+                            errorMsgs.push(
+                                `${item.nome} Sem Local de Retirada`
+                            );
+                        }
+                        return {
+                            produtoId: item.id,
+                            quantidade: amounts[index],
+                            localId: stocksFrom[index]
+                                ? stocksFrom[index].id
+                                : null,
+                        };
+                    }),
+                };
+                if (errorMsgs.length > 0) {
+                    errorMsgs.forEach((mensagem) => {
+                        toast.error(mensagem, {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: false,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                            transition: Bounce,
+                        });
+                    });
+                    return;
+                }
+                response = await postTransferOrder(payload, navigate);
                 break;
         }
         if (response.status === 204) {
@@ -395,13 +499,37 @@ const NewOrderForm = () => {
                                     />
                                 )}
                                 {typeKey === "ENTRADA" && (
-                                    <OrderItemStockDropdown
-                                        stocksList={stocksListTo}
-                                        selectedStocks={stocksTo}
-                                        setSelectedStocks={setStocksTo}
-                                        itemIndex={index}
-                                        prompt={"Local de Destino"}
-                                    />
+                                    <>
+                                        <OrderItemStockDropdown
+                                            stocksList={stocksListTo}
+                                            selectedStocks={stocksTo}
+                                            setSelectedStocks={setStocksTo}
+                                            itemIndex={index}
+                                            prompt={"Local de Destino"}
+                                        />
+                                        <div className="input-group item-input item-expiration-date">
+                                            <input
+                                                aria-label="Date"
+                                                type="date"
+                                                required
+                                                autoComplete="off"
+                                                onChange={(e) => {
+                                                    const newExpirationDates = [
+                                                        ...expirationDates,
+                                                    ];
+                                                    newExpirationDates[index] =
+                                                        e.target.value;
+
+                                                    setExpirationDates(
+                                                        newExpirationDates
+                                                    );
+                                                }}
+                                            />
+                                            <label htmlFor="Date">
+                                                Validade
+                                            </label>
+                                        </div>
+                                    </>
                                 )}
                             </div>
                         </div>
