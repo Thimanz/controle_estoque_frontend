@@ -123,6 +123,10 @@ const LoginForm = () => {
                             setUserFocus(false);
                             setEmail(e.target.value);
                         }}
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            sendLogin();
+                        }}
                     />
                     <p
                         id="uidnote"
@@ -161,6 +165,10 @@ const LoginForm = () => {
                         onBlur={(e) => {
                             setPwdFocus(false);
                             setPwd(e.target.value);
+                        }}
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            sendLogin();
                         }}
                     />
                     <p
