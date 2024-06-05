@@ -117,7 +117,7 @@ const StockPage = () => {
             <ToastContainer />
             <div className="stock-info-products">
                 <section className="stock-info">
-                    <div className="stock-forms">
+                    <div>
                         <div className="stock-input-group">
                             <input
                                 type="text"
@@ -227,7 +227,7 @@ const StockPage = () => {
             </div>
             <div className="stock-buttons">
                 <button className="delete-stock" onClick={deleteButton}>
-                    <FaTrash />
+                    Deletar
                 </button>
                 <button className="update-stock" onClick={updateButton}>
                     Atualizar

@@ -26,6 +26,7 @@
         rgb(57, 255, 186) 0%,
         rgb(21, 38, 82) 90%
     );
+    margin: 20px 0;
 }
 
 /* hover effect on button width */
@@ -83,16 +84,36 @@
     text-align: center;
 }
 
-.stock-image {
-    height: 100px;
-    aspect-ratio: 1;
+.stock-props {
+    border: 1px solid #eeeeee;
 }
 
-.stock-props {
-    padding: 0;
-    list-style: none;
+.stock-props-headers {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
     justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+}
+
+.stock-data {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stock-data td,
+.stock-props-headers th {
+    flex: 1 1 20%;
+    text-align: center;
+}
+
+.stock-props-headers th {
+    font-weight: 400;
+}
+
+.stock-data td {
+    word-break: break-all;
 }

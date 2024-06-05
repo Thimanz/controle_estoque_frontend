@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaBell, FaCircleExclamation, FaPlus } from "react-icons/fa6";
 import "./Notifications.css";
 import { getNotifications } from "../../services/notificationService";
 import { useNavigate } from "react-router-dom";
 
 const Notifications = () => {
+    const bellRef = useRef();
+    const dropdownRef = useRef();
     const navigate = useNavigate();
 
     const [notifications, setNotifications] = useState([]);
@@ -20,7 +22,23 @@ const Notifications = () => {
             fetchNotifications();
         }, 5000);
 
-        return () => clearInterval(interval);
+        let closer = (e) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(e.target) &&
+                bellRef.current &&
+                !bellRef.current.contains(e.target)
+            ) {
+                setIsDropdownActive(false);
+            }
+        };
+
+        document.addEventListener("mousedown", closer);
+
+        return () => {
+            clearInterval(interval);
+            document.removeEventListener("mousedown", closer);
+        };
     }, []);
 
     const closeNotification = (index) => {
@@ -31,7 +49,10 @@ const Notifications = () => {
 
     return (
         <>
-            <a onClick={() => setIsDropdownActive(!isDropdownActive)}>
+            <a
+                ref={bellRef}
+                onClick={() => setIsDropdownActive(!isDropdownActive)}
+            >
                 <FaBell
                     color={isDropdownActive ? "#04d9ff" : "white"}
                     size={25}
@@ -43,31 +64,65 @@ const Notifications = () => {
                 )}
             </a>
             {isDropdownActive && notifications.length > 0 && (
-                <ul className="notifications-menu">
-                    {notifications.map((notification, index) => (
-                        <li key={notification.id} className="notification">
-                            <FaCircleExclamation
-                                size={30}
-                                color="rgb(240, 175, 175)"
-                                onClick={() =>
-                                    navigate(`/produtos/${notification.id}`)
-                                }
-                            />
-                            <p
-                                onClick={() =>
-                                    navigate(`/produtos/${notification.id}`)
-                                }
-                            >
-                                {notification.mensagem}
-                            </p>
-                            <div
-                                onClick={() => closeNotification(index)}
-                                className="notification-plus"
-                            >
-                                <FaPlus size={20} color="white" />
-                            </div>
-                        </li>
-                    ))}
+                <ul ref={dropdownRef} className="notifications-menu">
+                    {notifications.map((notification, index) => {
+                        switch (notification.tipo) {
+                            case 1:
+                                return (
+                                    <li key={index} className="notification">
+                                        <FaCircleExclamation
+                                            size={30}
+                                            color="rgb(240, 175, 175)"
+                                            onClick={() =>
+                                                navigate(
+                                                    `/produtos/${notification.id}`
+                                                )
+                                            }
+                                        />
+                                        <p
+                                            onClick={() =>
+                                                navigate(
+                                                    `/produtos/${notification.id}`
+                                                )
+                                            }
+                                        >
+                                            {notification.mensagem}
+                                        </p>
+                                        <div
+                                            onClick={() =>
+                                                closeNotification(index)
+                                            }
+                                            className="notification-plus"
+                                        >
+                                            <FaPlus size={20} color="white" />
+                                        </div>
+                                    </li>
+                                );
+                            case 2:
+                                return (
+                                    <li key={index} className="notification">
+                                        <FaCircleExclamation
+                                            size={30}
+                                            color="rgb(240, 175, 175)"
+                                            onClick={() =>
+                                                navigate(
+                                                    `/estoques/${notification.id}`
+                                                )
+                                            }
+                                        />
+                                        <p
+                                            onClick={() =>
+                                                navigate(
+                                                    `/estoques/${notification.id}`
+                                                )
+                                            }
+                                        >
+                                            {notification.mensagem}
+                                        </p>
+                                    </li>
+                                );
+                        }
+                    })}
                 </ul>
             )}
         </>

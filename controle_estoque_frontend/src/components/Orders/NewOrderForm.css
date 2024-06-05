@@ -84,13 +84,9 @@
     display: flex;
 }
 
-.item-input > input {
+.main-order .item-input > input {
     min-width: 152px;
-    width: 60%;
-}
-
-.item-input > label {
-    left: 10%;
+    width: 85%;
 }
 
 .order-items .item-amount {

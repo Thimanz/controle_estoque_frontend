@@ -7,6 +7,7 @@ import NewProduct from "./routes/Products/NewProduct";
 import Product from "./routes/Products/Product";
 import NewOrder from "./routes/Orders/NewOrder";
 import Stock from "./routes/Stocks/Stock";
+import NewStock from "./routes/Stocks/NewStock";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/" element={<Navigate to="/inicio" />} />
                 <Route path="/inicio" element={<Home />} />
                 <Route path="/produtos/novo-produto" element={<NewProduct />} />
+                <Route path="/estoques/novo-estoque" element={<NewStock />} />
                 <Route path="/produtos/:id" element={<Product />} />
                 <Route path="/estoques/:id" element={<Stock />} />
                 <Route path="/pedidos/novo-pedido" element={<NewOrder />} />

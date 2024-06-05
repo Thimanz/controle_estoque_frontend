@@ -7,3 +7,84 @@
     justify-content: space-around;
     margin-top: 44px;
 }
+
+.new-order {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 55px;
+    height: 55px;
+    border-radius: calc(55px / 2);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background: radial-gradient(
+        circle at -3.1% -4.3%,
+        rgb(57, 255, 186) 0%,
+        rgb(21, 38, 82) 90%
+    );
+    margin: 20px 0;
+}
+
+/* hover effect on button width */
+.new-order:hover {
+    width: 155px;
+    transition-duration: 0.3s;
+}
+
+.new-order:hover .sign {
+    width: 30%;
+    transition-duration: 0.3s;
+    padding-left: 5px;
+}
+/* hover effect button's text */
+.new-order:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: 0.3s;
+    padding-right: 5px;
+}
+/* button click effect*/
+.new-order:active {
+    transform: translate(2px, 2px);
+}
+
+.orders-searched {
+    width: 100dvw;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-box {
+    background-color: #fafafa;
+    border: 1px solid rgb(204, 204, 204);
+    margin: 10px 50px 0 50px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 15px -6px rgba(0, 0, 0, 0.61);
+    transition-duration: 0.3s;
+}
+
+.order-box:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.input-search[type="date"] {
+    color-scheme: dark;
+    color: white;
+}
+
+.order-container input[type="date"]:focus::-webkit-datetime-edit {
+    color: white !important;
+}

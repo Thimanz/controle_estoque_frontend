@@ -26,9 +26,9 @@ const PedidosTab = () => {
                         }}
                     >
                         <input
-                            placeholder="Pesquisar pedido"
+                            placeholder="Pesquisar Pedido"
                             className="input-search"
-                            type="text"
+                            type="date"
                             onChange={(e) => setSearch(e.target.value)}
                         />
                         <svg
@@ -50,7 +50,7 @@ const PedidosTab = () => {
                     transition={{ duration: 0.2, delay: 0.2 }}
                 >
                     <button
-                        className="new-product"
+                        className="new-order"
                         onClick={() => navigate("/pedidos/novo-pedido")}
                     >
                         <div className="sign">+</div>

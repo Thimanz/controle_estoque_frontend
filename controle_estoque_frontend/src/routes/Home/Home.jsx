@@ -33,10 +33,6 @@ const Home = () => {
             image: <Truck height="25px" width="25px" />,
             tab: <PedidosTab />,
         },
-        {
-            description: "Acessos",
-            image: <Access height="25px" width="25px" />,
-        },
     ];
 
     const [selectedTab, setSelectedTab] = useState(options[0]);

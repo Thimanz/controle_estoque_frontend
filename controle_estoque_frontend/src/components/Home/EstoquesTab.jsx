@@ -109,10 +109,10 @@ const EstoquesTab = () => {
                 >
                     <button
                         className="new-stock"
-                        onClick={() => navigate("/produtos/novo-produto")}
+                        onClick={() => navigate("/estoques/novo-estoque")}
                     >
                         <div className="sign">+</div>
-                        <div className="text">Novo Produto</div>
+                        <div className="text">Novo Estoque</div>
                     </button>
                 </m.section>
             </div>
@@ -138,11 +138,18 @@ const EstoquesTab = () => {
                                 }
                             >
                                 <h4 className="stock-name">{stock.nome}</h4>
-                                <ul className="stock-props">
-                                    <li>{`Espaço Total: ${stock.espacoTotal}`}</li>
-                                    <li>{`Espaço Livre: ${stock.espacoLivre}`}</li>
-                                    <li>{`Quantidade de Itens: ${stock.quantidadeItens}`}</li>
-                                </ul>
+                                <div className="stock-props">
+                                    <div className="stock-props-headers">
+                                        <th>Espaço Total: </th>
+                                        <th>Espaço Livre: </th>
+                                        <th>Quantidade de Itens: </th>
+                                    </div>
+                                    <div className="stock-data">
+                                        <td>{`${stock.espacoTotal}`}</td>
+                                        <td>{`${stock.espacoLivre}`}</td>
+                                        <td>{`${stock.quantidadeItens}`}</td>
+                                    </div>
+                                </div>
                             </div>
                         );
                     })}

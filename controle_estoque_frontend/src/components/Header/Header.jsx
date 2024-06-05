@@ -6,8 +6,6 @@ import { motion as m } from "framer-motion";
 import "./Header.css";
 import Logo from "./Logo";
 
-import { useSelector } from "react-redux";
-
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -36,12 +34,6 @@ const Header = () => {
         >
             <Logo onClick={() => navigate("/inicio")} />
             <ul className="desktop-nav">
-                <li className="nav-item">
-                    <a href="/">Home</a>
-                </li>
-                <li className="nav-item">
-                    <a href="/">Sobre</a>
-                </li>
                 <li
                     className="nav-item nav-user"
                     onClick={() => navigate("/autenticar/login")}

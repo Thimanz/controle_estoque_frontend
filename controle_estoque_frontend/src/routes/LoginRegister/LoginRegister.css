@@ -22,7 +22,7 @@
 .password-input,
 .name-input,
 .cpf-input {
-    width: 263px;
+    width: 15dvw;
     height: 30px;
     border: none;
     font-size: 1rem;
