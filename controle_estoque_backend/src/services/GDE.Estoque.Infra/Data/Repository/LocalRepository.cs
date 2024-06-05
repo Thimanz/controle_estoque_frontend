@@ -19,7 +19,13 @@ namespace GDE.Estoque.Infra.Data.Repository
             return await _context.Locais.Include(i => i.LocalItens).FirstOrDefaultAsync(l => l.Id == id);
         }
 
-        public async Task<IEnumerable<Local>> ObterTodos(int pageSize, int pageIndex)
+        public async Task<IEnumerable<Local>> ObterTodos()
+        {
+            return await _context.Locais.ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<Local>> ObterTodosPaginado(int pageSize, int pageIndex)
         {
             return await _context.Locais.Include(i => i.LocalItens)
                 .OrderBy(i => i.Nome)

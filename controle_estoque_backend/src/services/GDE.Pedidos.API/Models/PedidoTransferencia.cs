@@ -4,8 +4,8 @@ namespace GDE.Pedidos.API.Models
 {
     public class PedidoTransferencia : Pedido, IAggregateRoot
     {
-        public PedidoTransferencia(Guid idLocalDestino, Guid idFuncionarioResponsavel, List<PedidoItem> pedidoItens)
-            : base(idFuncionarioResponsavel, pedidoItens)
+        public PedidoTransferencia(Guid idLocalDestino, DateTime dataCriacao, Guid idFuncionarioResponsavel, List<PedidoItem> pedidoItens)
+            : base(idFuncionarioResponsavel, dataCriacao, pedidoItens)
         {
             IdLocalDestino = idLocalDestino;
         }

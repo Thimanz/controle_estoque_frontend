@@ -77,7 +77,7 @@ namespace GDE.Pedidos.API.Application.Commands
                     null,
                     null));
 
-            return new PedidoCompra(message.NomeFornecedor, message.IdFuncionarioResponsavel, itens); 
+            return new PedidoCompra(message.NomeFornecedor, message.Timestamp, message.IdFuncionarioResponsavel, itens); 
         }
     }
 }

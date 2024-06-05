@@ -1,6 +1,4 @@
-﻿using GDE.Pedidos.API.Models;
-
-namespace GDE.Pedidos.API.Application.DTO
+﻿namespace GDE.Pedidos.API.Application.DTO
 {
     public class PedidoItemDTO
     {

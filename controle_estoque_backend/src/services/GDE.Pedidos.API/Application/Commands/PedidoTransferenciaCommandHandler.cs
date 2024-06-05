@@ -80,7 +80,7 @@ namespace GDE.Pedidos.API.Application.Commands
                     null,
                     i.PedidoTransferenciaId));
 
-            return new PedidoTransferencia(message.IdLocalDestino!.Value, message.IdFuncionarioResponsavel, itens);
+            return new PedidoTransferencia(message.IdLocalDestino!.Value, message.Timestamp, message.IdFuncionarioResponsavel, itens);
         }
     }
 }

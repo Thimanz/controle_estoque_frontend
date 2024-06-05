@@ -4,8 +4,8 @@ namespace GDE.Pedidos.API.Models
 {
     public class PedidoVenda : Pedido, IAggregateRoot
     {
-        public PedidoVenda(string? nomeCliente, Guid idFuncionarioResponsavel, List<PedidoItem> pedidoItens)
-            : base(idFuncionarioResponsavel, pedidoItens)
+        public PedidoVenda(string? nomeCliente, DateTime dataCriacao, Guid idFuncionarioResponsavel, List<PedidoItem> pedidoItens)
+            : base(idFuncionarioResponsavel, dataCriacao, pedidoItens)
         {
             NomeCliente = nomeCliente;
         }
