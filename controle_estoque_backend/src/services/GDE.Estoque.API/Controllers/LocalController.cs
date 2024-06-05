@@ -21,10 +21,19 @@ namespace GDE.Estoque.API.Controllers
             return await _localRepository.ObterPorId(id);
         }
 
-        [HttpGet("api/estoque/listar-todos")]
-        public async Task<PagedResult<LocalDto>> ListaLocais([FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
+        [HttpGet("api/estoque")]
+        public async Task<IEnumerable<LocalDto>> ListaLocais()
         {
-            var locais = await _localRepository.ObterTodos(pageSize, pageIndex);
+            var locais = await _localRepository.ObterTodos();
+
+            return locais.Select(LocalDto.FromEntity);
+        }
+
+
+        [HttpGet("api/estoque/listar-todos")]
+        public async Task<PagedResult<LocalDto>> ListaLocaisPaginado([FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
+        {
+            var locais = await _localRepository.ObterTodosPaginado(pageSize, pageIndex);
 
             return new PagedResult<LocalDto>()
             {
