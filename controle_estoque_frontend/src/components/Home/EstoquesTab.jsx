@@ -145,9 +145,9 @@ const EstoquesTab = () => {
                                         <th>Quantidade de Itens: </th>
                                     </div>
                                     <div className="stock-data">
-                                        <td>{`${stock.espacoTotal}`}</td>
-                                        <td>{`${stock.espacoLivre}`}</td>
-                                        <td>{`${stock.quantidadeItens}`}</td>
+                                        <td>{`${stock.espacoTotal} cm³`}</td>
+                                        <td>{`${stock.espacoLivre} cm³`}</td>
+                                        <td>{`${stock.quantidadeItens} cm³`}</td>
                                     </div>
                                 </div>
                             </div>
