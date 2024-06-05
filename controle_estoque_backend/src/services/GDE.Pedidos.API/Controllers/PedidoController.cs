@@ -4,6 +4,7 @@ using GDE.Core.Mediator;
 using GDE.Pedidos.API.Application.Commands;
 using GDE.Pedidos.API.Data;
 using GDE.Pedidos.API.DTO;
+using GDE.Pedidos.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +23,38 @@ namespace GDE.Pedidos.API.Controllers
             _context = context;
         }
 
+        [HttpGet("api/pedido/compra/{id}")]
+        public async Task<IActionResult> ObterPedidoCompra(Guid id)
+        {
+            var pedido = await _context.PedidosCompra.Include(p => p.PedidoItens).FirstOrDefaultAsync(l => l.Id == id);
+            if (pedido is null)
+                return CustomResponse();
+
+            return CustomResponse(ObterPedidoCompraDTO.FromDomain(pedido));
+        }
+
+        [HttpGet("api/pedido/venda/{id}")]
+        public async Task<IActionResult> ObterPedidoVenda(Guid id)
+        {
+            var pedido = await _context.PedidosVenda.Include(p => p.PedidoItens).FirstOrDefaultAsync(l => l.Id == id);
+            if (pedido is null)
+                return CustomResponse();
+
+            return CustomResponse(ObterPedidoVendaDTO.FromDomain(pedido));
+        }
+
+        [HttpGet("api/pedido/transferencia/{id}")]
+        public async Task<IActionResult> ObterPedidoTransferencia(Guid id)
+        {
+            var pedido = await _context.PedidosTransferencia.Include(p => p.PedidoItens).FirstOrDefaultAsync(l => l.Id == id);
+            if (pedido is null)
+                return CustomResponse();
+
+            return CustomResponse(ObterPedidoTransferenciaDTO.FromDomain(pedido));
+        }
+
         [HttpGet("api/pedido")]
-        public async Task<PagedResult<BuscarPedidosDto>> BuscarPedidos([FromQuery] DateTime? dataCriacao, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
+        public async Task<PagedResult<BuscarPedidosDto>> ListaPedidos([FromQuery] DateTime? dataCriacao, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
         {
             int pageSizeByType = pageSize / 3;
 
