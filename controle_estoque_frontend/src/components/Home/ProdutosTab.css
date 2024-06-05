@@ -177,4 +177,5 @@
 .product-image {
     height: 100px;
     aspect-ratio: 1;
+    object-fit: contain;
 }
