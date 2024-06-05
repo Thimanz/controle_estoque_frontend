@@ -29,8 +29,8 @@ const StockPage = () => {
                 setName(response.data.nome);
                 setAddress(response.data.endereco);
                 setProducts(response.data.localItens);
-                setFreeSpace(response.data.espacoLivreCalculado);
-                setTotalSpace(response.data.espacoTotal);
+                setFreeSpace(response.data.espacoLivreCalculado / 1000000);
+                setTotalSpace(response.data.espacoTotal / 1000000);
                 setLength(response.data.dimensoes.comprimento);
                 setWidth(response.data.dimensoes.largura);
                 setHeight(response.data.dimensoes.altura);
@@ -44,7 +44,8 @@ const StockPage = () => {
 
     useEffect(() => {
         setTotalSpace(
-            parseFloat(width) * parseFloat(height) * parseFloat(length)
+            (parseFloat(width) * parseFloat(height) * parseFloat(length)) /
+                1000000
         );
     }, [width, height, length]);
 
@@ -186,11 +187,11 @@ const StockPage = () => {
                         </div>
                         <div className="stock-info">
                             <h3 className="stock-info-text">Espaço Total:</h3>
-                            <p>{`${totalSpace} cm³`}</p>
+                            <p>{`${totalSpace} m³`}</p>
                         </div>
                         <div className="stock-info">
                             <h3 className="stock-info-text">Espaço Livre:</h3>
-                            <p>{`${freeSpace} cm³`}</p>
+                            <p>{`${freeSpace} m³`}</p>
                         </div>
                     </div>
                 </section>
