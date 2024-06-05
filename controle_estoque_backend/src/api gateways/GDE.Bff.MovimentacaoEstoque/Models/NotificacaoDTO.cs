@@ -10,6 +10,7 @@
         }
 
         public Guid Id { get; set; }
+        public TipoNotificacao Tipo { get; set; }
         public string? Nome { get; set; }
         public string? Mensagem { get; set; }
     }

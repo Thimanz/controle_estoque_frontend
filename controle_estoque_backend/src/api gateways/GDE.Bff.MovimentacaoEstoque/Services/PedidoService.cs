@@ -62,5 +62,16 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
             return RetornoOk();
         }
 
+
+        public async Task<IEnumerable<NotificacaoDTO>> ObterNotificacoesProximoVencimento()
+        {
+            var response = await _httpClient.GetAsync($"api/pedido/proximos-ao-vencimento");
+
+            if (!TratarErrosResponse(response))
+                return null;
+
+            return await DeserializarObjetoResponse<IEnumerable<NotificacaoDTO>>(response);
+        }
+
     }
 }
