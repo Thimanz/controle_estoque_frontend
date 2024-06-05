@@ -8,6 +8,9 @@ import Product from "./routes/Products/Product";
 import NewOrder from "./routes/Orders/NewOrder";
 import Stock from "./routes/Stocks/Stock";
 import NewStock from "./routes/Stocks/NewStock";
+import BuyOrder from "./routes/Orders/BuyOrder";
+import SellOrder from "./routes/Orders/SellOrder";
+import TransferOrder from "./routes/Orders/TransferOrder";
 
 function App() {
     return (
@@ -20,6 +23,12 @@ function App() {
                 <Route path="/produtos/:id" element={<Product />} />
                 <Route path="/estoques/:id" element={<Stock />} />
                 <Route path="/pedidos/novo-pedido" element={<NewOrder />} />
+                <Route path="/pedidos/compra/:id" element={<BuyOrder />} />
+                <Route path="/pedidos/venda/:id" element={<SellOrder />} />
+                <Route
+                    path="/pedidos/transferencia/:id"
+                    element={<TransferOrder />}
+                />
                 <Route
                     path="/autenticar/:authtype"
                     element={<LoginRegister />}

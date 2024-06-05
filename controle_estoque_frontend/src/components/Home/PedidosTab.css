@@ -88,3 +88,42 @@
 .order-container input[type="date"]:focus::-webkit-datetime-edit {
     color: white !important;
 }
+
+.order-name {
+    text-align: center;
+}
+
+.order-props {
+    border: 1px solid #eeeeee;
+    width: 80%;
+}
+
+.order-props-headers {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+}
+
+.order-data {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-data td,
+.order-props-headers th {
+    flex: 1 1 20%;
+    text-align: center;
+}
+
+.order-props-headers th {
+    font-weight: 400;
+}
+
+.order-data td {
+    word-break: break-all;
+}
