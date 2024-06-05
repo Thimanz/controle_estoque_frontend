@@ -1,0 +1,11 @@
+﻿{
+  "profile": "",
+  "region": "",
+  "configuration": "Release",
+  "function-runtime": "dotnet8",
+  "function-memory-size": 256,
+  "function-timeout": 30,
+  "function-handler": "GDE.Bff.MovimentacaoEstoque",
+  "function-name": "gde.bff",
+  "function-url-enable": true
+}

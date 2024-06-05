@@ -80,7 +80,7 @@ namespace GDE.Pedidos.API.Application.Commands
                     i.PedidoVendaId,
                     null));
 
-            return new PedidoVenda(message.NomeCliente, message.IdFuncionarioResponsavel, itens);
+            return new PedidoVenda(message.NomeCliente, message.Timestamp, message.IdFuncionarioResponsavel, itens);
         }
     }
 }

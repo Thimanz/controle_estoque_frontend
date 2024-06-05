@@ -9,6 +9,9 @@ namespace GDE.Pedidos.API.Data.Mappings
         public void Configure(EntityTypeBuilder<PedidoTransferencia> builder)
         {
             builder.HasKey(c => c.Id);
+            
+            builder.Property(c => c.Numero)
+                .ValueGeneratedOnAdd();
 
             builder.HasMany(c => c.PedidoItens)
                 .WithOne(c => c.PedidoTransferencia)

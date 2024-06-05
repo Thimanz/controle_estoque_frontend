@@ -4,6 +4,7 @@ using GDE.Pedidos.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GDE.Pedidos.API.Migrations
 {
     [DbContext(typeof(PedidosContext))]
-    partial class PedidosContextModelSnapshot : ModelSnapshot
+    [Migration("20240605184108_DataPedido")]
+    partial class DataPedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,12 +39,6 @@ namespace GDE.Pedidos.API.Migrations
 
                     b.Property<string>("NomeFornecedor")
                         .HasColumnType("varchar(100)");
-
-                    b.Property<int>("Numero")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Numero"));
 
                     b.Property<decimal>("PrecoTotal")
                         .HasColumnType("decimal(18,2)");
@@ -104,12 +101,6 @@ namespace GDE.Pedidos.API.Migrations
                     b.Property<Guid>("IdLocalDestino")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Numero")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Numero"));
-
                     b.Property<decimal>("PrecoTotal")
                         .HasColumnType("decimal(18,2)");
 
@@ -132,12 +123,6 @@ namespace GDE.Pedidos.API.Migrations
 
                     b.Property<string>("NomeCliente")
                         .HasColumnType("varchar(100)");
-
-                    b.Property<int>("Numero")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Numero"));
 
                     b.Property<decimal>("PrecoTotal")
                         .HasColumnType("decimal(18,2)");

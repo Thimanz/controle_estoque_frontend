@@ -10,6 +10,9 @@ namespace GDE.Pedidos.API.Data.Mappings
         {
             builder.HasKey(c => c.Id);
 
+            builder.Property(c => c.Numero)
+                .ValueGeneratedOnAdd();
+
             builder.HasMany(c => c.PedidoItens)
                 .WithOne(c => c.PedidoVenda)
                 .HasForeignKey(c => c.PedidoVendaId);
