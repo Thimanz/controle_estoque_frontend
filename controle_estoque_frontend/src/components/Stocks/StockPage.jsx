@@ -1,7 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { FaTrash } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteProduct, updateProduct } from "../../services/productsService";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./StockPage.css";
