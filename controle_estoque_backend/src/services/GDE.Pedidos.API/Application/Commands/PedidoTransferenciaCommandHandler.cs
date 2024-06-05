@@ -78,7 +78,8 @@ namespace GDE.Pedidos.API.Application.Commands
                     i.PrecoUnitario,
                     null,
                     null,
-                    i.PedidoTransferenciaId));
+                    i.PedidoTransferenciaId,
+                    i.DataValidade));
 
             return new PedidoTransferencia(message.IdLocalDestino!.Value, message.Timestamp, message.IdFuncionarioResponsavel, itens);
         }

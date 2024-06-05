@@ -18,6 +18,8 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
         {
             var notificacoes = await _produtoService.ObterNotificacoesEstoqueBaixo();
 
+
+
             return CustomResponse(notificacoes);
         }
     }

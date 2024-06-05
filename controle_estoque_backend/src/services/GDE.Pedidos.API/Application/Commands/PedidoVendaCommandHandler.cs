@@ -78,7 +78,8 @@ namespace GDE.Pedidos.API.Application.Commands
                     i.PrecoUnitario,
                     null,
                     i.PedidoVendaId,
-                    null));
+                    null,
+                    i.DataValidade));
 
             return new PedidoVenda(message.NomeCliente, message.Timestamp, message.IdFuncionarioResponsavel, itens);
         }
