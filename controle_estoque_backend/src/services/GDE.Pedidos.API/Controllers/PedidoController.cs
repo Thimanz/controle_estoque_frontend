@@ -88,6 +88,24 @@ namespace GDE.Pedidos.API.Controllers
             };
         }
 
+
+        [HttpGet("api/pedido/proximos-ao-vencimento")]
+        public async Task<IActionResult> ProximosAoVencimento()
+        {
+            var itens = await _context.PedidoItens.AsNoTracking().Where(i => DateTime.Compare(DateTime.Now, i.DataValidade) < 10).ToListAsync();
+
+            var viewModels = new List<ProximosAoVencimentoDTO>();
+
+            foreach (var item in itens)
+            {
+                viewModels.Add(new ProximosAoVencimentoDTO(
+                    item.ProdutoId
+                ));
+            }
+
+            return CustomResponse(viewModels);
+        }
+
         [HttpPost("api/pedido/compra")]
         public async Task<IActionResult> AdicionarPedidoCompra(AdicionarPedidoCompraCommand pedido)
         {
