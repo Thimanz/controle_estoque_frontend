@@ -74,6 +74,7 @@ const PedidosTab = () => {
                         onSubmit={(e) => {
                             e.preventDefault();
                             setCurrentPage(1);
+                            setMaxPage(1);
                             setOrdersList([]);
                         }}
                     >
@@ -88,6 +89,7 @@ const PedidosTab = () => {
                             className="search__icon"
                             onClick={() => {
                                 setCurrentPage(1);
+                                setMaxPage(1);
                                 setOrdersList([]);
                             }}
                         >

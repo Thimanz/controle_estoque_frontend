@@ -13,7 +13,7 @@ const ProdutosTab = () => {
 
     const [search, setSearch] = useState("");
     const [productsList, setProductsList] = useState([]);
-    const [maxPage, setmaxPage] = useState(1);
+    const [maxPage, setMaxPage] = useState(1);
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -21,7 +21,7 @@ const ProdutosTab = () => {
         const response = await getAllProductList(currentPage, 12, navigate);
         if (response.status === 200) {
             setProductsList([...productsList, ...response.data.list]);
-            setmaxPage(response.data.totalPages);
+            setMaxPage(response.data.totalPages);
             setCurrentPage(currentPage + 1);
         }
     };
@@ -57,7 +57,7 @@ const ProdutosTab = () => {
         );
         if (response.status === 200) {
             setProductsList([...productsList, ...response.data.list]);
-            setmaxPage(response.data.totalPages);
+            setMaxPage(response.data.totalPages);
             setCurrentPage(currentPage + 1);
         }
     };
@@ -77,6 +77,7 @@ const ProdutosTab = () => {
                         onSubmit={(e) => {
                             e.preventDefault();
                             setCurrentPage(1);
+                            setMaxPage(1);
                             setProductsList([]);
                         }}
                     >
@@ -91,6 +92,7 @@ const ProdutosTab = () => {
                             className="search__icon"
                             onClick={() => {
                                 setCurrentPage(1);
+                                setMaxPage(1);
                                 setProductsList([]);
                             }}
                         >
