@@ -126,7 +126,13 @@ const RegisterForm = () => {
                 className="register-area"
             >
                 <h1 className="register-h1">Cadastre-se</h1>
-                <form className="name-form">
+                <form
+                    className="name-form"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        sendNewUser();
+                    }}
+                >
                     <label htmlFor="name">Nome:</label>
                     <input
                         className="name-input"
@@ -140,7 +146,13 @@ const RegisterForm = () => {
                 </form>
                 <div className="sectioned-forms">
                     <div className="left-form">
-                        <form className="email-form">
+                        <form
+                            className="email-form"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                sendNewUser();
+                            }}
+                        >
                             <label htmlFor="email">
                                 E-mail:&nbsp;
                                 <FontAwesomeIcon
@@ -176,7 +188,13 @@ const RegisterForm = () => {
                                 Escreva um e-mail válido.
                             </p>
                         </form>
-                        <form className="cpf-form">
+                        <form
+                            className="cpf-form"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                sendNewUser();
+                            }}
+                        >
                             <label htmlFor="cpf">
                                 CPF:&nbsp;
                                 <FontAwesomeIcon
@@ -215,7 +233,13 @@ const RegisterForm = () => {
                         </form>
                     </div>
                     <div className="right-forms">
-                        <form className="password-form">
+                        <form
+                            className="password-form"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                sendNewUser();
+                            }}
+                        >
                             <label htmlFor="pwd">
                                 Senha:&nbsp;
                                 <FontAwesomeIcon
@@ -252,7 +276,13 @@ const RegisterForm = () => {
                                 especial e letra maiúscula
                             </p>
                         </form>
-                        <form className="password-form">
+                        <form
+                            className="password-form"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                sendNewUser();
+                            }}
+                        >
                             <label htmlFor="matchpwd">
                                 Confirmar Senha:&nbsp;
                                 <FontAwesomeIcon
