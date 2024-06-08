@@ -51,6 +51,7 @@ const ProductPage = () => {
                 setWidth(response.data.largura);
                 setHeight(response.data.altura);
                 setWeight(response.data.peso);
+                setImage(response.data.imagem);
             } else {
                 navigate("/not-found");
             }
