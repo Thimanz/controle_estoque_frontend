@@ -96,7 +96,13 @@ const LoginForm = () => {
                 className="login-area"
             >
                 <h1 className="login-h1">Faça login com as suas credenciais</h1>
-                <form className="email-form">
+                <form
+                    className="email-form"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        sendLogin();
+                    }}
+                >
                     <label htmlFor="email">
                         E-mail:&nbsp;
                         <FontAwesomeIcon
@@ -123,10 +129,6 @@ const LoginForm = () => {
                             setUserFocus(false);
                             setEmail(e.target.value);
                         }}
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            sendLogin();
-                        }}
                     />
                     <p
                         id="uidnote"
@@ -140,7 +142,13 @@ const LoginForm = () => {
                         Escreva um e-mail válido.
                     </p>
                 </form>
-                <form className="password-form">
+                <form
+                    className="password-form"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        sendLogin();
+                    }}
+                >
                     <label htmlFor="pwd">
                         Senha:&nbsp;
                         <FontAwesomeIcon
@@ -165,10 +173,6 @@ const LoginForm = () => {
                         onBlur={(e) => {
                             setPwdFocus(false);
                             setPwd(e.target.value);
-                        }}
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            sendLogin();
                         }}
                     />
                     <p
