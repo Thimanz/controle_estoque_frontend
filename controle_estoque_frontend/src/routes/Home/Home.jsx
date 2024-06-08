@@ -8,7 +8,6 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import Product from "../../components/Svgs/Product";
 import Stock from "../../components/Svgs/Stock";
 import Truck from "../../components/Svgs/Truck";
-import Access from "../../components/Svgs/Access";
 import { AnimatePresence } from "framer-motion";
 import PedidosTab from "../../components/Home/PedidosTab";
 import { useLocation } from "react-router-dom";

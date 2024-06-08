@@ -41,8 +41,10 @@ const Notifications = () => {
         };
     }, []);
 
-    const closeNotification = (index) => {
-        navigate("/pedidos/novo-pedido");
+    const closeNotification = (productId) => {
+        navigate("/pedidos/novo-pedido", {
+            state: { orderType: "ENTRADA", itemId: productId },
+        });
     };
 
     const [isDropdownActive, setIsDropdownActive] = useState(false);
@@ -90,7 +92,9 @@ const Notifications = () => {
                                         </p>
                                         <div
                                             onClick={() =>
-                                                closeNotification(index)
+                                                closeNotification(
+                                                    notification.id
+                                                )
                                             }
                                             className="notification-plus"
                                         >
