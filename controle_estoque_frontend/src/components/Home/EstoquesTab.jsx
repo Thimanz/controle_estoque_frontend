@@ -77,6 +77,7 @@ const EstoquesTab = () => {
                         onSubmit={(e) => {
                             e.preventDefault();
                             setCurrentPage(1);
+                            setMaxPage(1);
                             setStocksList([]);
                         }}
                     >
@@ -91,6 +92,7 @@ const EstoquesTab = () => {
                             className="search__icon"
                             onClick={() => {
                                 setCurrentPage(1);
+                                setMaxPage(1);
                                 setStocksList([]);
                             }}
                         >
