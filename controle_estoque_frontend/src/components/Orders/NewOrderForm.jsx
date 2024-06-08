@@ -15,8 +15,9 @@ import {
 } from "../../services/orderService";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getProduct } from "../../services/productsService";
 
-const NewOrderForm = () => {
+const NewOrderForm = ({ orderTypeKey, itemId }) => {
     const typeRef = useRef();
     const navigate = useNavigate();
     const stockRef = useRef();
@@ -39,8 +40,10 @@ const NewOrderForm = () => {
 
     const [typeDropdownActive, setTypeDropdownActive] = useState(false);
 
-    const [type, setType] = useState("");
-    const [typeKey, setTypeKey] = useState("");
+    const [type, setType] = useState(
+        orderTypeKey ? orderTypes[orderTypeKey] : ""
+    );
+    const [typeKey, setTypeKey] = useState(orderTypeKey ? orderTypeKey : "");
     const [stocksFrom, setStocksFrom] = useState([]);
     const [stocksTo, setStocksTo] = useState([]);
 
@@ -51,13 +54,19 @@ const NewOrderForm = () => {
     const [stocksListFrom, setStocksListFrom] = useState([]);
     const [stocksListTo, setStocksListTo] = useState([]);
 
-    //carregar todos os estoques de destino
+    //carregar todos os estoques de destino e item vindo de props
     useEffect(() => {
         const fetchAllStocks = async () => {
             const stocksData = await getAllStocksList(navigate);
             setStocksListTo(stocksData.data);
         };
+        const fetchItem = async () => {
+            const itemData = await getProduct(itemId, navigate);
+            setOrderItems([itemData.data]);
+        };
+
         fetchAllStocks();
+        if (itemId) fetchItem();
     }, []);
 
     //atualizar quantidades e estoques de retirada
