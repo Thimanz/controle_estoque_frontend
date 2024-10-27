@@ -8,7 +8,8 @@ namespace GDE.Core.Data
     {
         public static void EnsureMigrationOfContext<T>(this IApplicationBuilder app) where T : DbContext
         {
-            using var context = app.ApplicationServices.GetRequiredService<T>();
+            using var scope = app.ApplicationServices.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<T>();
             context.Database.Migrate();
         }
     }

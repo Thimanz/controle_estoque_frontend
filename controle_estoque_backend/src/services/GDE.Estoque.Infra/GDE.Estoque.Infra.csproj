@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <PackageReference Include="GDE.Core" Version="1.0.2" />
+	  <PackageReference Include="GDE.Core" Version="1.0.3" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.4" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.4" />

@@ -31,8 +31,8 @@ namespace GDE.Estoque.API.Configuration
 
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //app.EnsureMigrationOfContext<EstoqueContext>();
-            
+            app.EnsureMigrationOfContext<EstoqueContext>();
+
             //if (env.IsDevelopment() || env.IsEnvironment("Local"))
             //{
             app.UseDeveloperExceptionPage();
