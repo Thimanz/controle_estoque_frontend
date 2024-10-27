@@ -1,4 +1,5 @@
-﻿using GDE.Core.Identidade;
+﻿using GDE.Core.Data;
+using GDE.Core.Identidade;
 using GDE.Pedidos.API.Data;
 
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ namespace GDE.Pedidos.API.Configuration
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<PedidosContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
 
@@ -29,12 +30,13 @@ namespace GDE.Pedidos.API.Configuration
 
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.EnsureMigrationOfContext<PedidosContext>();
 
-            if (env.IsDevelopment() || env.IsEnvironment("Local"))
-            {
+            //if (env.IsDevelopment() || env.IsEnvironment("Local"))
+            //{
                 app.UseDeveloperExceptionPage();
                 app.UseSwaggerConfiguration();
-            }
+            //}
 
             app.UseHttpsRedirection();
 

@@ -10,3 +10,10 @@
 /controle_estoque_backend/src/services/GDE.Identidade.API/GDE_IdentidadeDB
 /controle_estoque_backend/src/services/GDE.Identidade.API/GDE_IdentidadeDB-shm
 /controle_estoque_backend/src/services/GDE.Identidade.API/GDE_IdentidadeDB-wal
+/controle_estoque_backend/src/services/GDE.Pedidos.API/GDE_PedidosDB
+/controle_estoque_backend/src/services/GDE.Pedidos.API/GDE_PedidosDB-shm
+/controle_estoque_backend/src/services/GDE.Pedidos.API/GDE_PedidosDB-wal
+/controle_estoque_backend/src/services/GDE.Produtos.API/GDE_ProdutosDB
+/controle_estoque_backend/src/services/GDE.Produtos.API/GDE_ProdutosDB-shm
+/controle_estoque_backend/src/services/GDE.Produtos.API/GDE_ProdutosDB-wal
+

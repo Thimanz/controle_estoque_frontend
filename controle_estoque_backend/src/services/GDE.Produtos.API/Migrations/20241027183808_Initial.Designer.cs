@@ -3,7 +3,6 @@ using System;
 using GDE.Produtos.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -12,24 +11,20 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GDE.Produtos.API.Migrations
 {
     [DbContext(typeof(ProdutoContext))]
-    [Migration("20240428183447_Initial")]
+    [Migration("20241027183808_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
 
             modelBuilder.Entity("GDE.Produtos.API.Entities.Categoria", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Descricao")
                         .HasColumnType("varchar(100)");
@@ -46,42 +41,42 @@ namespace GDE.Produtos.API.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("Ativo")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("CategoriaId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("CodigoBarras")
                         .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("varchar(500)");
 
                     b.Property<string>("Imagem")
-                        .HasColumnType("varchar(250)");
+                        .HasColumnType("varchar(2500)");
 
                     b.Property<int>("NivelMinimoEstoque")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("varchar(250)");
 
                     b.Property<decimal>("PrecoCusto")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("PrecoVenda")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("QuantidadeEstoque")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -101,18 +96,18 @@ namespace GDE.Produtos.API.Migrations
                     b.OwnsOne("GDE.Produtos.API.Entities.Dimensoes", "Dimensoes", b1 =>
                         {
                             b1.Property<Guid>("ProdutoId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<decimal>("Altura")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Altura");
 
                             b1.Property<decimal>("Comprimento")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Comprimento");
 
                             b1.Property<decimal>("Largura")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Largura");
 
                             b1.HasKey("ProdutoId");

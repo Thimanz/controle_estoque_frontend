@@ -3,7 +3,6 @@ using System;
 using GDE.Estoque.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -16,17 +15,13 @@ namespace GDE.Estoque.Infra.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
 
             modelBuilder.Entity("GDE.Estoque.Domain.Local", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Endereco")
                         .HasColumnType("varchar(100)");
@@ -44,22 +39,22 @@ namespace GDE.Estoque.Infra.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("LocalId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
                         .HasColumnType("varchar(100)");
 
                     b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("ProdutoId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Quantidade")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -73,18 +68,18 @@ namespace GDE.Estoque.Infra.Migrations
                     b.OwnsOne("GDE.Estoque.Domain.Dimensoes", "Dimensoes", b1 =>
                         {
                             b1.Property<Guid>("LocalId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<decimal>("Altura")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Altura");
 
                             b1.Property<decimal>("Comprimento")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Comprimento");
 
                             b1.Property<decimal>("Largura")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Largura");
 
                             b1.HasKey("LocalId");
@@ -110,18 +105,18 @@ namespace GDE.Estoque.Infra.Migrations
                     b.OwnsOne("GDE.Estoque.Domain.Dimensoes", "Dimensoes", b1 =>
                         {
                             b1.Property<Guid>("LocalItemId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<decimal>("Altura")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Altura");
 
                             b1.Property<decimal>("Comprimento")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Comprimento");
 
                             b1.Property<decimal>("Largura")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Largura");
 
                             b1.HasKey("LocalItemId");

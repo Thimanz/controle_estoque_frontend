@@ -11,7 +11,7 @@ namespace GDE.Core.DomainObjects
             Id = Guid.NewGuid();
         }
 
-        private List<Event> _notificacoes;
+        private List<Event> _notificacoes = new List<Event>();
         public IReadOnlyCollection<Event> Notificacoes => _notificacoes.AsReadOnly();
 
         public void AdicionarEvento(Event evento)

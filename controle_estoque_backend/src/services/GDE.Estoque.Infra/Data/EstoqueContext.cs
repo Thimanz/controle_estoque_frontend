@@ -56,10 +56,10 @@ namespace GDE.Estoque.Infra.Data
         {
             var domainEntities = ctx.ChangeTracker
                 .Entries<Entity>()
-                .Where(x => x.Entity.Notificacoes != null && x.Entity.Notificacoes.Any());
+                .Where(x => x.Entity?.Notificacoes != null && x.Entity.Notificacoes.Any());
 
             var domainEvents = domainEntities
-                .SelectMany(x => x.Entity.Notificacoes)
+                .SelectMany(x => x.Entity?.Notificacoes)
                 .ToList();
 
             domainEntities.ToList()
