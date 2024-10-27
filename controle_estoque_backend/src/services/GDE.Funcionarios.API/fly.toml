@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for gde-identidade-api on 2024-10-27T14:17:36-03:00
+# fly.toml app configuration file generated for gde-funcionarios-api on 2024-10-27T14:32:15-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'gde-identidade-api'
+app = 'gde-funcionarios-api'
 primary_region = 'gru'
 
 [build]
@@ -17,6 +17,6 @@ primary_region = 'gru'
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
+  memory = '512mb'
   cpu_kind = 'shared'
   cpus = 1
