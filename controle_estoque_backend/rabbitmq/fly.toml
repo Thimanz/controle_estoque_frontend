@@ -1,0 +1,43 @@
+# fly.toml app configuration file generated for gde-rabbitmq
+app = 'gde-rabbitmq'
+primary_region = 'gru'
+
+[build]
+
+[http_service]
+  internal_port = 5672
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 5672
+  
+  [[services.ports]]
+    port = 5672 # Adicionando a porta 5672
+    
+  [[services.tcp_checks]]
+    interval = '15s'
+    timeout = '1m0s'
+    grace_period = '1s'
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 15672
+
+  [[services.ports]]
+    port = 15672
+    handlers = ['tls', 'http']
+
+  [[services.tcp_checks]]
+    interval = '15s'
+    timeout = '1m0s'
+    grace_period = '1s'
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1
