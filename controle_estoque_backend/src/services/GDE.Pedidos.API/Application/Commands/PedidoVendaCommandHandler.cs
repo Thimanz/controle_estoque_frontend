@@ -1,9 +1,9 @@
-﻿using FluentValidation.Results;
-using GDE.Core.Messages;
+﻿using GDE.Core.Messages;
 using GDE.Core.Messages.Integration;
-using GDE.MessageBus;
 using GDE.Pedidos.API.Models;
+using MassTransit;
 using MediatR;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace GDE.Pedidos.API.Application.Commands
 {
@@ -11,12 +11,13 @@ namespace GDE.Pedidos.API.Application.Commands
         IRequestHandler<AdicionarPedidoVendaCommand, ValidationResult>
     {
         private readonly IPedidoVendaRepository _pedidoVendaRepository;
-        private readonly IMessageBus _bus;
+        private readonly IRequestClient<PedidoCadastradoIntegrationEvent> _pedidoCadastradoRequestClient;
 
-        public PedidoVendaCommandHandler(IPedidoVendaRepository pedidoVendaRepository, IMessageBus bus)
+        public PedidoVendaCommandHandler(IPedidoVendaRepository pedidoVendaRepository, 
+            IRequestClient<PedidoCadastradoIntegrationEvent> pedidoCadastradorequestClient)
         {
             _pedidoVendaRepository = pedidoVendaRepository;
-            _bus = bus;
+            _pedidoCadastradoRequestClient = pedidoCadastradorequestClient;
         }
 
         public async Task<ValidationResult> Handle(AdicionarPedidoVendaCommand message, CancellationToken cancellationToken)
@@ -60,7 +61,9 @@ namespace GDE.Pedidos.API.Application.Commands
 
             try
             {
-                return await _bus.RequestAsync<PedidoCadastradoIntegrationEvent, ResponseMessage>(pedidoCadastrado);
+                var response = await _pedidoCadastradoRequestClient.GetResponse<ResponseMessage>(pedidoCadastrado);
+
+                return response.Message;
             }
             catch
             {

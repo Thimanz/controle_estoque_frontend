@@ -10,7 +10,7 @@ namespace GDE.Pedidos.API.DTO
         public int Numero { get; set; }
         public decimal PrecoTotal { get; set; }
         public int Quantidade { get; set; }
-        public DateTime DataCriacao { get; set; }
+        public string Data { get; set; }
         public int Tipo {  get; set; }
 
         public static BuscarPedidosDto FromPedidoCompra(PedidoCompra pedidoCompra)
@@ -22,7 +22,7 @@ namespace GDE.Pedidos.API.DTO
                 Numero = pedidoCompra.Numero,
                 PrecoTotal = pedidoCompra.PrecoTotal,
                 Quantidade = pedidoCompra.Quantidade(),
-                DataCriacao = pedidoCompra.DataCriacao,
+                Data = pedidoCompra.DataCriacao.ToString("dd/MM/yyyy"),
                 Tipo = (int)TipoMovimentacao.Entrada
             };
         }
@@ -36,7 +36,7 @@ namespace GDE.Pedidos.API.DTO
                 Numero = pedidoVenda.Numero,
                 PrecoTotal = pedidoVenda.PrecoTotal,
                 Quantidade = pedidoVenda.Quantidade(),
-                DataCriacao = pedidoVenda.DataCriacao,
+                Data = pedidoVenda.DataCriacao.ToString("dd/MM/yyyy"),
                 Tipo = (int)TipoMovimentacao.Saida
             };
         }
@@ -50,7 +50,7 @@ namespace GDE.Pedidos.API.DTO
                 Numero = pedidoTransferencia.Numero,
                 PrecoTotal = pedidoTransferencia.PrecoTotal,
                 Quantidade = pedidoTransferencia.Quantidade(),
-                DataCriacao = pedidoTransferencia.DataCriacao,
+                Data = pedidoTransferencia.DataCriacao.ToString("dd/MM/yyyy"),
                 Tipo = (int)TipoMovimentacao.Transferencia
             };
         }

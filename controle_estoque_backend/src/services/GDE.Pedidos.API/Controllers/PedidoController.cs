@@ -54,24 +54,24 @@ namespace GDE.Pedidos.API.Controllers
         }
 
         [HttpGet("api/pedido")]
-        public async Task<PagedResult<BuscarPedidosDto>> ListaPedidos([FromQuery] DateTime? dataCriacao, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
+        public async Task<PagedResult<BuscarPedidosDto>> ListaPedidos([FromQuery] DateTime? data, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
         {
             int pageSizeByType = pageSize / 3;
 
             var pedidosCompra = await _context.PedidosCompra.Include(p => p.PedidoItens)
                .Skip(pageSizeByType * (pageIndex - 1))
                .Take(pageSizeByType)
-               .Where(p => !dataCriacao.HasValue || p.DataCriacao.Date == dataCriacao.Value.Date).ToListAsync();
+               .Where(p => !data.HasValue || p.DataCriacao.Date == data.Value.Date).ToListAsync();
 
             var pedidosVenda = await _context.PedidosVenda.Include(p => p.PedidoItens)
                .Skip(pageSizeByType * (pageIndex - 1))
                .Take(pageSizeByType)
-               .Where(p => !dataCriacao.HasValue || p.DataCriacao.Date == dataCriacao.Value.Date).ToListAsync();
+               .Where(p => !data.HasValue || p.DataCriacao.Date == data.Value.Date).ToListAsync();
 
             var pedidosTransferencia = await _context.PedidosTransferencia.Include(p => p.PedidoItens)
                .Skip(pageSizeByType * (pageIndex - 1))
                .Take(pageSizeByType)
-               .Where(p => !dataCriacao.HasValue || p.DataCriacao.Date == dataCriacao.Value.Date).ToListAsync();
+               .Where(p => !data.HasValue || p.DataCriacao.Date == data.Value.Date).ToListAsync();
 
             var pedidos = pedidosCompra.Select(BuscarPedidosDto.FromPedidoCompra).ToList();
 
@@ -92,7 +92,9 @@ namespace GDE.Pedidos.API.Controllers
         [HttpGet("api/pedido/proximos-ao-vencimento")]
         public async Task<IActionResult> ProximosAoVencimento()
         {
-            var itens = await _context.PedidoItens.AsNoTracking().Where(i => DateTime.Compare(DateTime.Now, i.DataValidade) < 10).ToListAsync();
+            var compareDate = DateTime.Now.AddDays(10);
+
+            var itens = await _context.PedidoItens.AsNoTracking().Where(i => i.DataValidade < compareDate).ToListAsync();
 
             var viewModels = new List<ProximosAoVencimentoDTO>();
 

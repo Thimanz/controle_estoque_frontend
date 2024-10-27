@@ -1,10 +1,10 @@
-﻿using FluentValidation.Results;
-using GDE.Core.Messages;
+﻿using GDE.Core.Messages;
 using GDE.Core.Messages.Integration;
 using GDE.Estoque.API.Application.DTO;
 using GDE.Estoque.Domain;
-using GDE.MessageBus;
+using MassTransit;
 using MediatR;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace GDE.Estoque.API.Application.Commands
 {
@@ -12,12 +12,13 @@ namespace GDE.Estoque.API.Application.Commands
         IRequestHandler<MovimentarItensEstoqueCommand, ValidationResult>
     {
         private readonly ILocalRepository _localRepository;
-        private readonly IMessageBus _bus;
+        private readonly IRequestClient<ProdutoMovimentadoIntegrationEvent> _requestClient;
 
-        public EstoqueCommandHandler(ILocalRepository localRepository, IMessageBus bus)
+        public EstoqueCommandHandler(ILocalRepository localRepository, 
+            IRequestClient<ProdutoMovimentadoIntegrationEvent> requestClient)
         {
             _localRepository = localRepository;
-            _bus = bus;
+            _requestClient = requestClient;
         }
 
         public async Task<ValidationResult> Handle(MovimentarItensEstoqueCommand message, CancellationToken cancellationToken)
@@ -68,7 +69,9 @@ namespace GDE.Estoque.API.Application.Commands
         {
             try
             {
-                return await _bus.RequestAsync<ProdutoMovimentadoIntegrationEvent, ResponseMessage>(produtoMovimentado);
+                var response = await _requestClient.GetResponse<ResponseMessage>(produtoMovimentado);
+
+                return response.Message;
             }
             catch
             {
