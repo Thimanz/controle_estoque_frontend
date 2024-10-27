@@ -21,7 +21,7 @@ namespace GDE.Identidade.API.Configuration
                     cfg.Host(messageBusCredentials.Host, "/", h =>
                     {
                         h.Username(messageBusCredentials.User);
-                        h.Password(messageBusCredentials.Host);
+                        h.Password(messageBusCredentials.Password);
                     });
                 });
             });
