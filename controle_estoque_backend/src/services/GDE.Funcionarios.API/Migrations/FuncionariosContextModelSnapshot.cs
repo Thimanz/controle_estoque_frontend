@@ -3,7 +3,6 @@ using System;
 using GDE.Funcionarios.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -16,23 +15,19 @@ namespace GDE.Funcionarios.API.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
 
             modelBuilder.Entity("GDE.Funcionarios.API.Models.Funcionario", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("Cargo")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("Excluido")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -48,7 +43,7 @@ namespace GDE.Funcionarios.API.Migrations
                     b.OwnsOne("GDE.Funcionarios.API.Models.Cpf", "Cpf", b1 =>
                         {
                             b1.Property<Guid>("FuncionarioId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("Numero")
                                 .IsRequired()
@@ -67,7 +62,7 @@ namespace GDE.Funcionarios.API.Migrations
                     b.OwnsOne("GDE.Funcionarios.API.Models.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("FuncionarioId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("Endereco")
                                 .IsRequired()

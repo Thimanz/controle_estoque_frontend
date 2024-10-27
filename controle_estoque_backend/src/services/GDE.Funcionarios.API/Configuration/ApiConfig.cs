@@ -9,7 +9,7 @@ namespace GDE.Funcionarios.API.Configuration
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<FuncionariosContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
 
@@ -29,11 +29,11 @@ namespace GDE.Funcionarios.API.Configuration
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            if (env.IsDevelopment() || env.IsEnvironment("Local"))
-            {
+            //if (env.IsDevelopment() || env.IsEnvironment("Local"))
+            //{
                 app.UseDeveloperExceptionPage();
                 app.UseSwaggerConfiguration();
-            }
+            //}
 
             app.UseHttpsRedirection();
 

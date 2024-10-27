@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GDE.Funcionarios.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Funcionarios : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,12 +15,12 @@ namespace GDE.Funcionarios.API.Migrations
                 name: "Funcionarios",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Nome = table.Column<string>(type: "varchar(200)", nullable: false),
                     Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
                     Email = table.Column<string>(type: "varchar(254)", nullable: true),
-                    Cargo = table.Column<int>(type: "int", nullable: false),
-                    Excluido = table.Column<bool>(type: "bit", nullable: false)
+                    Cargo = table.Column<int>(type: "INTEGER", nullable: true),
+                    Excluido = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
