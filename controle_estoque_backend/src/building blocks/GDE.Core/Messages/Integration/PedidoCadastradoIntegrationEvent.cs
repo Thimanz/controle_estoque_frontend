@@ -9,9 +9,11 @@
             IdLocalDestino = idLocalDestino;
         }
 
-        public TipoMovimentacao Tipo { get; private set; }
-        public List<PedidoItemIntegrationEvent> Itens { get; private set; }
-        public Guid? IdLocalDestino { get; private set; }
+        public PedidoCadastradoIntegrationEvent() { }
+        
+        public TipoMovimentacao Tipo { get; set; }
+        public List<PedidoItemIntegrationEvent> Itens { get; set; }
+        public Guid? IdLocalDestino { get; set; }
     }
 
     public class PedidoItemIntegrationEvent
@@ -32,17 +34,19 @@
             PedidoTransferenciaId = pedidoTransferenciaId;
         }
 
-        public Guid ProdutoId { get; private set; }
-        public Guid LocalId { get; private set; }
-        public string NomeProduto { get; private set; }
-        public decimal Comprimento { get; private set; }
-        public decimal Largura { get; private set; }
-        public decimal Altura { get; private set; }
-        public int Quantidade { get; private set; }
-        public decimal PrecoUnitario { get; private set; }
-        public Guid? PedidoCompraId { get; private set; }
-        public Guid? PedidoVendaId { get; private set; }
-        public Guid? PedidoTransferenciaId { get; private set; }
+        public PedidoItemIntegrationEvent() { }
+        
+        public Guid ProdutoId { get; set; }
+        public Guid LocalId { get; set; }
+        public string NomeProduto { get; set; }
+        public decimal Comprimento { get; set; }
+        public decimal Largura { get; set; }
+        public decimal Altura { get; set; }
+        public int Quantidade { get; set; }
+        public decimal PrecoUnitario { get; set; }
+        public Guid? PedidoCompraId { get; set; }
+        public Guid? PedidoVendaId { get; set; }
+        public Guid? PedidoTransferenciaId { get; set; }
     }
 
     public enum TipoMovimentacao

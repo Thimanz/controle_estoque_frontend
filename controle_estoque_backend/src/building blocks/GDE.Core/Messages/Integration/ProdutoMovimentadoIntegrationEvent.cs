@@ -9,9 +9,11 @@
             Tipo = tipo;
         }
 
-        public Guid ProdutoId { get; private set; }
-        public int Quantidade { get; private set; }
-        public TipoMovimentacao Tipo { get; private set; }
+        public ProdutoMovimentadoIntegrationEvent() { }
+        
+        public Guid ProdutoId { get; set; }
+        public int Quantidade { get; set; }
+        public TipoMovimentacao Tipo { get; set; }
 
     }
 }
