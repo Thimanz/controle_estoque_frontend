@@ -1,4 +1,5 @@
-﻿using GDE.Core.Identidade;
+﻿using GDE.Core.Data;
+using GDE.Core.Identidade;
 using GDE.Produtos.API.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,12 +29,13 @@ namespace GDE.Produtos.API.Configuration
 
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.EnsureMigrationOfContext<ProdutoContext>();
 
-            if (env.IsDevelopment() || env.IsEnvironment("Local"))
-            {
-                app.UseDeveloperExceptionPage();
+            //if (env.IsDevelopment() || env.IsEnvironment("Local"))
+            //{
+            app.UseDeveloperExceptionPage();
                 app.UseSwaggerConfiguration();
-            }
+            //}
 
             app.UseHttpsRedirection();
 
