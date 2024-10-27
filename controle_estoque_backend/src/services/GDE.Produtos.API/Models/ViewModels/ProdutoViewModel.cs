@@ -17,6 +17,8 @@ namespace GDE.Produtos.API.Models.ViewModels
         public decimal Largura { get; set; }
         public decimal Altura { get; set; }
         public decimal Peso { get; set; }
+        public int Quantidade { get; set; }
+
 
         public static ProdutoViewModel FromEntity(Produto produto) =>
             new ProdutoViewModel()
@@ -33,6 +35,8 @@ namespace GDE.Produtos.API.Models.ViewModels
                 Comprimento = produto.Dimensoes.Comprimento,
                 Largura = produto.Dimensoes.Largura,
                 Altura = produto.Dimensoes.Altura,
+                Quantidade = produto.QuantidadeEstoque
+
                 //Peso = produto.Dimensoes.Peso
             };
 

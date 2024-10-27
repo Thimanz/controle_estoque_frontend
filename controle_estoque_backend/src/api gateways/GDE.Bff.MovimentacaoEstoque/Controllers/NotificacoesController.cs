@@ -25,6 +25,8 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
 
             var vencimento = await _pedidoService.ObterNotificacoesProximoVencimento();
 
+            var vencimentoPopulada = new List<NotificacaoDTO>();
+
             foreach (var item in vencimento)
             {
                 var produto = await _produtoService.ObterProdutoPorId(item.Id);
@@ -32,9 +34,12 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
                 item.Nome = produto.Nome;
                 item.Mensagem = $"Existem itens do produto {produto.Nome} próximos ao vencimento";
                 item.Tipo = TipoNotificacao.ProximoVencimento;
+
+                if (produto.Quantidade > 0)
+                    vencimentoPopulada.Add(item);
             }
 
-            notificacoes.AddRange(vencimento);
+            notificacoes.AddRange(vencimentoPopulada);
 
             return CustomResponse(notificacoes);
         }

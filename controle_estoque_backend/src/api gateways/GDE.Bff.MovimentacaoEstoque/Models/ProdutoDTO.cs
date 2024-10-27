@@ -6,5 +6,6 @@
         public decimal Comprimento { get; set; }
         public decimal Largura { get; set; }
         public decimal Altura { get; set; }
+        public int Quantidade { get; set; }
     }
 }
