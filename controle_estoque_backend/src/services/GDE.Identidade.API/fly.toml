@@ -17,6 +17,6 @@ primary_region = 'gru'
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
+  memory = '512gb'
   cpu_kind = 'shared'
   cpus = 1
