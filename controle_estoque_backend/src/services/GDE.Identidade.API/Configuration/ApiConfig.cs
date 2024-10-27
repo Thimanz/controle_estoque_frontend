@@ -1,4 +1,6 @@
-﻿using GDE.Core.Identidade;
+﻿using GDE.Core.Data;
+using GDE.Core.Identidade;
+using GDE.Identidade.API.Data;
 
 namespace GDE.Identidade.API.Configuration
 {
@@ -25,6 +27,8 @@ namespace GDE.Identidade.API.Configuration
 
         public static IApplicationBuilder UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.EnsureMigrationOfContext<ApplicationDbContext>();
+
             //if (env.IsDevelopment() || env.IsEnvironment("Local"))
             //{
                 app.UseDeveloperExceptionPage();

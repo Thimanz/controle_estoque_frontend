@@ -1,6 +1,7 @@
 ﻿using GDE.Core.Identidade;
 using GDE.Funcionarios.API.Data;
 using Microsoft.EntityFrameworkCore;
+using GDE.Core.Data;
 
 namespace GDE.Funcionarios.API.Configuration
 {
@@ -29,9 +30,11 @@ namespace GDE.Funcionarios.API.Configuration
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
 
+            app.EnsureMigrationOfContext<FuncionariosContext>();
+
             //if (env.IsDevelopment() || env.IsEnvironment("Local"))
             //{
-                app.UseDeveloperExceptionPage();
+            app.UseDeveloperExceptionPage();
                 app.UseSwaggerConfiguration();
             //}
 

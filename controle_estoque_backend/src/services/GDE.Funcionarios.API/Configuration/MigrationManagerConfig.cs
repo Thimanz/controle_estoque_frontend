@@ -1,15 +1,15 @@
-﻿using GDE.Identidade.API.Data;
+﻿using GDE.Funcionarios.API.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace GDE.Identidade.API.Configuration
+namespace GDE.Funcionarios.API.Configuration
 {
-    public static class MigrationManager
+    public static class MigrationManagerConfig
     {
         public static IHost MigrateDatabases(this IHost host)
         {
             using (var scope = host.Services.CreateScope())
             {
-                using (var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
+                using (var ctx = scope.ServiceProvider.GetRequiredService<FuncionariosContext>())
                 {
                     ctx.Database.Migrate();
                 }
