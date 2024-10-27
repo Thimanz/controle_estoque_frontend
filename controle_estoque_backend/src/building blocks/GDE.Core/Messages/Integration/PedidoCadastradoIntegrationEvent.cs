@@ -2,6 +2,8 @@
 {
     public class PedidoCadastradoIntegrationEvent : IntegrationEvent
     {
+        public static string QueueName => "gde.pedido.cadastrado";
+
         public PedidoCadastradoIntegrationEvent(TipoMovimentacao tipo, List<PedidoItemIntegrationEvent> itens, Guid? idLocalDestino = null)
         {
             Tipo = tipo;

@@ -2,6 +2,8 @@
 {
     public class ProdutoMovimentadoIntegrationEvent : IntegrationEvent
     {
+        public static string QueueName => "gde.produto.movimentado";
+
         public ProdutoMovimentadoIntegrationEvent(Guid produtoId, int quantidade, TipoMovimentacao tipo)
         {
             ProdutoId = produtoId;
