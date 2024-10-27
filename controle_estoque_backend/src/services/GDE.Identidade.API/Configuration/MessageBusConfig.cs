@@ -1,5 +1,5 @@
-﻿using GDE.MessageBus;
-using GDE.Core.Utils;
+﻿using GDE.Core.MessageBus;
+using MassTransit;
 
 namespace GDE.Identidade.API.Configuration
 {
@@ -7,7 +7,24 @@ namespace GDE.Identidade.API.Configuration
     {
         public static void AddMessageBusConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"));
+            var messageBusCredentialsSection = configuration.GetSection("MessageBusConfig");
+            services.Configure<MessageBusCredentials>(messageBusCredentialsSection);
+
+            var messageBusCredentials = messageBusCredentialsSection.Get<MessageBusCredentials>();
+
+            if (messageBusCredentials == null) throw new ArgumentNullException(nameof(messageBusCredentials));
+
+            services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(messageBusCredentials.Host, "/", h =>
+                    {
+                        h.Username(messageBusCredentials.User);
+                        h.Password(messageBusCredentials.Host);
+                    });
+                });
+            });
         }
     }
 }

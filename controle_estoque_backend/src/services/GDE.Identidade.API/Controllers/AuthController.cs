@@ -6,7 +6,7 @@ using GDE.Core.Identidade;
 using GDE.Core.Messages.Integration;
 using GDE.Core.Utils;
 using GDE.Identidade.API.Models.UserViewModels;
-using GDE.MessageBus;
+using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -21,17 +21,17 @@ namespace GDE.Identidade.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        private readonly IMessageBus _bus;
-
+        private readonly IRequestClient<UsuarioRegistradoIntegrationEvent> _usuarioRegistradoRequestClient;
+        
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
                               IOptions<AppSettings> appSettings,
-                              IMessageBus messageBus)
+                              IRequestClient<UsuarioRegistradoIntegrationEvent> requestClient)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
-            _bus = messageBus;
+            _usuarioRegistradoRequestClient = requestClient;
         }
 
         [HttpPost("nova-conta")]
@@ -170,7 +170,9 @@ namespace GDE.Identidade.API.Controllers
 
             try
             {
-                return await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+                var response = await _usuarioRegistradoRequestClient.GetResponse<ResponseMessage>(usuarioRegistrado);
+
+                return response.Message;
             }
             catch
             {
