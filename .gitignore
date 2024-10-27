@@ -4,3 +4,9 @@
 
 /.vs
 /controle_estoque_backend/.vs
+/controle_estoque_backend/src/services/GDE.Funcionarios.API/GDE_FuncionariosDB
+/controle_estoque_backend/src/services/GDE.Funcionarios.API/GDE_FuncionariosDB-shm
+/controle_estoque_backend/src/services/GDE.Funcionarios.API/GDE_FuncionariosDB-wal
+/controle_estoque_backend/src/services/GDE.Identidade.API/GDE_IdentidadeDB
+/controle_estoque_backend/src/services/GDE.Identidade.API/GDE_IdentidadeDB-shm
+/controle_estoque_backend/src/services/GDE.Identidade.API/GDE_IdentidadeDB-wal
