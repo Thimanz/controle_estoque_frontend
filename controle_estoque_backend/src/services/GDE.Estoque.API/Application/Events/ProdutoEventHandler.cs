@@ -1,21 +1,21 @@
 ﻿using GDE.Core.Messages.Integration;
-using GDE.MessageBus;
+using MassTransit;
 using MediatR;
 
 namespace GDE.Estoque.API.Application.Events
 {
     public class ProdutoEventHandler : INotificationHandler<ProdutoMovimentadoEvent>
     {
-        private readonly IMessageBus _bus;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public ProdutoEventHandler(IMessageBus bus)
+        public ProdutoEventHandler(IPublishEndpoint publishEndpoint)
         {
-            _bus = bus;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task Handle(ProdutoMovimentadoEvent message, CancellationToken cancellationToken)
         {
-            await _bus.PublishAsync(new ProdutoMovimentadoIntegrationEvent(message.ProdutoId, message.Quantidade, (TipoMovimentacao)message.Tipo.GetHashCode()));
+            await _publishEndpoint.Publish(new ProdutoMovimentadoIntegrationEvent(message.ProdutoId, message.Quantidade, (TipoMovimentacao)message.Tipo.GetHashCode()));
         }
     }
 }

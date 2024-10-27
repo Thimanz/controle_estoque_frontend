@@ -1,7 +1,6 @@
 ﻿using GDE.Core.Messages.Integration;
 using GDE.Produtos.API.Data;
 using MassTransit;
-using FluentValidation.Results;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
 

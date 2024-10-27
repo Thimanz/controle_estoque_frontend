@@ -44,7 +44,7 @@ namespace GDE.Funcionarios.API.Data
 
             return sucesso;
             }
-            catch (Exception ex) { return false; }
+            catch { return false; }
         }
     }
 

@@ -13,9 +13,11 @@ namespace GDE.Estoque.API.Application.Events
             Tipo = tipo;
         }
 
-        public Guid ProdutoId { get; private set; }
-        public int Quantidade { get; private set; }
-        public TipoMovimentacao Tipo {  get; private set; }
+        public ProdutoMovimentadoEvent() { }
+    
+        public Guid ProdutoId { get; set; }
+        public int Quantidade { get; set; }
+        public TipoMovimentacao Tipo { get; set; }
 
     }
 }

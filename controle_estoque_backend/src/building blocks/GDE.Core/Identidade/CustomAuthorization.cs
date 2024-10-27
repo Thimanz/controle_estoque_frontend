@@ -9,7 +9,7 @@ namespace GDE.Core.Identidade
     {
         public static bool ValidarClaimsUsuario(HttpContext context, string claimName, string claimValue)
         {
-            return context.User.Identity.IsAuthenticated &&
+            return context.User.Identity!.IsAuthenticated &&
                    context.User.Claims.Any(c => c.Type == claimName && c.Value.Contains(claimValue));
         }
     }
@@ -33,7 +33,7 @@ namespace GDE.Core.Identidade
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (!context.HttpContext.User.Identity.IsAuthenticated)
+            if (!context.HttpContext.User.Identity!.IsAuthenticated)
             {
                 context.Result = new StatusCodeResult(401);
                 return;

@@ -12,13 +12,13 @@ namespace GDE.Pedidos.API.Application.Commands
         IRequestHandler<AdicionarPedidoTransferenciaCommand, ValidationResult>
     {
         private readonly IPedidoTransferenciaRepository _pedidoTransferenciaRepository;
-        private readonly IRequestClient<PedidoCadastradoIntegrationEvent> _pedidoCadastradorequestClient;
+        private readonly IRequestClient<PedidoCadastradoIntegrationEvent> _requestClient;
 
         public PedidoTransferenciaCommandHandler(IPedidoTransferenciaRepository pedidoTransferenciaRepository, 
             IRequestClient<PedidoCadastradoIntegrationEvent> pedidoCadastradorequestClient)
         {
             _pedidoTransferenciaRepository = pedidoTransferenciaRepository;
-            _pedidoCadastradorequestClient = pedidoCadastradorequestClient;
+            _requestClient = pedidoCadastradorequestClient;
         }
 
         public async Task<ValidationResult> Handle(AdicionarPedidoTransferenciaCommand message, CancellationToken cancellationToken)
@@ -61,7 +61,7 @@ namespace GDE.Pedidos.API.Application.Commands
 
             try
             {
-                var response = await _pedidoCadastradorequestClient.GetResponse<ResponseMessage>(pedidoCadastrado);
+                var response = await _requestClient.GetResponse<ResponseMessage>(pedidoCadastrado);
 
                 return response.Message;
             }

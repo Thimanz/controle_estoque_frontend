@@ -1,8 +1,6 @@
 ﻿using GDE.Core.MessageBus;
 using GDE.Core.Messages.Integration;
-using GDE.Core.Utils;
 using GDE.Produtos.API.Consumers;
-using GDE.Produtos.API.Services;
 using MassTransit;
 
 namespace GDE.Produtos.API.Configuration

@@ -1,6 +1,0 @@
-@GDE.Identidade.API_HostAddress = http://localhost:5237
-
-GET {{GDE.Identidade.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

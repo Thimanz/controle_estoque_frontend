@@ -46,7 +46,7 @@ namespace GDE.Estoque.Infra.Data
 
                 return sucesso;
             }
-            catch (Exception ex) { return false; }
+            catch { return false; }
         }
     }
 

@@ -35,7 +35,7 @@ namespace GDE.Estoque.API.Consumer
             using var scope = _serviceProvider.CreateScope();
 
             var mediator = scope.ServiceProvider.GetService<IMediatorHandler>();
-            var result = await mediator.EnviarComando(movimentarItensEstoqueCommand);
+            var result = await mediator!.EnviarComando(movimentarItensEstoqueCommand);
 
             await context.RespondAsync(new ResponseMessage(result));
         }

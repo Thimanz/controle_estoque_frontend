@@ -1,5 +1,4 @@
 ﻿using GDE.Core.Utils;
-using GDE.MessageBus;
 
 namespace GDE.Pedidos.API.Configuration
 {
@@ -7,7 +6,7 @@ namespace GDE.Pedidos.API.Configuration
     {
         public static void AddMessageBusConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"));
+            //services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"));
         }
     }
 }
