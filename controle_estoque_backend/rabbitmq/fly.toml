@@ -1,4 +1,8 @@
-# fly.toml app configuration file generated for gde-rabbitmq
+# fly.toml app configuration file generated for gde-rabbitmq on 2024-10-29T09:46:53-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
 app = 'gde-rabbitmq'
 primary_region = 'gru'
 
@@ -15,10 +19,10 @@ primary_region = 'gru'
 [[services]]
   protocol = 'tcp'
   internal_port = 5672
-  
+
   [[services.ports]]
-    port = 5672 # Adicionando a porta 5672
-    
+    port = 5672
+
   [[services.tcp_checks]]
     interval = '15s'
     timeout = '1m0s'
