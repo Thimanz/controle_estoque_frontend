@@ -92,7 +92,7 @@ namespace GDE.Pedidos.API.Controllers
         [HttpGet("api/pedido/proximos-ao-vencimento")]
         public async Task<IActionResult> ProximosAoVencimento()
         {
-            var compareDate = DateTime.Now.AddDays(10);
+            var compareDate = DateTime.UtcNow.AddDays(10);
 
             var itens = await _context.PedidoItens.AsNoTracking().Where(i => i.DataValidade < compareDate).ToListAsync();
 

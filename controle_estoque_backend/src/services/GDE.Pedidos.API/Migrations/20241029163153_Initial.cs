@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,12 +16,13 @@ namespace GDE.Pedidos.API.Migrations
                 name: "PedidosCompra",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     NomeFornecedor = table.Column<string>(type: "varchar(100)", nullable: true),
-                    IdFuncionarioResponsavel = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Numero = table.Column<int>(type: "INTEGER", nullable: false),
-                    PrecoTotal = table.Column<decimal>(type: "TEXT", nullable: false),
-                    DataCriacao = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    IdFuncionarioResponsavel = table.Column<Guid>(type: "uuid", nullable: false),
+                    Numero = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PrecoTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    DataCriacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,12 +33,13 @@ namespace GDE.Pedidos.API.Migrations
                 name: "PedidosTransferencia",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    IdLocalDestino = table.Column<Guid>(type: "TEXT", nullable: false),
-                    IdFuncionarioResponsavel = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Numero = table.Column<int>(type: "INTEGER", nullable: false),
-                    PrecoTotal = table.Column<decimal>(type: "TEXT", nullable: false),
-                    DataCriacao = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    IdLocalDestino = table.Column<Guid>(type: "uuid", nullable: false),
+                    IdFuncionarioResponsavel = table.Column<Guid>(type: "uuid", nullable: false),
+                    Numero = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PrecoTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    DataCriacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,12 +50,13 @@ namespace GDE.Pedidos.API.Migrations
                 name: "PedidosVenda",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     NomeCliente = table.Column<string>(type: "varchar(100)", nullable: true),
-                    IdFuncionarioResponsavel = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Numero = table.Column<int>(type: "INTEGER", nullable: false),
-                    PrecoTotal = table.Column<decimal>(type: "TEXT", nullable: false),
-                    DataCriacao = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    IdFuncionarioResponsavel = table.Column<Guid>(type: "uuid", nullable: false),
+                    Numero = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PrecoTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    DataCriacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,15 +67,15 @@ namespace GDE.Pedidos.API.Migrations
                 name: "PedidoItens",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ProdutoId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    LocalId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Quantidade = table.Column<int>(type: "INTEGER", nullable: false),
-                    PrecoUnitario = table.Column<decimal>(type: "TEXT", nullable: false),
-                    PedidoCompraId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    PedidoVendaId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    PedidoTransferenciaId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    DataValidade = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProdutoId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LocalId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Quantidade = table.Column<int>(type: "integer", nullable: false),
+                    PrecoUnitario = table.Column<decimal>(type: "numeric", nullable: false),
+                    PedidoCompraId = table.Column<Guid>(type: "uuid", nullable: true),
+                    PedidoVendaId = table.Column<Guid>(type: "uuid", nullable: true),
+                    PedidoTransferenciaId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DataValidade = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
