@@ -15,12 +15,12 @@ namespace GDE.Funcionarios.API.Migrations
                 name: "Funcionarios",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "varchar(200)", nullable: false),
                     Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
                     Email = table.Column<string>(type: "varchar(254)", nullable: true),
-                    Cargo = table.Column<int>(type: "INTEGER", nullable: true),
-                    Excluido = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Cargo = table.Column<int>(type: "integer", nullable: true),
+                    Excluido = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {

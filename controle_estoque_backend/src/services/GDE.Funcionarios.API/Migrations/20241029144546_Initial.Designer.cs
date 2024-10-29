@@ -5,32 +5,37 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace GDE.Funcionarios.API.Migrations
 {
     [DbContext(typeof(FuncionariosContext))]
-    [Migration("20241027142558_Initial")]
+    [Migration("20241029144546_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("GDE.Funcionarios.API.Models.Funcionario", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uuid");
 
                     b.Property<int?>("Cargo")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Excluido")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -46,7 +51,7 @@ namespace GDE.Funcionarios.API.Migrations
                     b.OwnsOne("GDE.Funcionarios.API.Models.Cpf", "Cpf", b1 =>
                         {
                             b1.Property<Guid>("FuncionarioId")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("uuid");
 
                             b1.Property<string>("Numero")
                                 .IsRequired()
@@ -65,7 +70,7 @@ namespace GDE.Funcionarios.API.Migrations
                     b.OwnsOne("GDE.Funcionarios.API.Models.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("FuncionarioId")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("uuid");
 
                             b1.Property<string>("Endereco")
                                 .IsRequired()

@@ -10,7 +10,7 @@ namespace GDE.Funcionarios.API.Configuration
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<FuncionariosContext>(options =>
-                options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
 
@@ -29,12 +29,11 @@ namespace GDE.Funcionarios.API.Configuration
 
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             app.EnsureMigrationOfContext<FuncionariosContext>();
 
             //if (env.IsDevelopment() || env.IsEnvironment("Local"))
             //{
-            app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
                 app.UseSwaggerConfiguration();
             //}
 
