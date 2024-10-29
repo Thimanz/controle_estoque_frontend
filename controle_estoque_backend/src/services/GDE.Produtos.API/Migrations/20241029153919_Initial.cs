@@ -15,7 +15,7 @@ namespace GDE.Produtos.API.Migrations
                 name: "Categorias",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "varchar(100)", nullable: true),
                     Descricao = table.Column<string>(type: "varchar(100)", nullable: true)
                 },
@@ -28,21 +28,21 @@ namespace GDE.Produtos.API.Migrations
                 name: "Produtos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "varchar(250)", nullable: false),
                     Descricao = table.Column<string>(type: "varchar(500)", nullable: false),
-                    Ativo = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CategoriaId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Ativo = table.Column<bool>(type: "boolean", nullable: false),
+                    CategoriaId = table.Column<Guid>(type: "uuid", nullable: false),
                     CodigoBarras = table.Column<string>(type: "varchar(100)", nullable: true),
-                    PrecoCusto = table.Column<decimal>(type: "TEXT", nullable: false),
-                    PrecoVenda = table.Column<decimal>(type: "TEXT", nullable: false),
+                    PrecoCusto = table.Column<decimal>(type: "numeric", nullable: false),
+                    PrecoVenda = table.Column<decimal>(type: "numeric", nullable: false),
                     Imagem = table.Column<string>(type: "varchar(2500)", nullable: true),
-                    QuantidadeEstoque = table.Column<int>(type: "INTEGER", nullable: false),
-                    NivelMinimoEstoque = table.Column<int>(type: "INTEGER", nullable: false),
-                    DataCadastro = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Comprimento = table.Column<decimal>(type: "TEXT", nullable: true),
-                    Largura = table.Column<decimal>(type: "TEXT", nullable: true),
-                    Altura = table.Column<decimal>(type: "TEXT", nullable: true)
+                    QuantidadeEstoque = table.Column<int>(type: "integer", nullable: false),
+                    NivelMinimoEstoque = table.Column<int>(type: "integer", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Comprimento = table.Column<decimal>(type: "numeric", nullable: true),
+                    Largura = table.Column<decimal>(type: "numeric", nullable: true),
+                    Altura = table.Column<decimal>(type: "numeric", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -10,7 +10,7 @@ namespace GDE.Produtos.API.Configuration
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ProdutoContext>(options =>
-                options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
 

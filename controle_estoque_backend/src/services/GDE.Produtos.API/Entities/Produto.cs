@@ -21,7 +21,7 @@ namespace GDE.Produtos.API.Entities
             PrecoVenda = precoVenda;
             Imagem = imagem;
             NivelMinimoEstoque = nivelMinimoEstoque;
-            DataCadastro = DateTime.Now;
+            DataCadastro = DateTime.UtcNow;
             Dimensoes = new Dimensoes(comprimento, largura, altura);
             Ativo = true;
         }
