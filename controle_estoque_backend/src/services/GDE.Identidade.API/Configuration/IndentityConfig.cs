@@ -12,7 +12,7 @@ namespace GDE.Identidade.API.Configuration
             IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
