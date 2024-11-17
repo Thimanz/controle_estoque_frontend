@@ -14,7 +14,6 @@
         public decimal Altura { get; set; }
         public int Quantidade { get; set; }
         public decimal PrecoUnitario { get; set; }
-        public string Imagem { get; set; }
         public DateTime DataValidade { get; set; }
     }
 }

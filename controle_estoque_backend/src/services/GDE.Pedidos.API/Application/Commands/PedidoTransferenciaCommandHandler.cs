@@ -55,7 +55,7 @@ namespace GDE.Pedidos.API.Application.Commands
                 i.PedidoCompraId,
                 i.PedidoVendaId,
                 i.PedidoTransferenciaId,
-                i.Imagem)
+                null)
             );
 
             var pedidoCadastrado = new PedidoCadastradoIntegrationEvent(TipoMovimentacao.Transferencia, pedidoItemCadastrado, pedidoTransferencia.IdLocalDestino);
@@ -84,8 +84,7 @@ namespace GDE.Pedidos.API.Application.Commands
                     null,
                     null,
                     i.PedidoTransferenciaId,
-                    i.DataValidade,
-                    i.Imagem));
+                    i.DataValidade));
 
             return new PedidoTransferencia(message.IdLocalDestino!.Value, message.NomeLocalDestino, message.Timestamp, message.IdFuncionarioResponsavel, itens);
         }

@@ -3,7 +3,7 @@
     public class BuscarPedidoItemDTO
     {
         public Guid ProdutoId { get; set; }
-        public LocalDTO? Local { get; set; }
+        public LocalPedidoDTO? Local { get; set; }
         public int Quantidade { get; set; }
         public decimal PrecoUnitario { get; set; }
         public string? Imagem { get; set; }

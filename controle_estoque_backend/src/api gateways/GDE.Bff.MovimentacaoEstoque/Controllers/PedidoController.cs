@@ -28,13 +28,13 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
         {
             var pedido = await _pedidoService.ObterPedidoCompra(id);
 
+            if (pedido is null)
+                return CustomResponse();
+
             foreach (var item in pedido.PedidoItens)
             {
                 var produto = await _produtoService.ObterProdutoPorId(item.ProdutoId);
                 item.Imagem = produto?.Imagem;
-
-                var local = await _estoqueService.ObterLocalPorId(item.Local!.Id);
-                item.Local = local;
             }
 
             return CustomResponse(pedido);
@@ -45,13 +45,13 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
         {
             var pedido = await _pedidoService.ObterPedidoVenda(id);
 
+            if (pedido is null)
+                return CustomResponse();
+
             foreach (var item in pedido.PedidoItens)
             {
                 var produto = await _produtoService.ObterProdutoPorId(item.ProdutoId);
                 item.Imagem = produto?.Imagem;
-
-                var local = await _estoqueService.ObterLocalPorId(item.Local!.Id);
-                item.Local = local;
             }
 
             return CustomResponse(pedido);
@@ -62,14 +62,15 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
         {
             var pedido = await _pedidoService.ObterPedidoTransferencia(id);
 
+            if (pedido is null)
+                return CustomResponse();
+            
             pedido.LocalDestino = await _estoqueService.ObterLocalPorId(pedido.LocalDestino!.Id);
 
             foreach (var item in pedido.PedidoItens)
             {
                 var produto = await _produtoService.ObterProdutoPorId(item.ProdutoId);
                 item.Imagem = produto?.Imagem;
-
-                item.Local = await _estoqueService.ObterLocalPorId(item.Local!.Id);
             }
 
             return CustomResponse(pedido);

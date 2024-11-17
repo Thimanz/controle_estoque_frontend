@@ -17,6 +17,9 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
 
         protected async Task<T> DeserializarObjetoResponse<T>(HttpResponseMessage responseMessage)
         {
+            if (responseMessage.StatusCode == HttpStatusCode.NoContent)
+                return default;
+
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true

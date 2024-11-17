@@ -81,8 +81,7 @@ namespace GDE.Pedidos.API.Application.Commands
                     i.PedidoCompraId,
                     null,
                     null,
-                    i.DataValidade,
-                    i.Imagem));
+                    i.DataValidade));
 
             return new PedidoCompra(message.NomeFornecedor, message.Timestamp, message.IdFuncionarioResponsavel, itens); 
         }

@@ -20,6 +20,7 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
 
             if (!TratarErrosResponse(response))
                 return null;
+            var teste = await response.Content.ReadAsStringAsync();
 
             return await DeserializarObjetoResponse<LocalDTO>(response);
         }

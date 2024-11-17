@@ -54,7 +54,7 @@ namespace GDE.Pedidos.API.Application.Commands
                 i.PedidoCompraId,
                 i.PedidoVendaId,
                 i.PedidoTransferenciaId,
-                i.Imagem)
+                null)
             );
 
 
@@ -84,8 +84,7 @@ namespace GDE.Pedidos.API.Application.Commands
                     null,
                     i.PedidoVendaId,
                     null,
-                    i.DataValidade,
-                    i.Imagem));
+                    i.DataValidade));
 
             return new PedidoVenda(message.NomeCliente, message.Timestamp, message.IdFuncionarioResponsavel, itens);
         }
