@@ -12,5 +12,7 @@ builder.Services.AddMessageBusConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
+app.MapGet("/health", () => Results.Ok("Healthy"));
+
 app.UseApiConfiguration(app.Environment);
 app.Run();
