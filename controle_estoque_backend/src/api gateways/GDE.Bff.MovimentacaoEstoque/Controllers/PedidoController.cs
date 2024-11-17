@@ -12,13 +12,67 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
     {
         private readonly IPedidoService _pedidoService;
         private readonly IProdutoService _produtoService;
+        private readonly IEstoqueService _estoqueService;
         private readonly IAspNetUser _user;
 
-        public PedidoController(IPedidoService pedidoService, IProdutoService produtoService, IAspNetUser user)
+        public PedidoController(IPedidoService pedidoService, IProdutoService produtoService, IAspNetUser user, IEstoqueService estoqueService)
         {
             _pedidoService = pedidoService;
             _produtoService = produtoService;
             _user = user;
+            _estoqueService = estoqueService;
+        }
+
+        [HttpGet("api/pedido/compra/{id}")]
+        public async Task<IActionResult> ObterPedidoCompra(Guid id)
+        {
+            var pedido = await _pedidoService.ObterPedidoCompra(id);
+
+            foreach (var item in pedido.PedidoItens)
+            {
+                var produto = await _produtoService.ObterProdutoPorId(item.ProdutoId);
+                item.Imagem = produto?.Imagem;
+
+                var local = await _estoqueService.ObterLocalPorId(item.Local!.Id);
+                item.Local = local;
+            }
+
+            return CustomResponse(pedido);
+        }
+
+        [HttpGet("api/pedido/venda/{id}")]
+        public async Task<IActionResult> ObterPedidoVenda(Guid id)
+        {
+            var pedido = await _pedidoService.ObterPedidoVenda(id);
+
+            foreach (var item in pedido.PedidoItens)
+            {
+                var produto = await _produtoService.ObterProdutoPorId(item.ProdutoId);
+                item.Imagem = produto?.Imagem;
+
+                var local = await _estoqueService.ObterLocalPorId(item.Local!.Id);
+                item.Local = local;
+            }
+
+            return CustomResponse(pedido);
+        }
+
+        [HttpGet("api/pedido/transferencia/{id}")]
+        public async Task<IActionResult> ObterPedidoTransferencia(Guid id)
+        {
+            var pedido = await _pedidoService.ObterPedidoTransferencia(id);
+
+            pedido.LocalDestino = await _estoqueService.ObterLocalPorId(pedido.LocalDestino!.Id);
+
+            foreach (var item in pedido.PedidoItens)
+            {
+                var produto = await _produtoService.ObterProdutoPorId(item.ProdutoId);
+                item.Imagem = produto?.Imagem;
+
+                item.Local = await _estoqueService.ObterLocalPorId(item.Local!.Id);
+            }
+
+            return CustomResponse(pedido);
         }
 
         [HttpPost("api/movimentacao/pedido/compra")]

@@ -63,6 +63,9 @@ namespace GDE.Pedidos.API.Migrations
                     b.Property<Guid>("LocalId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("LocalNome")
+                        .HasColumnType("varchar(100)");
+
                     b.Property<Guid?>("PedidoCompraId")
                         .HasColumnType("uuid");
 
@@ -106,6 +109,9 @@ namespace GDE.Pedidos.API.Migrations
 
                     b.Property<Guid>("IdLocalDestino")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("NomeLocalDestino")
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("Numero")
                         .ValueGeneratedOnAdd()

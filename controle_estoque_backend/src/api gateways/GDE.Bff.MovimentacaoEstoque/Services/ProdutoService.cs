@@ -25,12 +25,21 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
 
         public async Task<IEnumerable<NotificacaoDTO>> ObterNotificacoesEstoqueBaixo()
         {
-            var response = await _httpClient.GetAsync($"api/produto/nivel-estoque-baixo");
+            try
+            {
+                var response = await _httpClient.GetAsync($"api/produto/nivel-estoque-baixo");
+                if (!TratarErrosResponse(response))
+                    return null;
 
-            if (!TratarErrosResponse(response))
-                return null;
+                return await DeserializarObjetoResponse<IEnumerable<NotificacaoDTO>>(response);
+            }
+            catch (Exception wx)
+            {
 
-            return await DeserializarObjetoResponse<IEnumerable<NotificacaoDTO>>(response);
+                throw;
+            }
+
+
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using GDE.Core.Controllers;
 using GDE.Core.Mediator;
 using GDE.Funcionarios.API.Application.Commands;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GDE.Funcionarios.API.Controllers
 {
+    [Authorize]
     public class FuncionarioController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;

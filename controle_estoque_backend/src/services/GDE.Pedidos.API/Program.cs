@@ -12,5 +12,7 @@ builder.Services.AddMessageBusConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 app.UseApiConfiguration(app.Environment);
 app.Run();

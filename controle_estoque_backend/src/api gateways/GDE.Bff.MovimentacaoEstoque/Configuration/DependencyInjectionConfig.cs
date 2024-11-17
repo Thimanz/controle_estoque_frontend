@@ -17,6 +17,8 @@ namespace GDE.Bff.MovimentacaoEstoque.Configuration
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
             services.AddHttpClient<IProdutoService, ProdutoService>()
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+            services.AddHttpClient<IEstoqueService, EstoqueService>()
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
             return services;
         }

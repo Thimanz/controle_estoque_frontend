@@ -53,7 +53,8 @@ namespace GDE.Pedidos.API.Application.Commands
                 i.PrecoUnitario,
                 i.PedidoCompraId,
                 i.PedidoVendaId,
-                i.PedidoTransferenciaId)
+                i.PedidoTransferenciaId,
+                i.Imagem)
             );
 
 
@@ -77,12 +78,14 @@ namespace GDE.Pedidos.API.Application.Commands
                 .ConvertAll(i => new PedidoItem(
                     i.ProdutoId,
                     i.LocalId,
+                    i.LocalNome,
                     i.Quantidade,
                     i.PrecoUnitario,
                     null,
                     i.PedidoVendaId,
                     null,
-                    i.DataValidade));
+                    i.DataValidade,
+                    i.Imagem));
 
             return new PedidoVenda(message.NomeCliente, message.Timestamp, message.IdFuncionarioResponsavel, itens);
         }

@@ -2,11 +2,13 @@
 {
     public class ProximosAoVencimentoDTO
     {
-        public ProximosAoVencimentoDTO(Guid id)
+        public ProximosAoVencimentoDTO(Guid idProduto, Guid idLocal)
         {
-            Id = id;
+            IdProduto = idProduto;
+            IdLocal = idLocal;
         }
 
-        public Guid Id { get; set; }
+        public Guid IdProduto { get; set; }
+        public Guid IdLocal { get; set; }
     }
 }

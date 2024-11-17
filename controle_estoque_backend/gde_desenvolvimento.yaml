@@ -1,40 +1,25 @@
-services:  
+ervices:  
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbit-gestao-estoque
-    # environment:
-    #   RABBITMQ_DEFAULT_USER: "gde"
-    #   RABBITMQ_DEFAULT_PASS: "gde"
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin"
     ports:
       - 15672:15672
       - 5672:5672
 
-  # sql-server:
-  #   image: lucasmanzi/gde-sql-server:lastest
-  #   container_name: gde-sql-server
-  #   build:
-  #     context: ../sql
-  #     dockerfile: ./Dockerfile
-  #   environment:
-  #     SA_PASSWORD: "MeuDB@123"
-  #     ACCEPT_EULA: "Y"
-  #   ports:
-  #     - 1433:1433
-
-  # api-identidade:
-  #   image: lucasmanzi/gde-api-identidade:lastest
-  #   container_name: gde-api-identidade
-  #   build:
-  #     context: ../src
-  #     dockerfile: ./services/GDE.Identidade.API/Dockerfile
-  #   ports:
-  #     - 5101:5101
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - ASPNETCORE_URLS=http://*:5101
-  #   depends_on:
-  #     - sql-server
-  #     - rabbitmq
+  api-identidade:
+    image: lucasmanzi/gde-api-identidade:lastest
+    container_name: gde-api-identidade
+    build:
+      context: ../src
+      dockerfile: ./services/GDE.Identidade.API/Dockerfile
+    ports:
+      - 5101:5101
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:5101
 
     
   # api-funcionarios:
@@ -48,9 +33,6 @@ services:
   #   environment:
   #     - ASPNETCORE_ENVIRONMENT=Development
   #     - ASPNETCORE_URLS=http://*:5401
-  #   depends_on:
-  #     - sql-server
-  #     - rabbitmq
 
   
   # api-produtos:
@@ -64,9 +46,6 @@ services:
   #   environment:
   #     - ASPNETCORE_ENVIRONMENT=Development
   #     - ASPNETCORE_URLS=http://*:5301
-  #   depends_on:
-  #     - sql-server
-  #     - rabbitmq
 
   # api-estoque:
   #   image: lucasmanzi/gde-api-estoque:lastest
@@ -79,9 +58,6 @@ services:
   #   environment:
   #     - ASPNETCORE_ENVIRONMENT=Development
   #     - ASPNETCORE_URLS=http://*:5501
-  #   depends_on:
-  #     - sql-server
-  #     - rabbitmq
 
   # api-pedidos:
   #   image: lucasmanzi/gde-api-pedidos:lastest
@@ -94,9 +70,6 @@ services:
   #   environment:
   #     - ASPNETCORE_ENVIRONMENT=Development
   #     - ASPNETCORE_URLS=http://*:5601
-  #   depends_on:
-  #     - sql-server
-  #     - rabbitmq
 
   # bff-movimentacao-estoque:
   #   image: lucasmanzi/gde-bff-movimentacao-estoque:lastest
@@ -109,8 +82,5 @@ services:
   #   environment:
   #     - ASPNETCORE_ENVIRONMENT=Development
   #     - ASPNETCORE_URLS=http://*:5701
-  #   depends_on:
-  #     - sql-server
-  #     - rabbitmq
 
       

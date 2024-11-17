@@ -9,7 +9,7 @@ namespace GDE.Pedidos.API.DTO
         public string? NomeFornecedor { get; private set; }
         public int Numero { get; private set; }
         public decimal PrecoTotal { get; private set; }
-        public DateTime DataCriacao { get; private set; }
+        public string? DataCriacao { get; private set; }
         public List<BuscarPedidoItemDTO> PedidoItens { get; private set; } = new List<BuscarPedidoItemDTO>();
 
         public static ObterPedidoCompraDTO FromDomain(PedidoCompra pedidoCompra) =>
@@ -20,7 +20,7 @@ namespace GDE.Pedidos.API.DTO
                 NomeFornecedor = pedidoCompra.NomeFornecedor,
                 Numero = pedidoCompra.Numero,
                 PrecoTotal = pedidoCompra.PrecoTotal,
-                DataCriacao = pedidoCompra.DataCriacao,
+                DataCriacao = pedidoCompra.DataCriacao.ToString("dd/MM/yyyy"),
                 PedidoItens = pedidoCompra.PedidoItens.Select(BuscarPedidoItemDTO.FromDomain).ToList(),
             };
     }

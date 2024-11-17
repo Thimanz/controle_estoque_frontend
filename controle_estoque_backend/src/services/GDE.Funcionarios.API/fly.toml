@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for gde-funcionarios-api on 2024-10-29T12:03:35-03:00
+# fly.toml app configuration file generated for gde-funcionarios-api on 2024-11-17T14:33:45-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'gde-funcionarios-api'
-primary_region = 'gru'
+primary_region = 'iad'
 
 [build]
 

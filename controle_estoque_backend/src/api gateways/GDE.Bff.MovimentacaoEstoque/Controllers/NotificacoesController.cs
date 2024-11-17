@@ -1,10 +1,12 @@
 ﻿using GDE.Bff.MovimentacaoEstoque.Models;
 using GDE.Bff.MovimentacaoEstoque.Services;
 using GDE.Core.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GDE.Bff.MovimentacaoEstoque.Controllers
 {
+    [Authorize]
     public class NotificacoesController : MainController
     {
         private readonly IProdutoService _produtoService;
@@ -29,14 +31,14 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
 
             foreach (var item in vencimento)
             {
-                var produto = await _produtoService.ObterProdutoPorId(item.Id);
+                var produto = await _produtoService.ObterProdutoPorId(item.IdProduto);
                 
-                item.Nome = produto.Nome;
-                item.Mensagem = $"Existem itens do produto {produto.Nome} próximos ao vencimento";
-                item.Tipo = TipoNotificacao.ProximoVencimento;
-
-                if (produto.Quantidade > 0)
-                    vencimentoPopulada.Add(item);
+                if (produto?.Quantidade > 0)
+                    vencimentoPopulada.Add(new NotificacaoDTO(
+                        item.IdLocal,
+                        TipoNotificacao.ProximoVencimento, 
+                        produto.Nome, 
+                        $"Existem itens do produto {produto.Nome} próximos ao vencimento"));
             }
 
             notificacoes.AddRange(vencimentoPopulada);

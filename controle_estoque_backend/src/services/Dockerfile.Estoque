@@ -1,0 +1,31 @@
+ARG DOTNET_OS_VERSION="-alpine"
+ARG DOTNET_SDK_VERSION=8.0
+
+FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_SDK_VERSION}${DOTNET_OS_VERSION} AS build
+WORKDIR /src
+
+# Copiar arquivos de cada projeto interdependente
+COPY ./GDE.Estoque.API/GDE.Estoque.API.csproj ./GDE.Estoque.API/
+COPY ./GDE.Estoque.Domain/GDE.Estoque.Domain.csproj ./GDE.Estoque.Domain/
+COPY ./GDE.Estoque.Infra/GDE.Estoque.Infra.csproj ./GDE.Estoque.Infra/
+
+# Restaurar dependências de cada projeto individualmente
+RUN dotnet restore ./GDE.Estoque.API/GDE.Estoque.API.csproj
+
+# Copiar todo o conteúdo dos três projetos
+COPY . .
+
+# Buildar o projeto da API, que inclui dependências de Domain e Infra
+RUN dotnet publish ./GDE.Estoque.API/GDE.Estoque.API.csproj -c Release -o /app/out
+
+# Etapa de Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+COPY --from=build /app/out .
+
+ENV ASPNETCORE_ENVIRONMENT=Production
+# Expor a porta usada pela API
+EXPOSE 8080
+
+# Definir o comando de entrada
+ENTRYPOINT ["dotnet", "GDE.Estoque.API.dll"]

@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for gde-identidade-api on 2024-10-29T09:48:52-03:00
+# fly.toml app configuration file generated for gde-identidade-api on 2024-11-17T14:32:26-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'gde-identidade-api'
-primary_region = 'gru'
+primary_region = 'iad'
 
 [build]
 

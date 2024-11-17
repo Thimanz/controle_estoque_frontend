@@ -62,7 +62,7 @@ namespace GDE.Produtos.API.Migrations
                         .HasColumnType("varchar(500)");
 
                     b.Property<string>("Imagem")
-                        .HasColumnType("varchar(2500)");
+                        .HasColumnType("varchar");
 
                     b.Property<int>("NivelMinimoEstoque")
                         .HasColumnType("integer");

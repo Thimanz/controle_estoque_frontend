@@ -23,7 +23,7 @@ namespace GDE.Estoque.Domain
         public Dimensoes Dimensoes { get; private set; }
         public decimal Preco { get; private set; }
         public int Quantidade { get; private set; }
-
+        
         // EF Rel.
         public Local Local { get; set; }
 

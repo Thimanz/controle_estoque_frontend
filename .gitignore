@@ -17,3 +17,4 @@
 /controle_estoque_backend/src/services/GDE.Produtos.API/GDE_ProdutosDB-shm
 /controle_estoque_backend/src/services/GDE.Produtos.API/GDE_ProdutosDB-wal
 
+/controle_estoque_backend/postgres/credentials.txt

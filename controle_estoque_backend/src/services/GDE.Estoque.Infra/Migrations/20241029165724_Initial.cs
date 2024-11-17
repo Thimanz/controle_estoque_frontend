@@ -15,12 +15,12 @@ namespace GDE.Estoque.Infra.Migrations
                 name: "Locais",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "varchar(250)", nullable: false),
                     Endereco = table.Column<string>(type: "varchar(100)", nullable: true),
-                    Comprimento = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Largura = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Altura = table.Column<decimal>(type: "TEXT", nullable: false)
+                    Comprimento = table.Column<decimal>(type: "numeric", nullable: false),
+                    Largura = table.Column<decimal>(type: "numeric", nullable: false),
+                    Altura = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,15 +31,15 @@ namespace GDE.Estoque.Infra.Migrations
                 name: "LocalItens",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    LocalId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ProdutoId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    LocalId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProdutoId = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "varchar(100)", nullable: true),
-                    Comprimento = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Largura = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Altura = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Preco = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Quantidade = table.Column<int>(type: "INTEGER", nullable: false)
+                    Comprimento = table.Column<decimal>(type: "numeric", nullable: false),
+                    Largura = table.Column<decimal>(type: "numeric", nullable: false),
+                    Altura = table.Column<decimal>(type: "numeric", nullable: false),
+                    Preco = table.Column<decimal>(type: "numeric", nullable: false),
+                    Quantidade = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

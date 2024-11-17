@@ -2,9 +2,19 @@
 {
     public class NotificacaoDTO
     {
+        public NotificacaoDTO() { }
+        
         public NotificacaoDTO(Guid id, string? nome, string? mensagem)
         {
             Id = id;
+            Nome = nome;
+            Mensagem = mensagem;
+        }
+
+        public NotificacaoDTO(Guid id, TipoNotificacao tipo, string? nome, string? mensagem)
+        {
+            Id = id;
+            Tipo = tipo;
             Nome = nome;
             Mensagem = mensagem;
         }

@@ -3,6 +3,7 @@
     public class PedidoTransferenciaDTO
     {
         public Guid IdLocalDestino { get; set; }
+        public string? NomeLocalDestino { get; set; }
         public Guid IdFuncionarioResponsavel { get; set; }
         public List<PedidoItemDTO> PedidoItens { get; set; }
     }

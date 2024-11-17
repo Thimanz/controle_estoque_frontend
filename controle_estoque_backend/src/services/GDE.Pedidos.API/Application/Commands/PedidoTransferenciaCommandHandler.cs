@@ -54,7 +54,8 @@ namespace GDE.Pedidos.API.Application.Commands
                 i.PrecoUnitario,
                 i.PedidoCompraId,
                 i.PedidoVendaId,
-                i.PedidoTransferenciaId)
+                i.PedidoTransferenciaId,
+                i.Imagem)
             );
 
             var pedidoCadastrado = new PedidoCadastradoIntegrationEvent(TipoMovimentacao.Transferencia, pedidoItemCadastrado, pedidoTransferencia.IdLocalDestino);
@@ -77,14 +78,16 @@ namespace GDE.Pedidos.API.Application.Commands
                 .ConvertAll(i => new PedidoItem(
                     i.ProdutoId,
                     i.LocalId,
+                    i.LocalNome,
                     i.Quantidade,
                     i.PrecoUnitario,
                     null,
                     null,
                     i.PedidoTransferenciaId,
-                    i.DataValidade));
+                    i.DataValidade,
+                    i.Imagem));
 
-            return new PedidoTransferencia(message.IdLocalDestino!.Value, message.Timestamp, message.IdFuncionarioResponsavel, itens);
+            return new PedidoTransferencia(message.IdLocalDestino!.Value, message.NomeLocalDestino, message.Timestamp, message.IdFuncionarioResponsavel, itens);
         }
     }
 }

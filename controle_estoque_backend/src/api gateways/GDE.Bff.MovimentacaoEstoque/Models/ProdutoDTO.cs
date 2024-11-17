@@ -7,5 +7,6 @@
         public decimal Largura { get; set; }
         public decimal Altura { get; set; }
         public int Quantidade { get; set; }
+        public string? Imagem { get; set; }
     }
 }

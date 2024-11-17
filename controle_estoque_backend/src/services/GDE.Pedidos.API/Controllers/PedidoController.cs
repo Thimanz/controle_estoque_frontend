@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GDE.Pedidos.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class PedidoController : MainController
     {
         private readonly IMediatorHandler _mediator;
@@ -101,7 +101,8 @@ namespace GDE.Pedidos.API.Controllers
             foreach (var item in itens)
             {
                 viewModels.Add(new ProximosAoVencimentoDTO(
-                    item.ProdutoId
+                    item.ProdutoId,
+                    item.LocalId
                 ));
             }
 

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GDE.Produtos.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ProdutosController : MainController
     {
         private readonly ProdutoContext _context;
@@ -45,7 +45,7 @@ namespace GDE.Produtos.API.Controllers
                 .OrderBy(p => p.Nome)
                 .Skip(pageSize * (pageIndex - 1))
                 .Take(pageSize)
-                .Where(p => p.Nome!.Contains(nome)).ToListAsync();
+                .Where(p => p.Nome!.ToLower().Contains(nome.ToLower())).ToListAsync();
 
             return !produtos.Any()
                 ? NotFound()

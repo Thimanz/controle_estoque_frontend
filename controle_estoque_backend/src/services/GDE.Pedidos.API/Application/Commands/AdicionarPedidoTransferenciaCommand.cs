@@ -6,16 +6,19 @@ namespace GDE.Pedidos.API.Application.Commands
 {
     public class AdicionarPedidoTransferenciaCommand : Command
     {
-        public AdicionarPedidoTransferenciaCommand(Guid idFuncionarioResponsavel, List<PedidoItemDTO> pedidoItens, Guid? idLocalDestino = null)
+        public AdicionarPedidoTransferenciaCommand(Guid idFuncionarioResponsavel, List<PedidoItemDTO> pedidoItens, 
+            Guid? idLocalDestino = null, string? nomeLocalDestino = null)
         {
             IdFuncionarioResponsavel = idFuncionarioResponsavel;
             PedidoItens = pedidoItens;
             IdLocalDestino = idLocalDestino;
+            NomeLocalDestino = nomeLocalDestino;
         }
 
         public Guid IdFuncionarioResponsavel { get; set; }
         public List<PedidoItemDTO> PedidoItens { get; private set; }
         public Guid? IdLocalDestino { get; set; }
+        public string? NomeLocalDestino { get; set; }
 
         public override bool IsValid()
         {

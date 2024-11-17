@@ -15,18 +15,42 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
             _httpClient.BaseAddress = new Uri(settings.Value.PedidoUrl);
         }
 
+        public async Task<ObterPedidoCompraDTO> ObterPedidoCompra(Guid id)
+        {
+            var response = await _httpClient.GetAsync($"api/pedido/compra/{id}");
+
+            if (!TratarErrosResponse(response))
+                return null;
+
+            return await DeserializarObjetoResponse<ObterPedidoCompraDTO>(response);
+        }
+
+        public async Task<ObterPedidoVendaDTO> ObterPedidoVenda(Guid id)
+        {
+            var response = await _httpClient.GetAsync($"api/pedido/venda/{id}");
+
+            if (!TratarErrosResponse(response))
+                return null;
+
+            return await DeserializarObjetoResponse<ObterPedidoVendaDTO>(response);
+        }
+
+        public async Task<ObterPedidoTransferenciaDTO> ObterPedidoTransferencia(Guid id)
+        {
+            var response = await _httpClient.GetAsync($"api/pedido/transferencia/{id}");
+
+            if (!TratarErrosResponse(response))
+                return null;
+
+            return await DeserializarObjetoResponse<ObterPedidoTransferenciaDTO>(response);
+        }
+
         public async Task<ResponseResult> AdicionarPedidoCompra(PedidoCompraDTO pedidoCompraDTO)
         {
             var pedidoContent = ObterConteudo(pedidoCompraDTO);
-            try
-            {
-                var response = await _httpClient.PostAsync("api/pedido/compra", pedidoContent);
-                if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var response = await _httpClient.PostAsync("api/pedido/compra", pedidoContent);
+            if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
+
 
             return RetornoOk();
         }
@@ -63,15 +87,14 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
         }
 
 
-        public async Task<IEnumerable<NotificacaoDTO>> ObterNotificacoesProximoVencimento()
+        public async Task<IEnumerable<ProximosAoVencimentoDTO>> ObterNotificacoesProximoVencimento()
         {
             var response = await _httpClient.GetAsync($"api/pedido/proximos-ao-vencimento");
 
             if (!TratarErrosResponse(response))
                 return null;
 
-            return await DeserializarObjetoResponse<IEnumerable<NotificacaoDTO>>(response);
+            return await DeserializarObjetoResponse<IEnumerable<ProximosAoVencimentoDTO>>(response);
         }
-
     }
 }

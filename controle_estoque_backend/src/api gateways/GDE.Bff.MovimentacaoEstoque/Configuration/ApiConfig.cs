@@ -27,11 +27,11 @@ namespace GDE.Bff.MovimentacaoEstoque.Configuration
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            if (env.IsDevelopment() || env.IsEnvironment("Local"))
-            {
+            //if (env.IsDevelopment() || env.IsEnvironment("Local"))
+            //{
                 app.UseDeveloperExceptionPage();
                 app.UseSwaggerConfiguration();
-            }
+            //}
 
             app.UseHttpsRedirection();
 

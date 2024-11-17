@@ -4,6 +4,6 @@
     {
         public string PedidoUrl { get; set; }
         public string ProdutoUrl { get; set; }
-
+        public string EstoqueUrl { get; set; }
     }
 }

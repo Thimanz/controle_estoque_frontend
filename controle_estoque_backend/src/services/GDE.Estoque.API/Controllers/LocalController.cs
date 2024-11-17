@@ -2,10 +2,12 @@
 using GDE.Core.Data;
 using GDE.Estoque.API.DTO;
 using GDE.Estoque.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GDE.Estoque.API.Controllers
 {
+    [Authorize]
     public class LocalController : MainController
     {
         private readonly ILocalRepository _localRepository;
