@@ -87,7 +87,8 @@ namespace GDE.Estoque.API.Application.Commands
                     itemDto.NomeProduto,
                     new Dimensoes(itemDto.Comprimento, itemDto.Largura, itemDto.Altura),
                     itemDto.PrecoUnitario,
-                    itemDto.Quantidade);
+                    itemDto.Quantidade,
+                    itemDto.DataValidade);
         }
 
         private void AdicionarItem(Local local, LocalItem item)

@@ -1,11 +1,9 @@
-﻿using GDE.Estoque.Domain;
-
-namespace GDE.Estoque.API.Application.DTO
+﻿namespace GDE.Estoque.API.Application.DTO
 {
     public class LocalItemDTO
     {
         public LocalItemDTO(Guid localId, Guid produtoId, string? nomeProduto, decimal comprimento, decimal largura,
-            decimal altura, decimal precoUnitario, int quantidade, Guid? pedidoCompraId, Guid? pedidoVendaId)
+            decimal altura, decimal precoUnitario, int quantidade, DateTime? dataValidade, Guid? pedidoCompraId, Guid? pedidoVendaId)
         {
             LocalId = localId;
             ProdutoId = produtoId;
@@ -15,6 +13,7 @@ namespace GDE.Estoque.API.Application.DTO
             Altura = altura;
             PrecoUnitario = precoUnitario;
             Quantidade = quantidade;
+            DataValidade = dataValidade;
             PedidoCompraId = pedidoCompraId;
             PedidoVendaId = pedidoVendaId;
         }
@@ -27,6 +26,7 @@ namespace GDE.Estoque.API.Application.DTO
         public decimal Altura { get; set; }
         public decimal PrecoUnitario { get; set; }
         public int Quantidade { get; set; }
+        public DateTime? DataValidade { get; set; }
         public Guid? PedidoCompraId { get; set; }
         public Guid? PedidoVendaId { get; set; }
     }

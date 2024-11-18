@@ -23,7 +23,7 @@ namespace GDE.Pedidos.API.DTO
                 PedidoCompraId = pedidoItem.PedidoCompraId,
                 PedidoVendaId = pedidoItem.PedidoVendaId,
                 PedidoTransferenciaId = pedidoItem.PedidoTransferenciaId,
-                DataValidade = pedidoItem.DataValidade.ToString("dd/MM/yyyy")
+                DataValidade = pedidoItem.DataValidade.HasValue ? pedidoItem.DataValidade.Value.ToString("dd/MM/yyyy") : string.Empty
             };
     }
 }

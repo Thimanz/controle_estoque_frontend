@@ -12,6 +12,8 @@ builder.Services.AddMessageBusConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 app.MapGet("/health", () => Results.Ok("Healthy"));
 
 app.UseApiConfiguration(app.Environment);

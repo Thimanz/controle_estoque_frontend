@@ -21,7 +21,7 @@
     public class PedidoItemIntegrationEvent
     {
         public PedidoItemIntegrationEvent(Guid produtoId, Guid localId, string nomeProduto, decimal comprimento, decimal largura, decimal altura,
-            int quantidade, decimal precoUnitario, Guid? pedidoCompraId, Guid? pedidoVendaId, Guid? pedidoTransferenciaId, string? imagem)
+            int quantidade, decimal precoUnitario, DateTime? dataValidade, Guid? pedidoCompraId, Guid? pedidoVendaId, Guid? pedidoTransferenciaId)
         {
             ProdutoId = produtoId;
             LocalId = localId;
@@ -31,10 +31,10 @@
             Altura = altura;
             Quantidade = quantidade;
             PrecoUnitario = precoUnitario;
+            DataValidade = dataValidade;
             PedidoCompraId = pedidoCompraId;
             PedidoVendaId = pedidoVendaId;
             PedidoTransferenciaId = pedidoTransferenciaId;
-            Imagem = imagem;
         }
 
         public PedidoItemIntegrationEvent() { }
@@ -47,7 +47,7 @@
         public decimal Altura { get; set; }
         public int Quantidade { get; set; }
         public decimal PrecoUnitario { get; set; }
-        public string? Imagem { get; set; }
+        public DateTime? DataValidade { get; set; }
         public Guid? PedidoCompraId { get; set; }
         public Guid? PedidoVendaId { get; set; }
         public Guid? PedidoTransferenciaId { get; set; }

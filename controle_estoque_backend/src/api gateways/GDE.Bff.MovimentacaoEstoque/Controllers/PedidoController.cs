@@ -35,6 +35,9 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
             {
                 var produto = await _produtoService.ObterProdutoPorId(item.ProdutoId);
                 item.Imagem = produto?.Imagem;
+
+                var local = await _estoqueService.ObterLocalPorId(item.Local.Id);
+                item.Local.Nome = local.Nome;
             }
 
             return CustomResponse(pedido);
@@ -52,6 +55,9 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
             {
                 var produto = await _produtoService.ObterProdutoPorId(item.ProdutoId);
                 item.Imagem = produto?.Imagem;
+
+                var local = await _estoqueService.ObterLocalPorId(item.Local.Id);
+                item.Local.Nome = local.Nome;
             }
 
             return CustomResponse(pedido);
@@ -71,6 +77,9 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
             {
                 var produto = await _produtoService.ObterProdutoPorId(item.ProdutoId);
                 item.Imagem = produto?.Imagem;
+
+                var local = await _estoqueService.ObterLocalPorId(item.Local.Id);
+                item.Local.Nome = local.Nome;
             }
 
             return CustomResponse(pedido);

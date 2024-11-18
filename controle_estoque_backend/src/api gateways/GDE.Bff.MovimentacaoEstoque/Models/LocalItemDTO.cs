@@ -22,6 +22,6 @@
         public decimal Preco { get; private set; }
         public int Quantidade { get; private set; }
         public string? Imagem { get; set; }
-
+        public string? DataValidade { get; set; }
     }
 }

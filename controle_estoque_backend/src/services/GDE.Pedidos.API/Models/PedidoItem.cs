@@ -5,7 +5,7 @@ namespace GDE.Pedidos.API.Models
     public class PedidoItem : Entity
     {
         public PedidoItem(Guid produtoId, Guid localId, string? localNome, int quantidade, decimal precoUnitario,
-            Guid? pedidoCompraId, Guid? pedidoVendaId, Guid? pedidoTransferenciaId, DateTime dataValidade)
+            Guid? pedidoCompraId, Guid? pedidoVendaId, Guid? pedidoTransferenciaId, DateTime? dataValidade)
         {
             ProdutoId = produtoId;
             LocalId = localId;
@@ -23,7 +23,7 @@ namespace GDE.Pedidos.API.Models
         public string? LocalNome { get; set; }
         public int Quantidade { get; set; }
         public decimal PrecoUnitario { get; set; }
-        public DateTime DataValidade { get; set; }
+        public DateTime? DataValidade { get; set; }
         public Guid? PedidoCompraId { get; set; }
         public Guid? PedidoVendaId { get; set; }
         public Guid? PedidoTransferenciaId { get; set; }

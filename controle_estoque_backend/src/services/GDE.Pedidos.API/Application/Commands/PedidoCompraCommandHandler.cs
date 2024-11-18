@@ -48,10 +48,10 @@ namespace GDE.Pedidos.API.Application.Commands
                 i.Altura,
                 i.Quantidade,
                 i.PrecoUnitario,
+                i.DataValidade,
                 i.PedidoCompraId,
                 i.PedidoVendaId,
-                i.PedidoTransferenciaId,
-                null)
+                i.PedidoTransferenciaId)
             );
 
             var pedidoCadastrado = new PedidoCadastradoIntegrationEvent(TipoMovimentacao.Entrada, pedidoItemCadastrado);

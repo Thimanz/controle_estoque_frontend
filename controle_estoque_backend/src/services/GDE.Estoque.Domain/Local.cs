@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using FluentValidation;
+using FluentValidation.Results;
 using GDE.Core.DomainObjects;
 
 namespace GDE.Estoque.Domain
@@ -36,6 +38,8 @@ namespace GDE.Estoque.Domain
         [NotMapped]
         public decimal EspacoLivreCalculado => (EspacoLivre.Altura * EspacoLivre.Largura * EspacoLivre.Comprimento);
 
+        [JsonIgnore]
+        public ValidationResult? ValidationResult { get; set; }
 
         public void AdicionarItem(LocalItem item)
         {
@@ -98,6 +102,40 @@ namespace GDE.Estoque.Domain
         public void AlterarDimensoes(decimal comprimento, decimal largura, decimal altura)
         {
             Dimensoes = new Dimensoes(comprimento, largura, altura);
+        }
+
+        public bool IsValid()
+        {
+            var erros = new AdicionarLocalValidation().Validate(this).Errors;
+            ValidationResult = new ValidationResult(erros);
+
+            return ValidationResult.IsValid;
+        }
+
+        public class AdicionarLocalValidation : AbstractValidator<Local>
+        {
+            public AdicionarLocalValidation()
+            {
+                RuleFor(c => c.Nome)
+                   .NotEmpty()
+                   .WithMessage("O nome não foi informado");
+
+                RuleFor(c => c.Endereco)
+                    .NotEmpty()
+                    .WithMessage("O rndereco não foi informada");
+
+                RuleFor(c => c.Dimensoes.Altura)
+                    .GreaterThanOrEqualTo(0)
+                    .WithMessage("Altura inválida");
+
+                RuleFor(c => c.Dimensoes.Comprimento)
+                    .GreaterThanOrEqualTo(0)
+                    .WithMessage("Comprimento inválida");
+
+                RuleFor(c => c.Dimensoes.Largura)
+                    .GreaterThanOrEqualTo(0)
+                    .WithMessage("Largura inválida");
+            }
         }
     }
 }

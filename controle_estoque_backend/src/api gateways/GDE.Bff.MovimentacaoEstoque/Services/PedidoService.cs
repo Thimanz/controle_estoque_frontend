@@ -28,7 +28,7 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
         public async Task<ObterPedidoVendaDTO> ObterPedidoVenda(Guid id)
         {
             var response = await _httpClient.GetAsync($"api/pedido/venda/{id}");
-
+            var teste = await response.Content.ReadAsStringAsync();
             if (!TratarErrosResponse(response))
                 return null;
 
@@ -76,6 +76,8 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
             try
             {
                 var response = await _httpClient.PostAsync("api/pedido/transferencia", pedidoContent);
+                var teste = await response.Content.ReadAsStringAsync();
+
                 if (!TratarErrosResponse(response)) return await DeserializarObjetoResponse<ResponseResult>(response);
             }
             catch (Exception)

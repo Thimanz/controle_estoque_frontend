@@ -27,6 +27,7 @@ namespace GDE.Estoque.API.Consumer
                 m.Altura,
                 m.PrecoUnitario,
                 m.Quantidade,
+                m.DataValidade,
                 m.PedidoCompraId,
                 m.PedidoVendaId
                 )),

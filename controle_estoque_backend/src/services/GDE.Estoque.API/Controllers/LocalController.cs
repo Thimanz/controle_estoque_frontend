@@ -56,6 +56,11 @@ namespace GDE.Estoque.API.Controllers
         [HttpPost("api/estoque")]
         public async Task<IActionResult> AdicionarLocal(AdicionarLocalDto local)
         {
+            var novoLocal = AdicionarLocalDto.ToEntity(local);
+
+            if(!novoLocal.IsValid())
+                return CustomResponse(novoLocal.ValidationResult!);
+
             _localRepository.Adicionar(AdicionarLocalDto.ToEntity(local));
 
             await PersistirDados();

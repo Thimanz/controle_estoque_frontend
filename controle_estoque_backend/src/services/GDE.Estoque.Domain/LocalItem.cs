@@ -4,7 +4,7 @@ namespace GDE.Estoque.Domain
 {
     public class LocalItem : Entity
     {
-        public LocalItem(Guid localId, Guid produtoId, string? nome, Dimensoes dimensoes, decimal preco, int quantidade)
+        public LocalItem(Guid localId, Guid produtoId, string? nome, Dimensoes dimensoes, decimal preco, int quantidade, DateTime? dataValidade)
         {
             LocalId = localId;
             ProdutoId = produtoId;
@@ -12,6 +12,7 @@ namespace GDE.Estoque.Domain
             Dimensoes = dimensoes;
             Preco = preco;
             Quantidade = quantidade;
+            DataValidade = dataValidade;
         }
 
         //EF ctor
@@ -23,7 +24,8 @@ namespace GDE.Estoque.Domain
         public Dimensoes Dimensoes { get; private set; }
         public decimal Preco { get; private set; }
         public int Quantidade { get; private set; }
-        
+        public DateTime? DataValidade { get; private set; }
+
         // EF Rel.
         public Local Local { get; set; }
 

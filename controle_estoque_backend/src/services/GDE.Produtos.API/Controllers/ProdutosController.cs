@@ -152,6 +152,8 @@ namespace GDE.Produtos.API.Controllers
             if (!OperacaoValida()) return CustomResponse();
 
             _context.Produtos.Update(produto);
+            _context.Entry(produto).Property(x => x.QuantidadeEstoque).IsModified = false;
+            _context.Entry(produto).Property(x => x.DataCadastro).IsModified = false;
 
             await PersistirDados();
             return CustomResponse();
