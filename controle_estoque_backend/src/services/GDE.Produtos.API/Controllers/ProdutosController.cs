@@ -4,7 +4,6 @@ using GDE.Produtos.API.Data;
 using GDE.Produtos.API.Entities;
 using GDE.Produtos.API.Models.InputModels;
 using GDE.Produtos.API.Models.ViewModels;
-using GDE.Produtos.API.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,16 +14,12 @@ namespace GDE.Produtos.API.Controllers
     public class ProdutosController : MainController
     {
         private readonly ProdutoContext _context;
-        //private readonly IUploadImagemRepository _imagemRepository;
 
         public ProdutosController(ProdutoContext context)
         {
             _context = context;
-            //_imagemRepository = imagemRepository;
         }
 
-
-        //[ClaimsAuthorize("Produto", "Ler")]
         [HttpGet("api/produto/{id}")]
         public async Task<IActionResult> ProdutoDetalhe(Guid id)
         {
@@ -106,7 +101,6 @@ namespace GDE.Produtos.API.Controllers
             return CustomResponse(viewModels);
         }
 
-        //[ClaimsAuthorize("Produto", "Adicionar")]
         [HttpPost("api/produto")]
         public async Task<IActionResult> AdicionarProduto(ProdutoInputModel produtoInputModel)
         {
@@ -120,9 +114,6 @@ namespace GDE.Produtos.API.Controllers
                 return CustomResponse();
             }
 
-            //if (produtoInputModel.Imagem is not null)
-            //    produto.Imagem = await _imagemRepository.UploadImagem(produtoInputModel.Imagem);
-
             ValidarProduto(produto);
             if (!OperacaoValida()) return CustomResponse();
 
@@ -132,7 +123,6 @@ namespace GDE.Produtos.API.Controllers
             return CustomResponse();
         }
 
-        //[ClaimsAuthorize("Produto", "Atualizar")]
         [HttpPut("api/produto/{produtoId}")]
         public async Task<IActionResult> AtualizarProduto(Guid produtoId, ProdutoInputModel produtoInputModel)
         {
@@ -159,7 +149,6 @@ namespace GDE.Produtos.API.Controllers
             return CustomResponse();
         }
 
-        //[ClaimsAuthorize("Produto", "Atualizar")]
         [HttpDelete("api/produto/{produtoId}")]
         public async Task<IActionResult> RemoverProduto(Guid produtoId)
         {

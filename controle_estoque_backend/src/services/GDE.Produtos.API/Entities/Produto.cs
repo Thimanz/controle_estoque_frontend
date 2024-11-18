@@ -10,7 +10,7 @@ namespace GDE.Produtos.API.Entities
 
         public Produto(string? nome, string? descricao, string? codigoBarras, Guid categoriaId,
             decimal precoCusto, decimal precoVenda, string? imagem, int nivelMinimoEstoque,
-            decimal comprimento, decimal largura, decimal altura)
+            decimal comprimento, decimal largura, decimal altura, decimal peso)
         {
             Id = Guid.NewGuid();
             Nome = nome;
@@ -24,6 +24,7 @@ namespace GDE.Produtos.API.Entities
             DataCadastro = DateTime.UtcNow;
             Dimensoes = new Dimensoes(comprimento, largura, altura);
             Ativo = true;
+            Peso = peso;
         }
 
         public Guid Id { get; set; }
@@ -39,6 +40,7 @@ namespace GDE.Produtos.API.Entities
         public int NivelMinimoEstoque { get; private set; }
         public DateTime DataCadastro { get; private set; }
         public Dimensoes? Dimensoes { get; private set; }
+        public decimal Peso { get; private set; }
 
         [JsonIgnore]
         public Categoria Categoria { get; set; }
@@ -88,14 +90,6 @@ namespace GDE.Produtos.API.Entities
                 RuleFor(c => c.CategoriaId)
                     .NotEqual(Guid.Empty)
                     .WithMessage("A categoria do produto não foi informada");
-
-                //RuleFor(c => c.Categoria!.Nome)
-                //    .NotNull()
-                //    .WithMessage("O nome da categoria não foi informado");
-
-                //RuleFor(c => c.Categoria!.Descricao)
-                //    .NotNull()
-                //    .WithMessage("A descrição da categoria não foi informada");
 
                 RuleFor(c => c.PrecoCusto)
                     .GreaterThanOrEqualTo(0)
