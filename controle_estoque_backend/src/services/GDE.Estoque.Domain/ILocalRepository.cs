@@ -6,7 +6,7 @@ namespace GDE.Estoque.Domain
     {
         Task<Local> ObterPorId(Guid id);
         Task<IEnumerable<Local>> ObterTodos();
-        Task<IEnumerable<Local>> ObterTodosPaginado(int pageSize, int pageIndex);
+        Task<(IEnumerable<Local>, int quantidadeTotal)> ObterTodosPaginado(int pageSize, int pageIndex);
         Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId);
         Task<LocalItem> ObterItemLocalPorProdutoId(Guid localId, Guid produtoId);
         void Adicionar(Local local);

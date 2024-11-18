@@ -36,19 +36,22 @@ namespace GDE.Produtos.API.Controllers
         [HttpGet("api/produto/lista-por-nome")]
         public async Task<IActionResult> ListaProdutosPorNome([FromQuery] string nome, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
         {
-            var produtos = await _context.Produtos.Include(p => p.Categoria)
+            var produtos = await _context.Produtos
+                .Where(p => p.Nome!.ToLower().Contains(nome.ToLower()))
+                .Include(p => p.Categoria).ToListAsync();
+
+            var produtosPaged = produtos
                 .OrderBy(p => p.Nome)
                 .Skip(pageSize * (pageIndex - 1))
-                .Take(pageSize)
-                .Where(p => p.Nome!.ToLower().Contains(nome.ToLower())).ToListAsync();
+                .Take(pageSize);
 
-            return !produtos.Any()
+            return !produtosPaged.Any()
                 ? NotFound()
                 : CustomResponse(new PagedResult<ProdutoViewModel>()
                 {
-                    List = produtos.Select(ProdutoViewModel.FromEntity),
-                    TotalResults = produtos.Count(),
-                    TotalPages = ((produtos.Count() + pageSize - 1) / pageSize),
+                    List = produtosPaged.Select(ProdutoViewModel.FromEntity),
+                    TotalResults = produtos.Count,
+                    TotalPages = ((produtos.Count + pageSize - 1) / pageSize),
                     PageIndex = pageIndex,
                     PageSize = pageSize
                 });
@@ -67,8 +70,8 @@ namespace GDE.Produtos.API.Controllers
                 : CustomResponse(new PagedResult<ProdutoViewModel>()
                 {
                     List = produtos.Select(ProdutoViewModel.FromEntity),
-                    TotalResults = produtos.Count(),
-                    TotalPages = ((produtos.Count() + pageSize - 1) / pageSize),
+                    TotalResults = _context.Produtos.Count(),
+                    TotalPages = ((_context.Produtos.Count() + pageSize - 1) / pageSize),
                     PageIndex = pageIndex,
                     PageSize = pageSize
                 });

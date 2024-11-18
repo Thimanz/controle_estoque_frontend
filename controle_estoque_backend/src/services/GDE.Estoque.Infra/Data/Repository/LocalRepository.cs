@@ -24,13 +24,14 @@ namespace GDE.Estoque.Infra.Data.Repository
             return await _context.Locais.ToListAsync();
         }
 
-
-        public async Task<IEnumerable<Local>> ObterTodosPaginado(int pageSize, int pageIndex)
+        public async Task<(IEnumerable<Local>, int quantidadeTotal)> ObterTodosPaginado(int pageSize, int pageIndex)
         {
-            return await _context.Locais.Include(i => i.LocalItens)
+            var locais = await _context.Locais.Include(i => i.LocalItens)
                 .OrderBy(i => i.Nome)
                 .Skip(pageSize * (pageIndex - 1))
-                .Take(pageSize).ToListAsync(); ;
+                .Take(pageSize).ToListAsync();
+
+            return (locais, _context.Locais.Count());
         }
 
         public async Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId)

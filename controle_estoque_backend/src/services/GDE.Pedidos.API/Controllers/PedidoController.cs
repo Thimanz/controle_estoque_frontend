@@ -4,7 +4,6 @@ using GDE.Core.Mediator;
 using GDE.Pedidos.API.Application.Commands;
 using GDE.Pedidos.API.Data;
 using GDE.Pedidos.API.DTO;
-using GDE.Pedidos.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -54,38 +53,41 @@ namespace GDE.Pedidos.API.Controllers
         }
 
         [HttpGet("api/pedido")]
-        public async Task<PagedResult<BuscarPedidosDto>> ListaPedidos([FromQuery] DateTime? data, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
+        public async Task<IActionResult> ListaPedidos([FromQuery] DateTime? data, [FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
         {
-            int pageSizeByType = pageSize / 3;
+            List<BuscarPedidosDto> pedidos = new();
 
-            var pedidosCompra = await _context.PedidosCompra.Include(p => p.PedidoItens)
-               .Skip(pageSizeByType * (pageIndex - 1))
-               .Take(pageSizeByType)
-               .Where(p => !data.HasValue || p.DataCriacao.Date == data.Value.Date).ToListAsync();
+            var pedidosCompra = await _context.PedidosCompra
+                .Where(p => !data.HasValue || p.DataCriacao.Date == data.Value.Date)
+                .Include(p => p.PedidoItens).ToListAsync();
 
-            var pedidosVenda = await _context.PedidosVenda.Include(p => p.PedidoItens)
-               .Skip(pageSizeByType * (pageIndex - 1))
-               .Take(pageSizeByType)
-               .Where(p => !data.HasValue || p.DataCriacao.Date == data.Value.Date).ToListAsync();
+            var pedidosVenda = await _context.PedidosVenda
+                .Where(p => !data.HasValue || p.DataCriacao.Date == data.Value.Date)
+                .Include(p => p.PedidoItens).ToListAsync();
 
-            var pedidosTransferencia = await _context.PedidosTransferencia.Include(p => p.PedidoItens)
-               .Skip(pageSizeByType * (pageIndex - 1))
-               .Take(pageSizeByType)
-               .Where(p => !data.HasValue || p.DataCriacao.Date == data.Value.Date).ToListAsync();
+            var pedidosTransferencia = await _context.PedidosTransferencia
+                .Where(p => !data.HasValue || p.DataCriacao.Date == data.Value.Date)
+                .Include(p => p.PedidoItens).ToListAsync();
 
-            var pedidos = pedidosCompra.Select(BuscarPedidosDto.FromPedidoCompra).ToList();
-
+            pedidos.AddRange(pedidosCompra.Select(BuscarPedidosDto.FromPedidoCompra));
             pedidos.AddRange(pedidosVenda.Select(BuscarPedidosDto.FromPedidoVenda));
             pedidos.AddRange(pedidosTransferencia.Select(BuscarPedidosDto.FromPedidoTransferencia));
 
-            return new PagedResult<BuscarPedidosDto>()
-            {
-                List = pedidos,
-                TotalResults = pedidos.Count(),
-                TotalPages = ((pedidos.Count() + pageSize - 1) / pageSize),
-                PageIndex = pageIndex,
-                PageSize = pageSize
-            };
+            var pedidosPaged = pedidos
+                .OrderBy(p => p.Numero)
+                .Skip(pageSize * (pageIndex - 1))
+                .Take(pageSize);
+
+            return !pedidosPaged.Any()
+                ? NotFound()
+                : CustomResponse(new PagedResult<BuscarPedidosDto>()
+                {
+                    List = pedidosPaged,
+                    TotalResults = pedidos.Count(),
+                    TotalPages = ((pedidos.Count() + pageSize - 1) / pageSize),
+                    PageIndex = pageIndex,
+                    PageSize = pageSize
+                });
         }
 
 

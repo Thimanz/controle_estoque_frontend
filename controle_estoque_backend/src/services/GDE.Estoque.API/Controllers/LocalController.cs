@@ -35,13 +35,13 @@ namespace GDE.Estoque.API.Controllers
         [HttpGet("api/estoque/listar-todos")]
         public async Task<PagedResult<LocalDto>> ListaLocaisPaginado([FromQuery] int pageSize = 30, [FromQuery] int pageIndex = 1)
         {
-            var locais = await _localRepository.ObterTodosPaginado(pageSize, pageIndex);
+            var (locais, totalResults) = await _localRepository.ObterTodosPaginado(pageSize, pageIndex);
 
             return new PagedResult<LocalDto>()
             {
                 List = locais.Select(LocalDto.FromEntity),
-                TotalResults = locais.Count(),
-                TotalPages = ((locais.Count() + pageSize - 1) / pageSize),
+                TotalResults = totalResults,
+                TotalPages = ((totalResults + pageSize - 1) / pageSize),
                 PageIndex = pageIndex,
                 PageSize = pageSize
             };
