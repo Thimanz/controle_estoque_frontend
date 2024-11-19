@@ -88,7 +88,6 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
             return RetornoOk();
         }
 
-
         public async Task<IEnumerable<ProximosAoVencimentoDTO>> ObterNotificacoesProximoVencimento()
         {
             var response = await _httpClient.GetAsync($"api/pedido/proximos-ao-vencimento");
@@ -98,5 +97,30 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
 
             return await DeserializarObjetoResponse<IEnumerable<ProximosAoVencimentoDTO>>(response);
         }
+
+        public async Task<IEnumerable<RelatorioVendasCustosDTO>> ObterRelatorioVendasCustos(int qtdMeses)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"api/relatorios/vendas-custos/{qtdMeses}");
+
+                if (!TratarErrosResponse(response))
+                    return null;
+
+                return await DeserializarObjetoResponse<IEnumerable<RelatorioVendasCustosDTO>>(response);
+            }
+            catch (Exception ex) { throw; }
+        }
+
+        public async Task<IEnumerable<RelatorioTop10ProdutosDTO>> ObterRelatorioTop10Produtos()
+        {
+            var response = await _httpClient.GetAsync($"api/relatorios/top10-produtos");
+
+            if (!TratarErrosResponse(response))
+                return null;
+
+            return await DeserializarObjetoResponse<IEnumerable<RelatorioTop10ProdutosDTO>>(response);
+        }
+
     }
 }
