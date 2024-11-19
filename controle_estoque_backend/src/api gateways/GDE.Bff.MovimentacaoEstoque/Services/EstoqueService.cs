@@ -20,9 +20,18 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
 
             if (!TratarErrosResponse(response))
                 return null;
-            var teste = await response.Content.ReadAsStringAsync();
 
             return await DeserializarObjetoResponse<LocalDTO>(response);
+        }
+
+        public async Task<IEnumerable<ProximosAoVencimentoDTO>> ObterNotificacoesProximoVencimento()
+        {
+            var response = await _httpClient.GetAsync($"api/estoque/proximos-ao-vencimento");
+
+            if (!TratarErrosResponse(response))
+                return null;
+
+            return await DeserializarObjetoResponse<IEnumerable<ProximosAoVencimentoDTO>>(response);
         }
     }
 }

@@ -10,12 +10,12 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
     public class NotificacoesController : MainController
     {
         private readonly IProdutoService _produtoService;
-        private readonly IPedidoService _pedidoService;
+        private readonly IEstoqueService _estoqueService;
 
-        public NotificacoesController(IProdutoService produtoService, IPedidoService pedidoService)
+        public NotificacoesController(IProdutoService produtoService, IEstoqueService pedidoService)
         {
             _produtoService = produtoService;
-            _pedidoService = pedidoService;
+            _estoqueService = pedidoService;
         }
 
         [HttpGet("api/notificacoes")]
@@ -25,7 +25,7 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
 
             notificacoes.ForEach(n => n.Tipo = TipoNotificacao.EstoqueBaixo);
 
-            var vencimento = await _pedidoService.ObterNotificacoesProximoVencimento();
+            var vencimento = await _estoqueService.ObterNotificacoesProximoVencimento();
 
             var vencimentoPopulada = new List<NotificacaoDTO>();
 

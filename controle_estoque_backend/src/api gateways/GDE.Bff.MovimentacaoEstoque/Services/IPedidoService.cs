@@ -11,7 +11,6 @@ namespace GDE.Bff.MovimentacaoEstoque.Services
         Task<ResponseResult> AdicionarPedidoCompra(PedidoCompraDTO pedidoCompraDTO);
         Task<ResponseResult> AdicionarPedidoVenda(PedidoVendaDTO pedidoVendaDTO);
         Task<ResponseResult> AdicionarPedidoTransferencia(PedidoTransferenciaDTO pedidoTransferenciaDTO);
-        Task<IEnumerable<ProximosAoVencimentoDTO>> ObterNotificacoesProximoVencimento();
         Task<IEnumerable<RelatorioVendasCustosDTO>> ObterRelatorioVendasCustos(int qtdMeses);
         Task<IEnumerable<RelatorioTop10ProdutosDTO>> ObterRelatorioTop10Produtos();
     }

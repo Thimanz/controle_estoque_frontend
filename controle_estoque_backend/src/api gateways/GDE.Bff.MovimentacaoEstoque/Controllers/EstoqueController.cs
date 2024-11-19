@@ -1,6 +1,5 @@
 ﻿using GDE.Bff.MovimentacaoEstoque.Services;
 using GDE.Core.Controllers;
-using GDE.Core.Usuario;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GDE.Bff.MovimentacaoEstoque.Controllers
@@ -28,6 +27,9 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
             {
                 var produto = await _produtoService.ObterProdutoPorId(item.ProdutoId);
                 item.Imagem = produto?.Imagem;
+                item.DataValidade = string.IsNullOrEmpty(item.DataValidade)
+                    ? item.DataValidade
+                    : DateTimeOffset.Parse(item.DataValidade).ToString("dd/MM/yyyy");
             }
 
             return CustomResponse(local);

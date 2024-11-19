@@ -17,10 +17,15 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
             _produtoService = produtoService;
         }
 
-        [HttpGet("api/relatorios/vendas-custos/{qtdMeses}")]
-        public async Task<IActionResult> ObterRelatorioVendasCustos(int qtdMeses)
+        [HttpGet("api/relatorio/vendas-custos/{qtdMeses}")]
+        public async Task<IActionResult> ObterRelatorioVendasCustos(int? qtdMeses = 6)
         {
-            var relatorio = await _pedidoService.ObterRelatorioVendasCustos(qtdMeses);
+            var relatorio = await _pedidoService.ObterRelatorioVendasCustos(qtdMeses.Value);
+
+            foreach (var item in relatorio)
+            {
+                item.MesAno = $"{item.Mes}/{item.Ano}"; 
+            }
 
             if (relatorio is null)
                 return CustomResponse();
@@ -28,7 +33,7 @@ namespace GDE.Bff.MovimentacaoEstoque.Controllers
             return CustomResponse(relatorio);
         }
 
-        [HttpGet("api/relatorios/top10-produtos")]
+        [HttpGet("api/relatorio/top10-produtos")]
         public async Task<IActionResult> ObterRelatorioTop10Produtos()
         {
             var relatorio = await _pedidoService.ObterRelatorioTop10Produtos();

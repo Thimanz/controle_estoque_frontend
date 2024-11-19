@@ -126,6 +126,15 @@ namespace GDE.Pedidos.API.Controllers
         [HttpPost("api/pedido/transferencia")]
         public async Task<IActionResult> AdicionarPedidoTransferencia(AdicionarPedidoTransferenciaCommand pedido)
         {
+            foreach (var item in pedido.PedidoItens)
+            {
+                var itemExistente = await _context.PedidoItens
+                    .FirstOrDefaultAsync(x => x.ProdutoId == item.ProdutoId
+                        && x.LocalId == item.LocalId 
+                        && x.PedidoCompraId.HasValue);
+                item.DataValidade = itemExistente?.DataValidade;
+            }
+
             return CustomResponse(await _mediator.EnviarComando(pedido));
         }
     }

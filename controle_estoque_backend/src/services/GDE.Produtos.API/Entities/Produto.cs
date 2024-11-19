@@ -98,6 +98,26 @@ namespace GDE.Produtos.API.Entities
                 RuleFor(c => c.PrecoVenda)
                     .GreaterThanOrEqualTo(0)
                     .WithMessage("Preço de venda do produto inválido");
+
+                RuleFor(c => c.NivelMinimoEstoque)
+                    .GreaterThanOrEqualTo(0)
+                    .WithMessage("Nível Minimo de Estoque inválido");
+
+                RuleFor(c => c.Dimensoes.Comprimento)
+                    .GreaterThan(0)
+                    .WithMessage("Comprimento do produto inválido");
+
+                RuleFor(c => c.Dimensoes.Largura)
+                    .GreaterThan(0)
+                    .WithMessage("Largura do produto inválido");
+
+                RuleFor(c => c.Dimensoes.Altura)
+                    .GreaterThan(0)
+                    .WithMessage("Altura do produto inválido");
+
+                RuleFor(c => c.Peso)
+                    .GreaterThan(0)
+                    .WithMessage("Peso do produto inválido");
             }
         }
     }

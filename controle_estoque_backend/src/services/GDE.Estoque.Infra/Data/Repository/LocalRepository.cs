@@ -44,6 +44,11 @@ namespace GDE.Estoque.Infra.Data.Repository
             return await _context.LocalItens.FirstOrDefaultAsync(i => i.LocalId == localId && i.ProdutoId == produtoId);
         }
 
+        public async Task<IEnumerable<LocalItem>> ObterProximosAoVencimento(DateTime compareDate)
+        {
+            return await _context.LocalItens.AsNoTracking().Where(i => i.DataValidade < compareDate).ToListAsync();
+        }
+
         public void Adicionar(Local local)
         {
             _context.Add(local);

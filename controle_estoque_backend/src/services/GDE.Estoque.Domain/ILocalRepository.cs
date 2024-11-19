@@ -9,6 +9,7 @@ namespace GDE.Estoque.Domain
         Task<(IEnumerable<Local>, int quantidadeTotal)> ObterTodosPaginado(int pageSize, int pageIndex);
         Task<IEnumerable<Local>> ObterListaPorProdutoId(Guid produtoId);
         Task<LocalItem> ObterItemLocalPorProdutoId(Guid localId, Guid produtoId);
+        Task<IEnumerable<LocalItem>> ObterProximosAoVencimento(DateTime compareDate);
         void Adicionar(Local local);
         void Remover(Local local);
         void Atualizar(Local local); 

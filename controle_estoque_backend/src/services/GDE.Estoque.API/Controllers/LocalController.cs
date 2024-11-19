@@ -4,6 +4,7 @@ using GDE.Estoque.API.DTO;
 using GDE.Estoque.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GDE.Estoque.API.Controllers
 {
@@ -51,6 +52,26 @@ namespace GDE.Estoque.API.Controllers
         public async Task<IEnumerable<Local>> ListaPorProdutoId(Guid produtoId)
         {
             return await _localRepository.ObterListaPorProdutoId(produtoId);
+        }
+
+        [HttpGet("api/estoque/proximos-ao-vencimento")]
+        public async Task<IActionResult> ProximosAoVencimento()
+        {
+            var compareDate = DateTime.UtcNow.AddDays(10);
+
+            var itens = await _localRepository.ObterProximosAoVencimento(compareDate);
+            
+            var viewModels = new List<ProximosAoVencimentoDTO>();
+
+            foreach (var item in itens)
+            {
+                viewModels.Add(new ProximosAoVencimentoDTO(
+                    item.ProdutoId,
+                    item.LocalId
+                ));
+            }
+
+            return CustomResponse(viewModels);
         }
 
         [HttpPost("api/estoque")]
