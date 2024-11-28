@@ -14,6 +14,7 @@ const EstoquesTab = () => {
     const [search, setSearch] = useState("");
     const [stocksList, setStocksList] = useState([]);
     const [maxPage, setMaxPage] = useState(1);
+    const [emptyList, setEmptyList] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -23,6 +24,8 @@ const EstoquesTab = () => {
             setStocksList([...stocksList, ...response.data.list]);
             setMaxPage(response.data.totalPages);
             setCurrentPage(currentPage + 1);
+        } else {
+            setEmptyList(true);
         }
     };
 
@@ -59,6 +62,8 @@ const EstoquesTab = () => {
             setStocksList([...stocksList, ...response.data.list]);
             setMaxPage(response.data.totalPages);
             setCurrentPage(currentPage + 1);
+        } else {
+            setEmptyList(true);
         }
     };
 
@@ -82,7 +87,7 @@ const EstoquesTab = () => {
                         }}
                     >
                         <input
-                            placeholder="Pesquisar produto"
+                            placeholder="Pesquisar estoque"
                             className="input-search"
                             type="text"
                             onChange={(e) => setSearch(e.target.value)}
@@ -147,12 +152,12 @@ const EstoquesTab = () => {
                                         <th>Quantidade de Itens: </th>
                                     </div>
                                     <div className="stock-data">
-                                        <td>{`${
+                                        <td>{`${(
                                             stock.espacoTotal / 1000000
-                                        } m³`}</td>
-                                        <td>{`${
+                                        ).toFixed(2)} m³`}</td>
+                                        <td>{`${(
                                             stock.espacoLivre / 1000000
-                                        } m³`}</td>
+                                        ).toFixed(2)} m³`}</td>
                                         <td>{`${stock.quantidadeItens}`}</td>
                                     </div>
                                 </div>
@@ -161,7 +166,11 @@ const EstoquesTab = () => {
                     })}
                 </m.div>
             )}
-            {currentPage <= maxPage && <h4 ref={loadRef}>Carregando...</h4>}
+            {currentPage <= maxPage && (
+                <h4 ref={loadRef}>
+                    {emptyList ? "Não há nada para ver aqui" : "Carregando..."}
+                </h4>
+            )}
         </main>
     );
 };

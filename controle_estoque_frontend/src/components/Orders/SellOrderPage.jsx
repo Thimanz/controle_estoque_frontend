@@ -7,7 +7,7 @@ const SellOrderPage = () => {
     const orderId = useParams().id;
     const navigate = useNavigate();
 
-    const [orderNumber, setOrderNumber] = useState(NaN);
+    const [orderNumber, setOrderNumber] = useState("");
     const [name, setName] = useState("");
     const [orderDate, setOrderDate] = useState("");
     const [items, setItems] = useState([]);
@@ -69,11 +69,11 @@ const SellOrderPage = () => {
                                         </div>
                                         <div className="order-product-info">
                                             <h5>Preço Unitario: </h5>
-                                            <p>{item.precoUnitario}</p>
+                                            <p>{`R$ ${item.precoUnitario}`}</p>
                                         </div>
                                         <div className="order-product-info">
                                             <h5>Local de Retirada: </h5>
-                                            <p>{item.localRetirada.nome}</p>
+                                            <p>{item.local.nome}</p>
                                         </div>
                                     </div>
                                 </div>

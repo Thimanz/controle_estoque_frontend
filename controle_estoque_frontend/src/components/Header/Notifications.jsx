@@ -14,7 +14,7 @@ const Notifications = () => {
     useEffect(() => {
         const fetchNotifications = async () => {
             const response = await getNotifications(navigate);
-            setNotifications(response.data);
+            if (response.status === 200) setNotifications(response.data);
         };
 
         fetchNotifications();

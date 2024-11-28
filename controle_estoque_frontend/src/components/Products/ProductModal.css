@@ -25,6 +25,11 @@
     border: none;
 }
 
+.modal-x:hover {
+    box-shadow: none;
+    transform: none;
+}
+
 .product-modal {
     border-radius: 0.75rem;
     background-color: rgb(58, 0, 100);
@@ -33,7 +38,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 }
 
 .paged-products {
@@ -64,4 +68,27 @@
 .button-last {
     border-radius: 50%;
     border: 0;
+}
+
+.products-scroller::-webkit-scrollbar {
+    height: 20px;
+    width: 10px;
+}
+.products-scroller::-webkit-scrollbar-track {
+    background: rgb(46, 0, 78);
+}
+.products-scroller::-webkit-scrollbar-thumb {
+    background: rgb(96, 0, 165);
+}
+.products-scroller::-webkit-scrollbar-thumb:hover {
+    background: rgb(30, 0, 51);
+}
+
+.products-scroller {
+    width: 100%;
+    flex-basis: 90%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

@@ -12,6 +12,8 @@ import { AnimatePresence } from "framer-motion";
 import PedidosTab from "../../components/Home/PedidosTab";
 import { useLocation } from "react-router-dom";
 import EstoquesTab from "../../components/Home/EstoquesTab";
+import Dashboard from "../../components/Svgs/Dashboard";
+import RelatoriosTab from "../../components/Home/RelatoriosTab";
 
 const Home = () => {
     const { state } = useLocation();
@@ -31,6 +33,11 @@ const Home = () => {
             description: "Pedidos",
             image: <Truck height="25px" width="25px" />,
             tab: <PedidosTab />,
+        },
+        {
+            description: "Relatórios",
+            image: <Dashboard height="25px" width="25px" />,
+            tab: <RelatoriosTab />,
         },
     ];
 

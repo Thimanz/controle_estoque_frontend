@@ -11,6 +11,7 @@ const PedidosTab = () => {
     const [search, setSearch] = useState("");
     const [ordersList, setOrdersList] = useState([]);
     const [maxPage, setMaxPage] = useState(1);
+    const [emptyList, setEmptyList] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -20,6 +21,8 @@ const PedidosTab = () => {
             setOrdersList([...ordersList, ...response.data.list]);
             setMaxPage(response.data.totalPages);
             setCurrentPage(currentPage + 1);
+        } else {
+            setEmptyList(true);
         }
     };
 
@@ -56,6 +59,8 @@ const PedidosTab = () => {
             setOrdersList([...ordersList, ...response.data.list]);
             setMaxPage(response.data.totalPages);
             setCurrentPage(currentPage + 1);
+        } else {
+            setEmptyList(true);
         }
     };
 
@@ -151,7 +156,9 @@ const PedidosTab = () => {
                                     }
                                 }}
                             >
-                                <h4 className="order-name">{order.numero}</h4>
+                                <h4 className="order-name">
+                                    {"Pedido " + order.numero}
+                                </h4>
                                 <div className="order-props">
                                     <div className="order-props-headers">
                                         <th>Tipo: </th>
@@ -173,7 +180,11 @@ const PedidosTab = () => {
                     })}
                 </m.div>
             )}
-            {currentPage <= maxPage && <h4 ref={loadRef}>Carregando...</h4>}
+            {currentPage <= maxPage && (
+                <h4 ref={loadRef}>
+                    {emptyList ? "Não há nada para ver aqui" : "Carregando..."}
+                </h4>
+            )}
         </main>
     );
 };

@@ -14,6 +14,7 @@ const ProdutosTab = () => {
     const [search, setSearch] = useState("");
     const [productsList, setProductsList] = useState([]);
     const [maxPage, setMaxPage] = useState(1);
+    const [emptyList, setEmptyList] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -23,6 +24,8 @@ const ProdutosTab = () => {
             setProductsList([...productsList, ...response.data.list]);
             setMaxPage(response.data.totalPages);
             setCurrentPage(currentPage + 1);
+        } else {
+            setEmptyList(true);
         }
     };
 
@@ -59,6 +62,8 @@ const ProdutosTab = () => {
             setProductsList([...productsList, ...response.data.list]);
             setMaxPage(response.data.totalPages);
             setCurrentPage(currentPage + 1);
+        } else {
+            setEmptyList(true);
         }
     };
 
@@ -150,7 +155,11 @@ const ProdutosTab = () => {
                     })}
                 </m.div>
             )}
-            {currentPage <= maxPage && <h4 ref={loadRef}>Carregando...</h4>}
+            {currentPage <= maxPage && (
+                <h4 ref={loadRef}>
+                    {emptyList ? "Não há nada para ver aqui" : "Carregando..."}
+                </h4>
+            )}
         </main>
     );
 };

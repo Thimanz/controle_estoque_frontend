@@ -33,6 +33,8 @@ export const makeRequest = async (
     } catch (error) {
         if (error.response.status === 401) {
             navigateHook("/autenticar/login");
+        } else if (error.response.status === 500) {
+            navigateHook("/not-found");
         }
         return error.response.data;
     }

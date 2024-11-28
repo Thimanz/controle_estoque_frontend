@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BASE_URL = "https://localhost:44396";
+const BASE_URL = "https://gde-identidade-api.fly.dev";
 
 export const postAuth = createAsyncThunk(
     "user/postAuth",

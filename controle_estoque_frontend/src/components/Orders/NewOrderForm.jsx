@@ -17,14 +17,18 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getProduct } from "../../services/productsService";
 
+import { DotLoader } from "react-spinners";
+
 const NewOrderForm = ({ orderTypeKey, itemId }) => {
     const typeRef = useRef();
     const navigate = useNavigate();
     const stockRef = useRef();
 
+    const [loading, setLoading] = useState(false);
+
     const orderTypes = {
-        ENTRADA: "Entrada",
-        SAIDA: "Saída",
+        ENTRADA: "Compra",
+        SAIDA: "Venda",
         TRANSFERENCIA: "Transferência",
     };
 
@@ -101,10 +105,12 @@ const NewOrderForm = ({ orderTypeKey, itemId }) => {
             totalItemValues.length > 0
                 ? totalItemValues.reduce((sum, valor) => sum + valor)
                 : 0;
-        setTotalValue(newTotalValue);
+        setTotalValue(newTotalValue.toFixed(2));
     }, [JSON.stringify(orderItems), amounts, typeKey]);
 
     const sendOrder = async () => {
+        setLoading(true);
+        toast.dismiss();
         if (orderItems.length === 0) {
             toast.error("Não Há Nenhum Item no Pedido", {
                 position: "top-center",
@@ -117,6 +123,7 @@ const NewOrderForm = ({ orderTypeKey, itemId }) => {
                 theme: "colored",
                 transition: Bounce,
             });
+            setLoading(false);
             return;
         }
 
@@ -167,6 +174,7 @@ const NewOrderForm = ({ orderTypeKey, itemId }) => {
                             transition: Bounce,
                         });
                     });
+                    setLoading(false);
                     return;
                 }
                 response = await postBuyOrder(payload, navigate);
@@ -211,6 +219,7 @@ const NewOrderForm = ({ orderTypeKey, itemId }) => {
                             transition: Bounce,
                         });
                     });
+                    setLoading(false);
                     return;
                 }
                 response = await postSellOrder(payload, navigate);
@@ -253,6 +262,7 @@ const NewOrderForm = ({ orderTypeKey, itemId }) => {
                             transition: Bounce,
                         });
                     });
+                    setLoading(false);
                     return;
                 }
                 response = await postTransferOrder(payload, navigate);
@@ -280,10 +290,24 @@ const NewOrderForm = ({ orderTypeKey, itemId }) => {
                 });
             });
         }
+        setLoading(false);
     };
 
     return (
         <main className="main-order">
+            <DotLoader
+                loading={loading}
+                cssOverride={{
+                    position: "fixed",
+                    left: "50%",
+                    top: "50%",
+                    marginLeft: -50,
+                    marginTop: -50,
+                    zIndex: 1000,
+                }}
+                size={100}
+                color="#252525"
+            />
             <ToastContainer />
             <section className="centered-block">
                 <div className="order-forms">
@@ -572,7 +596,11 @@ const NewOrderForm = ({ orderTypeKey, itemId }) => {
                                 setSelectedProducts={setOrderItems}
                             />
                         )}
-                        <button className="confirm-order" onClick={sendOrder}>
+                        <button
+                            style={loading ? { pointerEvents: "none" } : {}}
+                            className="confirm-order"
+                            onClick={sendOrder}
+                        >
                             Confirmar Pedido
                         </button>
                     </>

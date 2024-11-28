@@ -7,9 +7,10 @@ const BuyOrderPage = () => {
     const orderId = useParams().id;
     const navigate = useNavigate();
 
-    const [orderNumber, setOrderNumber] = useState(NaN);
+    const [orderNumber, setOrderNumber] = useState("");
     const [name, setName] = useState("");
     const [orderDate, setOrderDate] = useState("");
+    const [totalPrice, setTotalPrice] = useState("");
     const [items, setItems] = useState([]);
 
     useEffect(() => {
@@ -19,6 +20,7 @@ const BuyOrderPage = () => {
                 setOrderNumber(response.data.numero);
                 setName(response.data.nomeFornecedor);
                 setOrderDate(response.data.dataCriacao);
+                setTotalPrice(response.data.precoTotal);
                 setItems(response.data.pedidoItens);
             } else {
                 navigate("/not-found");
@@ -46,6 +48,10 @@ const BuyOrderPage = () => {
                         <div className="order-info">
                             <h3 className="order-info-text">Data da Compra:</h3>
                             <p>{`${orderDate}`}</p>
+                        </div>
+                        <div className="order-info">
+                            <h3 className="order-info-text">Preço Total:</h3>
+                            <p>{`R$ ${totalPrice}`}</p>
                         </div>
                     </div>
                 </section>
@@ -75,11 +81,11 @@ const BuyOrderPage = () => {
                                     <div className="order-products-info">
                                         <div className="order-product-info">
                                             <h5>Preço Unitario: </h5>
-                                            <p>{item.precoUnitario}</p>
+                                            <p>{`R$ ${item.precoUnitario}`}</p>
                                         </div>
                                         <div className="order-product-info">
                                             <h5>Local de Destino: </h5>
-                                            <p>{item.localDestino.nome}</p>
+                                            <p>{item.local.nome}</p>
                                         </div>
                                     </div>
                                 </div>
