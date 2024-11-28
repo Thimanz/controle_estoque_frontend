@@ -1,6 +1,6 @@
 import { makeRequest } from "./requestManager";
 
-const BASE_URL = "https://localhost:44341";
+const BASE_URL = "https://gde-estoque-api.fly.dev";
 
 export const getStocksListByProductId = (id, navigateHook) => {
     return makeRequest(
@@ -30,10 +30,6 @@ export const getAllStocksListPaged = (page, pageSize, navigateHook) => {
     );
 };
 
-export const getStock = (id, navigateHook) => {
-    return makeRequest("get", `${BASE_URL}/api/estoque/${id}`, navigateHook);
-};
-
 export const postStock = (stock, navigateHook) => {
     return makeRequest("post", `${BASE_URL}/api/estoque/`, navigateHook, stock);
 };
@@ -48,5 +44,15 @@ export const updateStock = (id, stock, navigateHook) => {
         `${BASE_URL}/api/estoque/${id}`,
         navigateHook,
         stock
+    );
+};
+
+const BASE_URL_BFF = "https://gde-bff-movimentacaoestoque.fly.dev";
+
+export const getStock = (id, navigateHook) => {
+    return makeRequest(
+        "get",
+        `${BASE_URL_BFF}/api/estoque/${id}`,
+        navigateHook
     );
 };

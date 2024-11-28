@@ -7,7 +7,7 @@ const TransferOrderPage = () => {
     const orderId = useParams().id;
     const navigate = useNavigate();
 
-    const [orderNumber, setOrderNumber] = useState(NaN);
+    const [orderNumber, setOrderNumber] = useState("");
     const [stockTo, setStockTo] = useState({});
     const [orderDate, setOrderDate] = useState("");
     const [items, setItems] = useState([]);
@@ -34,7 +34,9 @@ const TransferOrderPage = () => {
                 <section className="order-info">
                     <div>
                         <div className="order-info">
-                            <h3 className="order-info-text">Numero: </h3>
+                            <h3 className="order-info-text">
+                                Numero do Pedido:
+                            </h3>
                             <p>{`${orderNumber}`}</p>
                         </div>
                         <div className="order-info">
@@ -71,7 +73,7 @@ const TransferOrderPage = () => {
                                         </div>
                                         <div className="order-product-info">
                                             <h5>Local de Retirada: </h5>
-                                            <p>{item.localRetirada.nome}</p>
+                                            <p>{item.local.nome}</p>
                                         </div>
                                     </div>
                                 </div>

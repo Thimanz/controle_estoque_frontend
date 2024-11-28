@@ -14,7 +14,50 @@ const NewStockForm = () => {
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("");
 
+    const sendErrorMsg = (message) => {
+        toast.error(message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    };
+
+    const validateEmptyFields = () => {
+        let hasError;
+        if (!name) {
+            sendErrorMsg('Campo "Nome" não pode ser vazio');
+            hasError = true;
+        }
+        if (!address) {
+            sendErrorMsg('Campo "Endereço" não pode ser vazio');
+            hasError = true;
+        }
+        if (!length) {
+            sendErrorMsg('Campo "Comprimento" não pode ser vazio');
+            hasError = true;
+        }
+        if (!width) {
+            sendErrorMsg('Campo "Largura" não pode ser vazio');
+            hasError = true;
+        }
+        if (!height) {
+            sendErrorMsg('Campo "Altura" não pode ser vazio');
+            hasError = true;
+        }
+        return hasError;
+    };
+
     const sendStock = async () => {
+        toast.dismiss();
+        if (validateEmptyFields()) {
+            return;
+        }
         const response = await postStock(
             {
                 nome: name,
@@ -33,19 +76,7 @@ const NewStockForm = () => {
                 },
             });
         } else {
-            response.errors.mensagens.forEach((mensagem) => {
-                toast.error(mensagem, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: false,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    transition: Bounce,
-                });
-            });
+            response.errors.mensagens.forEach(sendErrorMsg);
         }
     };
 

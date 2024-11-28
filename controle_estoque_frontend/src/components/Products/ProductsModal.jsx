@@ -1,34 +1,69 @@
-import { FaX, FaChevronRight, FaChevronLeft } from "react-icons/fa6";
+import { FaX } from "react-icons/fa6";
 import { motion as m } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getProductListByName } from "../../services/productsService";
+import { useEffect, useState, useRef } from "react";
+import {
+    getProductListByName,
+    getAllProductList,
+} from "../../services/productsService";
 import "./ProductModal.css";
 
 const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
     const navigate = useNavigate();
+    const loadRef = useRef();
 
     const [search, setSearch] = useState("");
     const [productsList, setProductsList] = useState([]);
-    const [maxPage, setmaxPage] = useState();
-
+    const [maxPage, setMaxPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
+    const [emptyList, setEmptyList] = useState(false);
+
+    const searchAllProducts = async () => {
+        const response = await getAllProductList(currentPage, 6, navigate);
+        if (response.status === 200) {
+            setProductsList([...productsList, ...response.data.list]);
+            setMaxPage(response.data.totalPages);
+            setCurrentPage(currentPage + 1);
+        } else {
+            setEmptyList(true);
+        }
+    };
 
     useEffect(() => {
-        searchProducts();
-    }, [currentPage]);
+        const observer = new IntersectionObserver(onIntersection);
+        if (observer && loadRef.current) {
+            observer.observe(loadRef.current);
+        }
+
+        return () => {
+            if (observer) observer.disconnect();
+        };
+    }, [productsList]);
+
+    const onIntersection = (entries) => {
+        const firstEntry = entries[0];
+        if (firstEntry.isIntersecting && currentPage <= maxPage) {
+            searchProducts();
+        }
+    };
 
     const searchProducts = async () => {
-        if (!search) return;
+        if (!search) {
+            searchAllProducts();
+            return;
+        }
         const response = await getProductListByName(
             search,
             currentPage,
-            4,
+            6,
             navigate
         );
         if (response.status === 200) {
-            setProductsList(response.data.list);
-            setmaxPage(response.data.totalPages);
+            setProductsList([...productsList, ...response.data.list]);
+            setMaxPage(response.data.totalPages);
+            setCurrentPage(currentPage + 1);
+        } else {
+            setEmptyList(true);
         }
     };
 
@@ -49,7 +84,9 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
                             className="search-container"
                             onSubmit={(e) => {
                                 e.preventDefault();
-                                searchProducts();
+                                setCurrentPage(1);
+                                setMaxPage(1);
+                                setProductsList([]);
                             }}
                         >
                             <input
@@ -62,7 +99,9 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
                                 viewBox="0 0 24 24"
                                 className="search__icon"
                                 onClick={() => {
-                                    searchProducts();
+                                    setCurrentPage(1);
+                                    setMaxPage(1);
+                                    setProductsList([]);
                                 }}
                             >
                                 <g>
@@ -71,68 +110,44 @@ const ProductsModal = ({ onClose, selectedProducts, setSelectedProducts }) => {
                             </svg>
                         </form>
                     </section>
-                    {productsList.length > 0 && (
-                        <>
+                    <div className="products-scroller">
+                        {productsList.length > 0 && (
                             <div className="paged-products">
-                                {productsList.map((produto) => {
+                                {productsList.map((product) => {
                                     return (
-                                        <m.div
-                                            initial={{ opacity: 0.5 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ duration: 0.2 }}
+                                        <div
                                             className="product-box item-product-box"
-                                            key={produto.id}
+                                            key={product.id}
                                             onClick={() => {
                                                 setSelectedProducts(
                                                     selectedProducts.concat([
-                                                        produto,
+                                                        product,
                                                     ])
                                                 );
                                                 onClose();
                                             }}
                                         >
                                             <img
-                                                src={produto.imagem}
+                                                src={product.imagem}
                                                 alt="imagem do produto"
                                                 className="product-image"
                                             />
                                             <h4 className="product-name">
-                                                {produto.nome}
+                                                {product.nome}
                                             </h4>
-                                        </m.div>
+                                        </div>
                                     );
                                 })}
                             </div>
-                            <div className="pagination-buttons">
-                                <button
-                                    className="button-last"
-                                    onClick={() => {
-                                        setCurrentPage(
-                                            currentPage === 1
-                                                ? currentPage
-                                                : currentPage - 1
-                                        );
-                                        searchProducts();
-                                    }}
-                                >
-                                    <FaChevronLeft size={40} />
-                                </button>
-                                <h4 className="current-page">{currentPage}</h4>
-                                <button
-                                    className="button-next"
-                                    onClick={() => {
-                                        setCurrentPage(
-                                            currentPage === maxPage
-                                                ? currentPage
-                                                : currentPage + 1
-                                        );
-                                    }}
-                                >
-                                    <FaChevronRight size={40} />
-                                </button>
-                            </div>
-                        </>
-                    )}
+                        )}
+                        {currentPage <= maxPage && (
+                            <h4 ref={loadRef}>
+                                {emptyList
+                                    ? "Não há nada para ver aqui"
+                                    : "Carregando..."}
+                            </h4>
+                        )}
+                    </div>
                 </div>
             </m.div>
         </section>

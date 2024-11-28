@@ -39,7 +39,7 @@
     margin-bottom: 40px;
 }
 
-.Page button {
+.Page button:not(.Toastify__toast button) {
     border: none;
     width: 300px;
     display: flex;
@@ -60,5 +60,5 @@
 }
 
 .Page button:hover {
-    background-color: #003157;
+    background-color: #252525;
 }

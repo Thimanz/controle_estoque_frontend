@@ -1,6 +1,6 @@
 import { makeRequest } from "./requestManager";
 
-const BASE_URL = "https://localhost:44323";
+const BASE_URL = "https://gde-produtos-api.fly.dev";
 
 export const getProductListByName = (name, page, pageSize, navigateHook) => {
     return makeRequest(

@@ -29,8 +29,8 @@ const StockPage = () => {
                 setName(response.data.nome);
                 setAddress(response.data.endereco);
                 setProducts(response.data.localItens);
-                setFreeSpace(response.data.espacoLivreCalculado / 1000000);
-                setTotalSpace(response.data.espacoTotal / 1000000);
+                setFreeSpace(parseFloat(response.data.espacoLivre / 1000000));
+                setTotalSpace(parseFloat(response.data.espacoTotal / 1000000));
                 setLength(response.data.dimensoes.comprimento);
                 setWidth(response.data.dimensoes.largura);
                 setHeight(response.data.dimensoes.altura);
@@ -41,13 +41,6 @@ const StockPage = () => {
 
         fetchStock();
     }, [stockId]);
-
-    useEffect(() => {
-        setTotalSpace(
-            (parseFloat(width) * parseFloat(height) * parseFloat(length)) /
-                1000000
-        );
-    }, [width, height, length]);
 
     const updateButton = async () => {
         const response = await updateStock(

@@ -7,9 +7,13 @@ import { postProduct } from "../../services/productsService";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { DotLoader } from "react-spinners";
+
 const NewProductForm = () => {
     const categoryRef = useRef();
     const navigate = useNavigate();
+
+    const [loading, setLoading] = useState(false);
 
     const [categoryDropdownActive, setCategoryDropdownActive] = useState(false);
     const [categoryId, setCategoryId] = useState("");
@@ -28,6 +32,61 @@ const NewProductForm = () => {
 
     const [categories, setCategories] = useState([]);
 
+    const sendErrorMsg = (message) => {
+        toast.error(message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    };
+
+    const validateEmptyFields = () => {
+        let hasError;
+        if (!name) {
+            sendErrorMsg('Campo "Nome" não pode ser vazio');
+            hasError = true;
+        }
+        if (!barcode) {
+            sendErrorMsg('Campo "Código de Barras" não pode ser vazio');
+            hasError = true;
+        }
+        if (!categoryId) {
+            sendErrorMsg('Campo "Categoria" não pode ser vazio');
+            hasError = true;
+        }
+        if (!image) {
+            sendErrorMsg("Selecione uma imagem");
+            hasError = true;
+        }
+        if (!minInStock) {
+            sendErrorMsg('Campo "Nível Mínimo no Estoque" não pode ser vazio');
+            hasError = true;
+        }
+        if (!length) {
+            sendErrorMsg('Campo "Comprimento" não pode ser vazio');
+            hasError = true;
+        }
+        if (!width) {
+            sendErrorMsg('Campo "Largura" não pode ser vazio');
+            hasError = true;
+        }
+        if (!height) {
+            sendErrorMsg('Campo "Altura" não pode ser vazio');
+            hasError = true;
+        }
+        if (!weight) {
+            sendErrorMsg('Campo "Peso" não pode ser vazio');
+            hasError = true;
+        }
+        return hasError;
+    };
+
     useEffect(() => {
         const fetchCategories = async () => {
             const categoriesData = await getCategoryList(navigate);
@@ -37,6 +96,12 @@ const NewProductForm = () => {
     }, []);
 
     const sendProduct = async () => {
+        setLoading(true);
+        toast.dismiss();
+        if (validateEmptyFields()) {
+            setLoading(false);
+            return;
+        }
         const response = await postProduct(
             {
                 nome: name,
@@ -62,20 +127,9 @@ const NewProductForm = () => {
                 },
             });
         } else {
-            response.errors.mensagens.forEach((mensagem) => {
-                toast.error(mensagem, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: false,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    transition: Bounce,
-                });
-            });
+            response.errors.mensagens.forEach(sendErrorMsg);
         }
+        setLoading(false);
     };
 
     const loadImage = (e) => {
@@ -90,6 +144,19 @@ const NewProductForm = () => {
 
     return (
         <main className="main-product">
+            <DotLoader
+                loading={loading}
+                cssOverride={{
+                    position: "fixed",
+                    left: "50%",
+                    top: "50%",
+                    marginLeft: -50,
+                    marginTop: -50,
+                    zIndex: 1000,
+                }}
+                size={100}
+                color="#252525"
+            />
             <ToastContainer />
             <section className="centered-block">
                 <div className="product-forms">
@@ -294,7 +361,11 @@ const NewProductForm = () => {
                     />
                     <label htmlFor="descricao">Descrição</label>
                 </div>
-                <button className="confirm-product" onClick={sendProduct}>
+                <button
+                    style={loading ? { pointerEvents: "none" } : {}}
+                    className="confirm-product"
+                    onClick={sendProduct}
+                >
                     Cadastrar Produto
                 </button>
             </section>
