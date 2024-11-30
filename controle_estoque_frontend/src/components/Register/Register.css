@@ -1,10 +1,3 @@
-input[type="text"],
-input[type="password"] {
-    width: 263px;
-    height: 30px;
-    border-style: none;
-}
-
 .login-btn {
     width: 250px;
     height: 50px;
@@ -48,20 +41,12 @@ input[type="password"] {
     border-top-left-radius: 5%;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 40px;
-}
-
 .register-area label {
     margin-bottom: 10px;
     color: black;
 }
 
-.register-area h1 {
+.register-h1 {
     color: black;
     font-size: 2rem;
     text-align: center;
@@ -87,7 +72,10 @@ form {
 }
 
 .already-member {
-    margin: 160px 10px 100px 10px;
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+    margin: 220px 25px 100px 25px;
 }
 
 .sectioned-forms {

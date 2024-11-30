@@ -1,0 +1,119 @@
+.stock-container {
+    height: fit-content;
+    display: flex;
+    width: 70%;
+    max-width: 830px;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 44px;
+}
+
+.new-stock {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 55px;
+    height: 55px;
+    border-radius: calc(55px / 2);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background: radial-gradient(
+        circle at -3.1% -4.3%,
+        rgb(57, 255, 186) 0%,
+        rgb(21, 38, 82) 90%
+    );
+    margin: 20px 0;
+}
+
+/* hover effect on button width */
+.new-stock:hover {
+    width: 155px;
+    transition-duration: 0.3s;
+}
+
+.new-stock:hover .sign {
+    width: 30%;
+    transition-duration: 0.3s;
+    padding-left: 5px;
+}
+/* hover effect button's text */
+.new-stock:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: 0.3s;
+    padding-right: 5px;
+}
+/* button click effect*/
+.new-stock:active {
+    transform: translate(2px, 2px);
+}
+
+.stocks-searched {
+    width: 100dvw;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.stock-box {
+    background-color: #fafafa;
+    border: 1px solid rgb(204, 204, 204);
+    margin: 10px 50px 0 50px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 15px -6px rgba(0, 0, 0, 0.61);
+    transition-duration: 0.3s;
+}
+
+.stock-box:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.stock-name {
+    text-align: center;
+}
+
+.stock-props {
+    border: 1px solid #eeeeee;
+}
+
+.stock-props-headers {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+}
+
+.stock-data {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stock-data td,
+.stock-props-headers th {
+    flex: 1 1 20%;
+    text-align: center;
+}
+
+.stock-props-headers th {
+    font-weight: 400;
+}
+
+.stock-data td {
+    word-break: break-all;
+}

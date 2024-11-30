@@ -4,10 +4,55 @@ body {
     margin: 0;
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
+    overflow-x: hidden;
 }
 
 button,
-h1 {
+h1,
+h2,
+h3,
+h4 {
     font-family: "Ubuntu", sans-serif;
     font-style: Regular;
+}
+
+button {
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+button:not(#root .Toastify__toast-container button):hover {
+    box-shadow: 0 0.5em 0.5em -0.4em #000;
+    transform: translateY(-0.15em);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+main {
+    position: absolute;
+    top: 62px;
+    width: 100dvw;
+}
+
+#root .Toastify__toast-container {
+    z-index: 20000;
+}
+
+input[type="date"]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+input[type="date"]:focus::-webkit-datetime-edit {
+    color: black !important;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    display: none;
+}
+
+.margin-0-override {
+    margin: 0 !important;
 }

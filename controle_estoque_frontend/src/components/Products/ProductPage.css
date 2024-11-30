@@ -1,0 +1,131 @@
+.main-product-page {
+    min-height: calc(100dvh - 62px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-info-image {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image-container {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 100px;
+}
+
+.product-image-L {
+    width: 80%;
+    aspect-ratio: 1;
+}
+
+.product-input-group {
+    margin: 1em 0 1em 0;
+    position: relative;
+}
+
+.product-input-group input {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+    min-width: 250px;
+    height: 49px;
+    box-sizing: border-box;
+}
+
+.product-input-group label {
+    font-size: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0.8em;
+    margin-left: 0.5em;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.product-input-group label:not([class="image-input-label"]) {
+    opacity: 0.7;
+    color: rgb(100, 100, 100);
+}
+
+.product-input-group input[type="file"]:invalid {
+    color: transparent;
+}
+
+.product-input-group input:not([type="file"]):focus ~ label,
+.product-input-group input:valid ~ label,
+.product-input-group input[type="button"]:not([value=""]) ~ label {
+    transform: translateY(-50%) scale(0.9);
+    margin: 0em;
+    margin-left: 1.3em;
+    padding: 0.4em;
+    opacity: 1;
+    background-color: white;
+    color: rgb(100, 100, 100);
+    border: none;
+    width: fit-content;
+}
+
+.product-input-group input:focus,
+.product-input-group input:valid,
+.product-input-group input[type="button"]:not([value=""]) {
+    border-color: rgb(150, 150, 200);
+}
+
+.product-buttons {
+    margin-top: 50px;
+    display: flex;
+}
+
+.product-buttons button {
+    border: none;
+    width: 30dvw;
+    max-width: 300px;
+    display: flex;
+    padding: 23px 32px;
+    overflow: hidden;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 999px;
+    justify-content: center;
+    color: rgba(255, 255, 255, 1);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%;
+    font-stretch: normal;
+    text-decoration: none;
+    margin: 0 10px 0 10px;
+}
+
+.delete-product {
+    background-color: #8b0c2d;
+}
+
+.delete-product:hover {
+    background-color: #6d001d;
+}
+
+.update-product {
+    background-color: rgba(49, 44, 255, 1);
+}
+
+.update-product:hover {
+    background-color: #003157;
+}
+
+.show {
+    position: relative;
+    display: auto;
+}

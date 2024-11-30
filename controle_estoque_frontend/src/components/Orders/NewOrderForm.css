@@ -1,0 +1,118 @@
+.order-forms {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-order-form,
+.left-order-form {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-order {
+    min-height: calc(100dvh - 62px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-block > .confirm-order {
+    border: none;
+    width: 300px;
+    display: flex;
+    padding: 23px 32px;
+    overflow: hidden;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 999px;
+    justify-content: center;
+    background-color: rgba(49, 44, 255, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 100%;
+    font-stretch: normal;
+    text-decoration: none;
+}
+
+.order-items,
+.new-product,
+.total-price {
+    margin: 20px 0;
+}
+
+.total-price {
+    place-self: end;
+    margin-right: 100px;
+}
+
+.new-product {
+    place-self: center;
+}
+
+.order-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item-name-inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    margin-left: 30px;
+    place-self: start;
+    margin-bottom: 5px;
+}
+
+.main-order .item-input {
+    margin: 10px 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.item-inputs {
+    display: flex;
+}
+
+.main-order .item-input > input {
+    min-width: 152px;
+    width: 85%;
+}
+
+.order-items .item-amount {
+    place-self: end;
+    margin: 10px 0 0 0;
+}
+
+.item-dropdown-content {
+    max-height: 120px;
+    overflow-y: scroll;
+}
+
+.item-dropdown-content::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+}
+.item-dropdown-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.item-dropdown-content::-webkit-scrollbar-thumb {
+    background: #888;
+}
+.item-dropdown-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.confirm-order:hover {
+    background-color: #003157;
+}

@@ -1,3 +1,1 @@
-sleep 90s
-
-/opt/mssql-tools/bin/sqlcmd -S localhost,1433 -U SA -P "MeuDB@123" -i criacao-banco-docker.sql
+/usr/work/import-data.sh & /opt/mssql/bin/sqlservr

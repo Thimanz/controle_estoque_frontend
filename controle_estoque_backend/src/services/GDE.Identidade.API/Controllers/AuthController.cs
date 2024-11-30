@@ -3,7 +3,10 @@ using System.Security.Claims;
 using System.Text;
 using GDE.Core.Controllers;
 using GDE.Core.Identidade;
+using GDE.Core.Messages.Integration;
+using GDE.Core.Utils;
 using GDE.Identidade.API.Models.UserViewModels;
+using GDE.MessageBus;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -18,13 +21,17 @@ namespace GDE.Identidade.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
+        private readonly IMessageBus _bus;
+
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings,
+                              IMessageBus messageBus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _bus = messageBus;
         }
 
         [HttpPost("nova-conta")]
@@ -43,8 +50,17 @@ namespace GDE.Identidade.API.Controllers
 
             if (result.Succeeded)
             {
+                var funcionarioResult = await RegistrarFuncionario(usuarioRegistro);
+
+                if (!funcionarioResult.ValidationResult.IsValid)
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse(funcionarioResult.ValidationResult);
+                }
+
                 return CustomResponse(await GerarJwt(usuarioRegistro.Email!));
             }
+
 
             foreach (var error in result.Errors)
             {
@@ -84,6 +100,9 @@ namespace GDE.Identidade.API.Controllers
 
             var identityClaims = await ObterClaimsUsuario(claims, user!);
             var encodedToken = CodificarToken(identityClaims);
+
+            identityClaims.AddClaim(new Claim("JWT", encodedToken));
+            encodedToken = CodificarToken(identityClaims);
 
             return ObterRespostaToken(encodedToken, user!, claims);
         }
@@ -142,5 +161,22 @@ namespace GDE.Identidade.API.Controllers
 
         private static long ToUnixEpochDate(DateTime date)
             => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalSeconds);
+
+        private async Task<ResponseMessage> RegistrarFuncionario(UsuarioRegistro usuarioRegistro)
+        {
+            var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email!);
+            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
+                Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Cpf.ApenasNumeros(usuarioRegistro.Cpf), usuarioRegistro.Email);
+
+            try
+            {
+                return await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+            }
+            catch
+            {
+                await _userManager.DeleteAsync(usuario);
+                throw;
+            }
+        }
     }
 }

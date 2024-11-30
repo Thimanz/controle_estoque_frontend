@@ -1,4 +1,4 @@
-﻿using GDE.Core.Domain_Objects;
+﻿using GDE.Core.DomainObjects;
 
 namespace GDE.Core.Data
 {

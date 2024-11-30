@@ -1,5 +1,6 @@
-﻿using GDE.Core.Identidade;
-using GDE.Estoque.API.Data;
+﻿using System.Text.Json.Serialization;
+using GDE.Core.Identidade;
+using GDE.Estoque.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace GDE.Estoque.API.Configuration
@@ -11,7 +12,8 @@ namespace GDE.Estoque.API.Configuration
             services.AddDbContext<EstoqueContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             services.AddCors(options =>
             {
@@ -29,7 +31,7 @@ namespace GDE.Estoque.API.Configuration
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsEnvironment("Local"))
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwaggerConfiguration();

@@ -1,12 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const BASE_URL = "https://gde-identidade-api.fly.dev";
+
 export const postAuth = createAsyncThunk(
     "user/postAuth",
     async (login, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(
-                "http://localhost:3000/api/indentidade/autenticar",
+                `${BASE_URL}/api/identidade/autenticar`,
                 login
             );
             return data;
@@ -21,7 +23,7 @@ export const postNewUserAccount = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(
-                "http://localhost:3000/api/indentidade/nova-conta",
+                `${BASE_URL}/api/identidade/nova-conta`,
                 user
             );
             return data;

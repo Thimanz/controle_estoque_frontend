@@ -11,7 +11,7 @@ namespace GDE.Estoque.API.Configuration
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
                     Title = "Gerenciador de Estoque - Estoque API",
-                    Description = "Esta API é responsável por fornecer o controle sobre o estoque de produtos.",
+                    Description = "Esta API é responsável por fornecer o controle sobre locais de estoque e seus itens armazenados.",
                     Contact = new OpenApiContact() { Name = "Lucas Manzi", Email = "lucas.manzi.5@gmail.com" },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
                 });

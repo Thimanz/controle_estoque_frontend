@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GDE.Core.Messages.Integration
+﻿namespace GDE.Core.Messages.Integration
 {
     public class UsuarioRegistradoIntegrationEvent : IntegrationEvent 
     {

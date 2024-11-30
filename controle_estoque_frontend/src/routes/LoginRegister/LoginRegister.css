@@ -1,5 +1,6 @@
 .Page {
     display: flex;
+    top: 0;
     align-items: center;
     justify-content: center;
     width: 100dvw;
@@ -17,14 +18,28 @@
     overflow: hidden;
 }
 
-input[type="text"],
-input[type="password"],
-textarea {
+.email-input,
+.password-input,
+.name-input,
+.cpf-input {
+    width: 15dvw;
+    height: 30px;
+    border: none;
     font-size: 1rem;
     padding: 0.25rem;
 }
 
-button {
+.email-form,
+.password-form,
+.name-form,
+.cpf-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.Page button:not(.Toastify__toast button) {
     border: none;
     width: 300px;
     display: flex;
@@ -42,4 +57,8 @@ button {
     line-height: 100%;
     font-stretch: normal;
     text-decoration: none;
+}
+
+.Page button:hover {
+    background-color: #252525;
 }

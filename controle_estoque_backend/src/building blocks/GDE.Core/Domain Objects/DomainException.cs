@@ -1,4 +1,4 @@
-﻿namespace GDE.Core.Domain_Objects
+﻿namespace GDE.Core.DomainObjects
 {
     public class DomainException : Exception
     {
